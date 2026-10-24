@@ -57,6 +57,7 @@ jobs:
         env:
           TEST_DATABASE_URL: postgresql://pricematcher_ci:pricematcher_ci_only@localhost:5432/pricematcher_test
         run: |
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -c "create role anon nologin; create role authenticated nologin;"
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610240001_price_intelligence.sql
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610240002_transactional_payment_readiness.sql
 
