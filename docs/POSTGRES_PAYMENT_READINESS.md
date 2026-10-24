@@ -17,17 +17,23 @@ The health endpoint performs `SELECT 1`; it returns HTTP 503 without revealing c
 
 Offer acceptance uses one transaction and `SELECT ... FOR UPDATE` on the offer, plus a lock on the latest merchant policy. It validates ownership, full-cart fingerprint, status, expiry and policy version before conditionally updating the offer and inserting the unique acceptance and append-only audit event. Revocation and consumption use the same row-lock pattern.
 
-Checkout preparation locks the accepted offer and current policy, then creates or returns one checkout attempt. Database uniqueness on `offer_id` and `idempotency_key` prevents independent attempts during races. Provider order and transaction IDs are also unique. All state transitions lock the attempt row and append an audit event. A successful capture state can only follow the reviewed transition path; this PR never performs that transition through a provider.
+Checkout preparation locks the accepted offer, evaluates expiry with the database clock, and acquires the same merchant advisory lock used by policy writes before reading the latest policy. It rechecks the current-cart fingerprint and expected amount/currency inside that transaction, then creates or returns one checkout attempt. Database uniqueness on `offer_id` and `idempotency_key` prevents independent attempts during races. Provider order and transaction IDs are also unique. All state transitions lock the attempt row and append an audit event. A successful capture state can only follow the reviewed transition path; this PR never performs that transition through a provider.
 
 ## Trusted checkout preparation
 
-`createApprovedCheckoutExecutor(...)` produces the requested `executeApprovedCheckout(offerId, approvalContext)` operation. The HTTP route authenticates the signed HttpOnly session and accepts only an opaque offer ID. The executor reloads the accepted offer, policy and catalog, rebuilds the authoritative cart, re-evaluates pricing and creates an immutable instruction from the persisted final total. Browser or AI-generated amounts are never accepted.
+`createApprovedCheckoutExecutor(...)` produces the requested `executeApprovedCheckout(offerId, approvalContext)` operation. The HTTP route authenticates the signed HttpOnly session and accepts an opaque offer ID plus current product IDs, variant keys and quantities. The executor rebuilds prices, shipping, tax and totals from the server catalog and compares the resulting full-cart fingerprint with the accepted snapshot. Browser or AI-generated prices, discounts and totals are never accepted. The response contains only the attempt ID, `prepared` status and whether it was newly created; the authoritative instruction and idempotency key stay server-side.
 
 The provider-neutral `PaymentProvider` contract defines `createOrder`, `getOrder`, `captureOrder` and `verifyPayment`, normalized errors and idempotency. PayPal Agent Toolkit `create_order`, `get_order`, and `pay_order`, JavaScript SDK v6 buyer approval, and Orders API v2 fallback can be adapted later. No implementation or credentials are present, and the only allowed provider identifier is `paypal_sandbox`.
 
 ## Testing
 
-Unit tests cover authorization, amount/cart/policy changes, duplicate and concurrent checkout preparation, transitions, idempotency and storage failures. Set `TEST_DATABASE_URL` to a disposable migrated PostgreSQL database to enable real transaction tests for rollback and concurrent row locking. They are skipped when it is absent; no database is provisioned automatically.
+Unit tests cover authorization, amount/cart/policy changes, duplicate and concurrent checkout preparation, transitions, idempotency and storage failures. PostgreSQL behavior is not considered fully verified until the opt-in suite completes. Create a disposable database, apply both migrations, and run:
+
+```bash
+TEST_DATABASE_URL="postgresql://..." npm run test:postgres
+```
+
+The suite exercises rollback, concurrent acceptance row locking and atomic checkout-attempt creation. It is skipped by the ordinary suite when `TEST_DATABASE_URL` is absent; no database is provisioned automatically.
 
 ## Remaining work
 

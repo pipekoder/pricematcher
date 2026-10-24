@@ -8,7 +8,8 @@
     "start": "next start -H 0.0.0.0 -p ${PORT:-3000}",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:postgres": "vitest run lib/persistence/postgres-repository.integration.test.ts"
   },
   "dependencies": {
     "@channel3/sdk": "^4.5.0",

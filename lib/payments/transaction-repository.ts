@@ -1,6 +1,6 @@
 import type { CheckoutAttempt, CheckoutAttemptStatus, PaymentInstruction, TransactionAuditEvent } from "../types";
 
-export type PrepareCheckoutInput = { offerId: string; merchantId: string; sessionId: string; idempotencyKey: string; expectedPolicyId: string; expectedPolicyVersion: number; instruction: PaymentInstruction; now: Date };
+export type PrepareCheckoutInput = { offerId: string; merchantId: string; sessionId: string; cartFingerprint: string; expectedAmount: CheckoutAttempt["expectedAmount"]; idempotencyKey: string; expectedPolicyId: string; expectedPolicyVersion: number; instruction: PaymentInstruction; now: Date };
 export interface TransactionRepository {
   prepareCheckout(input: PrepareCheckoutInput): Promise<{ attempt: CheckoutAttempt; instruction: PaymentInstruction; created: boolean }>;
   getCheckoutAttempt(id: string): Promise<CheckoutAttempt | undefined>;
