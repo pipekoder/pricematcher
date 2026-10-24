@@ -20,18 +20,21 @@ Copy names from `.env.example` into Render. Never commit values.
 
 - `NEXT_PUBLIC_APP_URL`: public HTTPS URL
 - `APP_ENV`: `production`
-- `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`: browser-safe Supabase config (future phase)
-- `SUPABASE_SERVICE_ROLE_KEY`: server-only; never prefix with `NEXT_PUBLIC_`
+- `PERSISTENCE_BACKEND=postgres`: mandatory for shared/Render environments
+- `DATABASE_URL`: server-only PostgreSQL connection string
+- `DATABASE_POOL_MAX`: bounded connection pool size (default `10`)
+- `DATABASE_SSL`, `DATABASE_SSL_REJECT_UNAUTHORIZED`: TLS settings; keep certificate verification enabled
+- `PRICE_MATCHER_SESSION_SECRET`: stable random value of at least 32 characters
 - `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`: PayPal **Sandbox** app credentials
 - `PAYPAL_ENVIRONMENT`: must remain `sandbox`
 - `CHANNEL3_API_KEY`: server-only product-data credential
 - `AI_PROVIDER`, `AI_API_KEY`, `AI_MODEL`: server-only AI configuration
 
-Foundation needs only `NEXT_PUBLIC_APP_URL`, `APP_ENV`, and `PAYPAL_ENVIRONMENT`. Optional missing integrations retain the labeled fixture experience. Payment remains disabled when PayPal credentials are absent.
+Render requires PostgreSQL configuration and a stable session secret. Missing shared persistence makes health checks fail closed. PayPal credentials remain unused and payment execution remains disabled in this PR.
 
 ## 4. Supabase
 
-Create a dedicated PriceMatcher project in the persistence phase. Apply committed migrations, enable row-level security, and put the service-role secret only in Render's environment. Never reuse an unrelated database.
+Create a dedicated PriceMatcher PostgreSQL/Supabase database only after approval. Apply both committed migrations in order before starting the service. Tables have RLS enabled without browser policies; the application connects through its server-only database role. Never reuse an unrelated database.
 
 ## 5. PayPal Sandbox
 

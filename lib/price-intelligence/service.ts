@@ -77,6 +77,6 @@ export class PriceIntelligenceService {
     if (!target || !decision.eligible || decision.evidenceId !== existing.evidenceId || decision.approvedUnitPrice.amountMinor !== existing.approvedUnitPrice.amountMinor) throw new OfferValidationError("offer_invalid", "Offer no longer satisfies merchant policy");
     const originalSubtotal = multiplyMoney(product.price, target.quantity); const approvedSubtotal = multiplyMoney(decision.approvedUnitPrice, target.quantity); const discount = subtractMoney(originalSubtotal, approvedSubtotal); const total = subtractMoney(snapshot.total, discount);
     if (existing.originalUnitPrice.amountMinor !== product.price.amountMinor || existing.originalSubtotal.amountMinor !== originalSubtotal.amountMinor || existing.approvedSubtotal.amountMinor !== approvedSubtotal.amountMinor || existing.finalTotal.amountMinor !== total.amountMinor || existing.tax.amountMinor !== snapshot.tax.amountMinor || existing.shipping.amountMinor !== snapshot.shipping.amountMinor || existing.fees.amountMinor !== snapshot.fees.amountMinor) throw new OfferValidationError("totals_changed", "Authoritative totals changed; check the price again");
-    return this.repo.acceptOffer({ offerId: existing.id, sessionId: input.sessionId, cartFingerprint: fingerprint, now });
+    return this.repo.acceptOffer({ offerId: existing.id, sessionId: input.sessionId, cartFingerprint: fingerprint, expectedPolicyId: policy.id, expectedPolicyVersion: policy.version, now });
   }
 }
