@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pricematcher
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: APP_ENV
+        value: production
+      - key: PAYPAL_ENVIRONMENT
+        value: sandbox
