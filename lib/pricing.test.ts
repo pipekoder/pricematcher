@@ -1,44 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { products } from "./catalog";
-import { demoOffer, defaultPolicy } from "./demo-data";
-import { competitorTotal, evaluatePrice, findMatchingOffer } from "./pricing";
+import { getProduct } from "./catalog";
+import { defaultPolicy } from "./demo-data";
+import { evaluatePricing } from "./pricing";
+import type { CompetitorEvidence } from "./types";
 
-const headphones = products.find(({ id }) => id === "nord-sound-2")!;
-const lamp = products.find(({ id }) => id === "arc-lamp")!;
-const clock = (value = "2026-10-24T08:00:00Z") => ({ now: () => new Date(value) });
+const product = getProduct("nord-sound-2")!;
+const evidence = (overrides: Partial<CompetitorEvidence> = {}): CompetitorEvidence => ({ id: "e1", comparisonId: "c1", providerProductId: "p1", retailer: "Audio Example", retailerDomain: "audio.example", sourceUrl: "https://audio.example/p", sourceType: "fixture", retrievedAt: new Date().toISOString(), productTitle: product.name, brand: product.brand, model: product.model, gtin: product.gtin, variant: { color: product.variant.color, condition: "new" }, productPrice: { amountMinor: 13500, currency: "USD" }, shipping: { amountMinor: 400, currency: "USD" }, fees: { amountMinor: 0, currency: "USD" }, deliveredCostSource: "fixture", availability: "in_stock", sellerVerification: "approved", productMatch: "exact", aiAssisted: false, verificationReasons: [], ...overrides });
 
-describe("pricing engine", () => {
-  it("includes shipping and fees in the competitor total", () => expect(competitorTotal(demoOffer)).toBe(1428));
-  it("respects both the floor and discount cap", () => {
-    const result = evaluatePrice(headphones, demoOffer, defaultPolicy, clock());
-    expect(result).toMatchObject({ eligible: true, competitorTotal: 1428, proposedPrice: 1399, discount: 100 });
-  });
-  it("rejects unverified sellers", () => expect(evaluatePrice(headphones, { ...demoOffer, verified: false }, defaultPolicy, clock()).eligible).toBe(false));
-  it("rejects product mismatches", () => expect(evaluatePrice(headphones, { ...demoOffer, productEquivalent: false }, defaultPolicy, clock()).eligible).toBe(false));
-  it("rejects an offer for a different cart product or variant", () => {
-    expect(findMatchingOffer(lamp, [demoOffer])).toBeUndefined();
-    expect(evaluatePrice(lamp, demoOffer, defaultPolicy, clock())).toMatchObject({ eligible: false, proposedPrice: lamp.price });
-  });
-  it("rejects missing offers", () => expect(evaluatePrice(lamp, undefined, defaultPolicy, clock()).eligible).toBe(false));
-  it("rejects expired offers using an injected clock", () => {
-    const result = evaluatePrice(headphones, { ...demoOffer, expiresAt: "2026-10-24T07:59:59Z" }, defaultPolicy, clock());
-    expect(result).toMatchObject({ eligible: false, reason: "The competitor offer has expired." });
-  });
-  it("rejects currency mismatches", () => expect(evaluatePrice(headphones, { ...demoOffer, currency: "EUR" as "SEK" }, defaultPolicy, clock()).eligible).toBe(false));
-  it("uses the configured fixed-amount strategy", () => {
-    const result = evaluatePrice(headphones, demoOffer, { ...defaultPolicy, pricingStrategy: { type: "beat-competitor-by-fixed-amount", amount: 10 } }, clock());
-    expect(result.proposedPrice).toBe(1418);
-  });
-  it("enforces the maximum discount boundary", () => {
-    const result = evaluatePrice(headphones, { ...demoOffer, productPrice: 900, shipping: 0 }, { ...defaultPolicy, minimumPrice: 0, maximumDiscountPercent: 10 }, clock());
-    expect(result).toMatchObject({ eligible: true, proposedPrice: 1350, discount: 149 });
-  });
-  it("enforces the price-floor boundary", () => {
-    const result = evaluatePrice(headphones, { ...demoOffer, productPrice: 1300, shipping: 0 }, { ...defaultPolicy, minimumPrice: 1400, maximumDiscountPercent: 50 }, clock());
-    expect(result).toMatchObject({ eligible: true, proposedPrice: 1400, discount: 99 });
-  });
-  it("returns no offer when policy boundaries reach the original price", () => {
-    const result = evaluatePrice(headphones, demoOffer, { ...defaultPolicy, minimumPrice: headphones.price }, clock());
-    expect(result).toMatchObject({ eligible: false, proposedPrice: headphones.price, discount: 0 });
-  });
+describe("merchant pricing boundaries", () => {
+  it("includes shipping and applies the configured match strategy", () => { const decision = evaluatePricing(product, [evidence()], defaultPolicy); expect(decision.eligible).toBe(true); expect(decision.competitorDeliveredTotal?.amountMinor).toBe(13900); expect(decision.approvedUnitPrice.amountMinor).toBe(13900); });
+  it("supports a configured better-by amount", () => { const decision = evaluatePricing(product, [evidence()], { ...defaultPolicy, pricingStrategy: { type: "better_by_fixed_amount", amountMinor: 100 } }); expect(decision.approvedUnitPrice.amountMinor).toBe(13800); });
+  it("enforces maximum discount and minimum price", () => { const result = evaluatePricing(product, [evidence({ productPrice: { amountMinor: 10000, currency: "USD" }, shipping: { amountMinor: 0, currency: "USD" } })], defaultPolicy); expect(result.approvedUnitPrice.amountMinor).toBe(13500); });
+  it.each([{ shipping: null }, { sellerVerification: "unverified" as const }, { productMatch: "probable" as const }, { availability: "out_of_stock" as const }, { retailerDomain: "other.example" }, { productPrice: { amountMinor: 10000, currency: "EUR" as never } }])("fails closed for incomplete or ineligible evidence", (change) => { expect(evaluatePricing(product, [evidence(change)], defaultPolicy).eligible).toBe(false); });
+  it("reports already competitive", () => { const result = evaluatePricing(product, [evidence({ productPrice: { amountMinor: 14900, currency: "USD" }, shipping: { amountMinor: 0, currency: "USD" } })], defaultPolicy); expect(result.reasonCode).toBe("already_competitive"); expect(result.eligible).toBe(false); });
 });
