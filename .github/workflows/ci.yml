@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - feat/postgres-payment-readiness
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: pricematcher_test
+          POSTGRES_USER: pricematcher_ci
+          POSTGRES_PASSWORD: pricematcher_ci_only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pricematcher_ci -d pricematcher_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Apply PostgreSQL migrations in order
+        env:
+          TEST_DATABASE_URL: postgresql://pricematcher_ci:pricematcher_ci_only@localhost:5432/pricematcher_test
+        run: |
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -c "create role anon nologin; create role authenticated nologin;"
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610240001_price_intelligence.sql
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610240002_transactional_payment_readiness.sql
+
+      - name: Run PostgreSQL integration tests without skips
+        env:
+          TEST_DATABASE_URL: postgresql://pricematcher_ci:pricematcher_ci_only@localhost:5432/pricematcher_test
+        run: |
+          npm run test:postgres -- --reporter=json --outputFile=postgres-test-results.json
+          node -e 'const r=require("./postgres-test-results.json"); if(r.numTotalTests!==4 || r.numPassedTests!==4 || r.numPendingTests!==0 || r.numFailedTests!==0 || !r.success){console.error(r); process.exit(1)}; console.log(`PostgreSQL integration tests: ${r.numPassedTests}/${r.numTotalTests} passed; ${r.numPendingTests} skipped`)'

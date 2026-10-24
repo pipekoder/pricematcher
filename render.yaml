@@ -11,5 +11,11 @@ services:
         value: 24
       - key: APP_ENV
         value: production
+      - key: PERSISTENCE_BACKEND
+        value: postgres
+      - key: DATABASE_URL
+        sync: false
+      - key: PRICE_MATCHER_SESSION_SECRET
+        sync: false
       - key: PAYPAL_ENVIRONMENT
         value: sandbox

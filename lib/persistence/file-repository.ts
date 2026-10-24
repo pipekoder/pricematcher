@@ -43,5 +43,7 @@ export class FilePriceIntelligenceRepository extends MemoryPriceIntelligenceRepo
   override saveEvidence(value: CompetitorEvidence[]) { return this.disk(() => super.saveEvidence(value)); }
   override saveOffer(value: AuthorizedOffer) { return this.disk(() => super.saveOffer(value)); }
   override acceptOffer(value: AcceptInput) { return this.disk(() => super.acceptOffer(value)); }
+  override revokeOffer(id: string, now: Date, reason: string) { return this.disk(() => super.revokeOffer(id, now, reason)); }
+  override expireOffers(now: Date) { return this.disk(() => super.expireOffers(now)); }
   override consumeOffer(id: string, now: Date) { return this.disk(() => super.consumeOffer(id, now)); }
 }

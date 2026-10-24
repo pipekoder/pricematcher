@@ -1,6 +1,6 @@
 import type { AuthorizedOffer, ComparisonRequest, CompetitorEvidence, MerchantPolicy, OfferAcceptance } from "../types";
 
-export type AcceptInput = { offerId: string; sessionId: string; cartFingerprint: string; now: Date };
+export type AcceptInput = { offerId: string; sessionId: string; cartFingerprint: string; expectedPolicyId: string; expectedPolicyVersion: number; now: Date };
 export interface PriceIntelligenceRepository {
   getPolicy(merchantId: string): Promise<MerchantPolicy | undefined>;
   savePolicy(policy: MerchantPolicy): Promise<void>;
@@ -9,6 +9,8 @@ export interface PriceIntelligenceRepository {
   saveOffer(offer: AuthorizedOffer): Promise<void>;
   getOffer(id: string): Promise<AuthorizedOffer | undefined>;
   acceptOffer(input: AcceptInput): Promise<{ offer: AuthorizedOffer; acceptance: OfferAcceptance }>;
+  revokeOffer(id: string, now: Date, reason: string): Promise<AuthorizedOffer>;
+  expireOffers(now: Date): Promise<number>;
   consumeOffer(id: string, now: Date): Promise<AuthorizedOffer>;
 }
 
