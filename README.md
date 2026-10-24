@@ -49,7 +49,7 @@ Core calculations are separate from presentation so later adapters can supply ve
 
 ### Demo pricing strategy
 
-The fixture merchant uses a configurable `beat-competitor-by-fixed-amount` strategy. Its current policy proposes 29 SEK below an eligible competitor's delivered total, then enforces the merchant price floor and maximum discount. The strategy amount lives in `defaultPolicy.pricingStrategy`; it is never embedded in the pricing calculation. An offer is actionable only when the exact product ID and GTIN match and every eligibility rule passes.
+The fixture merchant uses a configurable `match` strategy. The policy also supports `better_by_fixed_amount`; caps and per-product floors are enforced by the server pricing engine. Offers are actionable only for exact product and variant evidence after every eligibility rule passes.
 
 ## Roadmap
 

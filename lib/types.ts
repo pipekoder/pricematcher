@@ -1,28 +1,63 @@
+export type Currency = "USD";
+export type Money = { amountMinor: number; currency: Currency };
+
 export type Product = {
-  id: string; name: string; brand: string; category: string; price: number;
-  compareAt?: number; sku: string; gtin: string; color: string; image: string;
-  stock: "In stock" | "Low stock"; delivery: string; description: string;
-  features: string[];
+  id: string; name: string; brand: string; model: string; category: string;
+  price: Money; compareAt?: Money; sku: string; gtin: string;
+  variant: { color: string; size?: string; condition: "new" };
+  image: string; stock: "In stock" | "Low stock"; delivery: string;
+  description: string; features: string[]; priceMatchEligible: boolean;
 };
 
-export type CompetitorOffer = {
-  id: string; retailer: string; productId: string; productPrice: number;
-  productGtin: string;
-  shipping: number; fees: number; currency: "SEK"; verified: boolean;
-  productEquivalent: boolean; inStock: boolean; retrievedAt: string;
-  expiresAt: string; delivery: string; sourceUrl: string; source: "demo" | "live" | "cache";
+export type DataProvenance = "live" | "fixture" | "cached";
+export type SellerVerification = "approved" | "unverified" | "rejected";
+export type MatchConfidence = "exact" | "probable" | "uncertain" | "mismatch";
+
+export type CompetitorEvidence = {
+  id: string; comparisonId: string; providerProductId: string;
+  retailer: string; retailerDomain: string; sourceUrl: string;
+  sourceType: DataProvenance; retrievedAt: string;
+  productTitle: string; brand?: string; model?: string; gtin?: string;
+  variant: { color?: string; size?: string; condition?: "new" | "used" };
+  productPrice: Money; shipping: Money | null; fees: Money | null;
+  availability: "in_stock" | "out_of_stock" | "unknown";
+  sellerVerification: SellerVerification; productMatch: MatchConfidence;
+  aiAssisted: boolean; verificationReasons: string[];
 };
 
+export type PricingStrategy = { type: "match" } | { type: "better_by_fixed_amount"; amountMinor: number };
 export type MerchantPolicy = {
-  enabled: boolean; maximumDiscountPercent: number; minimumPrice: number;
-  requireVerifiedSeller: boolean; includeShipping: boolean; currency: "SEK";
-  pricingStrategy: {
-    type: "beat-competitor-by-fixed-amount";
-    amount: number;
-  };
+  id: string; merchantId: string; version: number; enabled: boolean;
+  eligibleProductIds: string[]; maximumDiscountBps: number;
+  minimumPriceByProduct: Record<string, Money>;
+  approvedCompetitorDomains: string[]; includeShipping: true;
+  requireKnownShipping: boolean; currency: Currency;
+  pricingStrategy: PricingStrategy; offerTtlSeconds: number; createdAt: string;
 };
 
-export type PricingDecision = {
-  eligible: boolean; originalPrice: number; competitorTotal?: number;
-  proposedPrice: number; discount: number; savings: number; reason: string;
+export type ComparisonRequest = {
+  id: string; merchantId: string; sessionId: string; productId: string;
+  quantity: number; cartFingerprint: string; status: "requested" | "completed" | "failed";
+  sourceType: DataProvenance; createdAt: string; completedAt?: string;
 };
+
+export type OfferStatus = "issued" | "accepted" | "consumed" | "expired" | "revoked";
+export type AuthorizedOffer = {
+  id: string; comparisonId: string; merchantId: string; sessionId: string;
+  productId: string; productGtin: string; variantKey: string; quantity: number;
+  cartFingerprint: string; originalUnitPrice: Money; approvedUnitPrice: Money;
+  originalSubtotal: Money; approvedSubtotal: Money; tax: Money;
+  shipping: Money; fees: Money; finalTotal: Money; currency: Currency;
+  discountAmount: Money; policyId: string; policyVersion: number;
+  evidenceId: string; evidenceSnapshot: CompetitorEvidence;
+  createdAt: string; expiresAt: string; status: OfferStatus;
+  acceptedAt?: string; consumedAt?: string;
+};
+
+export type OfferAcceptance = { id: string; offerId: string; merchantId: string; sessionId: string; acceptedAt: string; cartFingerprint: string };
+export type PricingDecision = {
+  eligible: boolean; reasonCode: "eligible" | "already_competitive" | "no_eligible_offer";
+  reason: string; originalUnitPrice: Money; competitorDeliveredTotal?: Money;
+  approvedUnitPrice: Money; discountAmount: Money; evidenceId?: string;
+};
+export type ComparisonResult = { comparison: ComparisonRequest; decision: PricingDecision; evidence: CompetitorEvidence[]; offer?: AuthorizedOffer };

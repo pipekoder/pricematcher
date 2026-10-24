@@ -1,18 +1,16 @@
-import type { CompetitorOffer, MerchantPolicy } from "./types";
+import { products } from "./catalog";
+import type { MerchantPolicy } from "./types";
 
-export const demoOffer: CompetitorOffer = {
-  id: "cmp-demo-001", retailer: "Nordic Audio Market", productId: "nord-sound-2",
-  productGtin: "0735000100118",
-  productPrice: 1349, shipping: 79, fees: 0, currency: "SEK", verified: true,
-  productEquivalent: true, inStock: true, retrievedAt: "2026-10-24T10:42:00+02:00",
-  expiresAt: "2027-10-24T11:42:00+02:00", delivery: "3–5 business days",
-  sourceUrl: "https://example.com/demo-offer", source: "demo",
-};
-
+const now = "2026-10-24T00:00:00.000Z";
 export const defaultPolicy: MerchantPolicy = {
-  enabled: true, maximumDiscountPercent: 10, minimumPrice: 1350,
-  requireVerifiedSeller: true, includeShipping: true, currency: "SEK",
-  pricingStrategy: { type: "beat-competitor-by-fixed-amount", amount: 29 },
+  id: "policy-north-01-v1", merchantId: "north-01", version: 1, enabled: true,
+  eligibleProductIds: products.map(({ id }) => id), maximumDiscountBps: 1000,
+  minimumPriceByProduct: {
+    "nord-sound-2": { amountMinor: 13500, currency: "USD" },
+    "arc-lamp": { amountMinor: 8000, currency: "USD" },
+  },
+  approvedCompetitorDomains: ["audio.example", "home.example"],
+  includeShipping: true, requireKnownShipping: true, currency: "USD",
+  pricingStrategy: { type: "match" },
+  offerTtlSeconds: 15 * 60, createdAt: now,
 };
-
-export const demoOffers: CompetitorOffer[] = [demoOffer];
