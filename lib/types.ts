@@ -7,6 +7,7 @@ export type Product = {
 
 export type CompetitorOffer = {
   id: string; retailer: string; productId: string; productPrice: number;
+  productGtin: string;
   shipping: number; fees: number; currency: "SEK"; verified: boolean;
   productEquivalent: boolean; inStock: boolean; retrievedAt: string;
   expiresAt: string; delivery: string; sourceUrl: string; source: "demo" | "live" | "cache";
@@ -15,6 +16,10 @@ export type CompetitorOffer = {
 export type MerchantPolicy = {
   enabled: boolean; maximumDiscountPercent: number; minimumPrice: number;
   requireVerifiedSeller: boolean; includeShipping: boolean; currency: "SEK";
+  pricingStrategy: {
+    type: "beat-competitor-by-fixed-amount";
+    amount: number;
+  };
 };
 
 export type PricingDecision = {
