@@ -20,6 +20,8 @@ export type CompetitorEvidence = {
   productTitle: string; brand?: string; model?: string; gtin?: string;
   variant: { color?: string; size?: string; condition?: "new" | "used" };
   productPrice: Money; shipping: Money | null; fees: Money | null;
+  deliveredCostSource: "channel3" | "retailer_api" | "fixture" | "unknown";
+  deliveredCostRetrievedAt?: string;
   availability: "in_stock" | "out_of_stock" | "unknown";
   sellerVerification: SellerVerification; productMatch: MatchConfidence;
   aiAssisted: boolean; verificationReasons: string[];
@@ -32,8 +34,12 @@ export type MerchantPolicy = {
   minimumPriceByProduct: Record<string, Money>;
   approvedCompetitorDomains: string[]; includeShipping: true;
   requireKnownShipping: boolean; currency: Currency;
-  pricingStrategy: PricingStrategy; offerTtlSeconds: number; createdAt: string;
+  pricingStrategy: PricingStrategy; offerTtlSeconds: number; evidenceMaxAgeSeconds: number; createdAt: string;
 };
+
+export type CartItemInput = { productId: string; variantKey: string; quantity: number };
+export type CartSnapshotLine = CartItemInput & { unitPrice: Money; lineTotal: Money };
+export type CartSnapshot = { lines: CartSnapshotLine[]; currency: Currency; subtotal: Money; shipping: Money; tax: Money; fees: Money; total: Money };
 
 export type ComparisonRequest = {
   id: string; merchantId: string; sessionId: string; productId: string;
@@ -50,6 +56,7 @@ export type AuthorizedOffer = {
   shipping: Money; fees: Money; finalTotal: Money; currency: Currency;
   discountAmount: Money; policyId: string; policyVersion: number;
   evidenceId: string; evidenceSnapshot: CompetitorEvidence;
+  cartSnapshot: CartSnapshot;
   createdAt: string; expiresAt: string; status: OfferStatus;
   acceptedAt?: string; consumedAt?: string;
 };

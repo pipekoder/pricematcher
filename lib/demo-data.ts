@@ -12,5 +12,5 @@ export const defaultPolicy: MerchantPolicy = {
   approvedCompetitorDomains: ["audio.example", "home.example"],
   includeShipping: true, requireKnownShipping: true, currency: "USD",
   pricingStrategy: { type: "match" },
-  offerTtlSeconds: 15 * 60, createdAt: now,
+  offerTtlSeconds: 15 * 60, evidenceMaxAgeSeconds: 5 * 60, createdAt: now,
 };
