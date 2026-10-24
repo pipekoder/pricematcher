@@ -1,0 +1,9 @@
+import { ArrowRight, ShieldCheck, Truck } from "lucide-react";
+import Link from "next/link";
+import { ProductCard } from "@/components/product-card";
+import { PriceMatcherBadge } from "@/components/badge";
+import { products } from "@/lib/catalog";
+
+export default function Home() {
+  return <><section className="hero"><div className="hero-copy"><p className="eyebrow">The autumn edit / 2026</p><h1>Objects worth<br />living with.</h1><p>Purposeful technology, honest materials and prices you can feel good about.</p><div className="hero-links"><Link className="button light large" href="#collection">Shop the collection <ArrowRight size={18} /></Link><PriceMatcherBadge /></div></div><div className="hero-art"><span>01</span><div className="orb one" /><div className="orb two" /><p>Quiet design.<br />Clear value.</p></div></section><section className="value-strip"><div><ShieldCheck /><span><strong>Verified comparisons</strong>Exact products. Trusted sellers.</span></div><div><Truck /><span><strong>Real delivered cost</strong>Shipping and fees included.</span></div><div><span className="value-mark">%</span><span><strong>Merchant-approved offers</strong>Fair, transparent and instant.</span></div></section><section className="collection" id="collection"><div className="section-heading"><div><p className="eyebrow">New essentials</p><h2>Made for the everyday</h2></div><p>Each piece is selected for useful design, reliable construction and a lighter footprint.</p></div><div className="product-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div></section><section className="story-block"><p className="eyebrow">Price confidence, built in</p><h2>Found it for less?<br />We&apos;ll look closer.</h2><p>PriceMatcher verifies the same product, seller and total delivered cost—then checks whether we can make you a better offer.</p><Link href="/about">See how it works <ArrowRight size={17} /></Link></section></>;
+}
