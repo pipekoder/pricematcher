@@ -1,6 +1,6 @@
 import { PayPalAgentToolkit } from "@paypal/agent-toolkit/ai-sdk";
 import type { Money } from "../types";
-import type { PaymentProvider, ProviderError, ProviderResult } from "./provider";
+import type { PaymentProvider, ProviderCapture, ProviderError, ProviderResult } from "./provider";
 
 type JsonRecord = Record<string, unknown>;
 type ToolkitTool = { execute?: (input: JsonRecord, options?: unknown) => Promise<unknown> };
@@ -11,7 +11,7 @@ function record(value: unknown): JsonRecord | undefined {
 function nested(value: unknown, ...keys: string[]): unknown {
   return keys.reduce<unknown>((current, key) => record(current)?.[key], value);
 }
-function arrayFirst(value: unknown): unknown { return Array.isArray(value) ? value[0] : undefined; }
+function array(value: unknown): unknown[] { return Array.isArray(value) ? value : []; }
 function moneyFrom(value: unknown): Money | undefined {
   const amount = record(value); const raw = amount?.value; const currency = amount?.currency_code;
   if (currency !== "USD" || (typeof raw !== "string" && typeof raw !== "number")) return;
@@ -19,6 +19,11 @@ function moneyFrom(value: unknown): Money | undefined {
   return { amountMinor: Number(match[1]) * 100 + Number((match[2] ?? "").padEnd(2, "0")), currency: "USD" };
 }
 function sameMoney(left: Money, right: Money) { return left.currency === right.currency && left.amountMinor === right.amountMinor; }
+function captureFrom(value: unknown): ProviderCapture | undefined {
+  const capture = record(value); const transactionId = capture?.id; const status = capture?.status; const amount = moneyFrom(capture?.amount);
+  if (typeof transactionId !== "string" || typeof status !== "string" || !amount) return;
+  return { transactionId, status, amount };
+}
 function providerError(message: string, retryable = false): ProviderError { return { code: retryable ? "unavailable" : "validation", retryable, message }; }
 
 export class PayPalAgentToolkitProvider implements PaymentProvider {
@@ -64,22 +69,24 @@ export class PayPalAgentToolkitProvider implements PaymentProvider {
 
   async getOrder(orderId: string) {
     const result = await this.run("get_order", { id: orderId }); if (!result.ok) return result;
-    const amount = moneyFrom(nested(arrayFirst(result.value.purchase_units), "amount")); const status = result.value.status;
-    if (!amount || typeof status !== "string" || result.value.id !== orderId) return { ok: false, error: providerError("PayPal get_order response is incomplete") } as const;
-    return { ok: true, value: { orderId, status, amount } } as const;
+    const purchaseUnits = array(result.value.purchase_units); const purchase = purchaseUnits[0]; const amount = moneyFrom(nested(purchase, "amount")); const status = result.value.status;
+    const rawCaptures = array(nested(purchase, "payments", "captures")); const captures = rawCaptures.map(captureFrom);
+    if (purchaseUnits.length !== 1 || captures.some((capture) => !capture) || !amount || typeof status !== "string" || result.value.id !== orderId) return { ok: false, error: providerError("PayPal get_order response is incomplete or ambiguous") } as const;
+    return { ok: true, value: { orderId, status, amount, captures: captures as ProviderCapture[] } } as const;
   }
 
   async captureOrder(input: Parameters<PaymentProvider["captureOrder"]>[0]) {
     const result = await this.run("pay_order", { id: input.orderId }, input.idempotencyKey); if (!result.ok) return result;
-    const purchase = arrayFirst(result.value.purchase_units); const capture = arrayFirst(nested(purchase, "payments", "captures"));
-    const transactionId = record(capture)?.id; const status = record(capture)?.status ?? result.value.status; const amount = moneyFrom(record(capture)?.amount);
-    if (typeof transactionId !== "string" || typeof status !== "string" || !amount) return { ok: false, error: providerError("PayPal pay_order response is incomplete") } as const;
-    return { ok: true, value: { transactionId, status, amount } } as const;
+    const purchaseUnits = array(result.value.purchase_units); const captures = array(nested(purchaseUnits[0], "payments", "captures")); const capture = captures.length === 1 ? captureFrom(captures[0]) : undefined;
+    if (result.value.id !== input.orderId || purchaseUnits.length !== 1 || !capture) return { ok: false, error: providerError("PayPal pay_order response is incomplete or ambiguous") } as const;
+    return { ok: true, value: { orderId: input.orderId, ...capture } } as const;
   }
 
   async verifyPayment(input: Parameters<PaymentProvider["verifyPayment"]>[0]) {
     const order = await this.getOrder(input.orderId); if (!order.ok) return order;
-    return { ok: true, value: { verified: order.value.status === "COMPLETED" && sameMoney(order.value.amount, input.expectedAmount), status: order.value.status } } as const;
+    const capture = order.value.captures.length === 1 ? order.value.captures[0] : undefined;
+    const verified = order.value.orderId === input.orderId && order.value.status === "COMPLETED" && sameMoney(order.value.amount, input.expectedAmount) && capture?.transactionId === input.transactionId && capture.status === "COMPLETED" && sameMoney(capture.amount, input.expectedAmount);
+    return { ok: true, value: { verified, orderId: order.value.orderId, transactionId: capture?.transactionId ?? "", orderStatus: order.value.status, captureStatus: capture?.status ?? "MISSING" } } as const;
   }
 }
 

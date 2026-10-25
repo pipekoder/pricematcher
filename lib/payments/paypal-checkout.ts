@@ -13,6 +13,28 @@ function providerFailure(error: ProviderError) { return new TransactionStateErro
 
 export function createPayPalCheckoutService(deps: Dependencies) {
   const now = deps.now ?? (() => new Date());
+  async function verifyExact(attempt: CheckoutAttempt, transactionId: string) {
+    const verification = await deps.provider.verifyPayment({ orderId: attempt.providerOrderId!, transactionId, expectedAmount: attempt.expectedAmount });
+    if (!verification.ok || !verification.value.verified || verification.value.orderId !== attempt.providerOrderId || verification.value.transactionId !== transactionId || verification.value.captureStatus !== "COMPLETED") throw new TransactionStateError("verification_failed", "Exact PayPal capture could not be independently verified");
+  }
+  async function finalizeCapture(attempt: CheckoutAttempt, transactionId: string) {
+    if (attempt.providerTransactionId && attempt.providerTransactionId !== transactionId) throw new TransactionStateError("capture_mismatch", "PayPal capture does not match the persisted transaction");
+    if (!attempt.providerTransactionId) attempt = await deps.transactions.recordProviderCapture({ id: attempt.id, providerOrderId: attempt.providerOrderId!, providerTransactionId: transactionId, now: now() });
+    try { await verifyExact(attempt, transactionId); }
+    catch {
+      if (attempt.status === "capture_pending") await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: "reconciliation_required", providerTransactionId: transactionId, failureCode: "verification_failed", reconciliationStatus: "mismatch", now: now() });
+      throw new TransactionStateError("verification_failed", "Captured payment requires reconciliation");
+    }
+    if (attempt.status === "capture_pending") attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: "captured", providerTransactionId: transactionId, reconciliationStatus: "matched", now: now() });
+    try {
+      const offer = await deps.offers.getOffer(attempt.offerId); if (offer?.status !== "consumed") await deps.offers.consumeOffer(attempt.offerId, now());
+    } catch {
+      if (attempt.status === "captured") await deps.transactions.transitionCheckout({ id: attempt.id, from: ["captured"], to: "reconciliation_required", providerTransactionId: transactionId, failureCode: "offer_consumption_failed", reconciliationStatus: "pending", now: now() });
+      throw new TransactionStateError("reconciliation_required", "Payment completed but local reconciliation is required");
+    }
+    if (attempt.status === "reconciliation_required") await deps.transactions.transitionCheckout({ id: attempt.id, from: ["reconciliation_required"], to: "reconciled", providerTransactionId: transactionId, reconciliationStatus: "matched", now: now() });
+    return { checkoutAttemptId: attempt.id, status: "captured" as const, verified: true };
+  }
   return {
     async createOrder(checkoutAttemptId: string, sessionId: string) {
       let attempt = await deps.transactions.getCheckoutAttempt(checkoutAttemptId); assertOwner(attempt, sessionId);
@@ -32,37 +54,35 @@ export function createPayPalCheckoutService(deps: Dependencies) {
       let attempt = await deps.transactions.getCheckoutAttempt(checkoutAttemptId); assertOwner(attempt, sessionId);
       if (!attempt.providerOrderId) throw new TransactionStateError("order_missing", "PayPal order has not been created");
       if (attempt.status === "captured" || attempt.status === "reconciled") {
-        const verification = await deps.provider.verifyPayment({ orderId: attempt.providerOrderId, transactionId: attempt.providerTransactionId, expectedAmount: attempt.expectedAmount });
-        if (!verification.ok || !verification.value.verified) throw new TransactionStateError("verification_failed", "Stored PayPal payment could not be verified");
+        if (!attempt.providerTransactionId) throw new TransactionStateError("verification_failed", "Stored PayPal capture identifier is missing");
+        await verifyExact(attempt, attempt.providerTransactionId);
         return { checkoutAttemptId: attempt.id, status: "captured" as const, verified: true };
       }
-      if (attempt.status !== "order_created") throw new TransactionStateError("payment_in_progress", "Payment is already processing or requires reconciliation");
-      const approved = await deps.provider.getOrder(attempt.providerOrderId);
-      if (!approved.ok) throw providerFailure(approved.error);
-      if (approved.value.status !== "APPROVED" || !sameAmount(attempt, approved.value.amount)) throw new TransactionStateError("approval_invalid", "PayPal buyer approval or amount could not be verified");
-      attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["order_created"], to: "buyer_approved", now: now() });
-      attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["buyer_approved"], to: "capture_pending", now: now() });
+      if (!["order_created","capture_pending","reconciliation_required"].includes(attempt.status)) throw new TransactionStateError("payment_in_progress", "Payment is already processing or cannot be recovered automatically");
+      const observed = await deps.provider.getOrder(attempt.providerOrderId); if (!observed.ok) throw providerFailure(observed.error);
+      if (observed.value.status === "COMPLETED") {
+        const capture = observed.value.captures.length === 1 ? observed.value.captures[0] : undefined;
+        if (!capture || capture.status !== "COMPLETED" || !sameAmount(attempt, observed.value.amount) || !sameAmount(attempt, capture.amount)) throw new TransactionStateError("capture_mismatch", "PayPal returned a missing, mismatched, or ambiguous capture");
+        return finalizeCapture(attempt, capture.transactionId);
+      }
+      if (observed.value.status !== "APPROVED" || observed.value.captures.length !== 0 || !sameAmount(attempt, observed.value.amount)) throw new TransactionStateError("approval_invalid", "PayPal buyer approval, amount, or capture state could not be verified");
+      if (attempt.status === "order_created") {
+        attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["order_created"], to: "buyer_approved", now: now() });
+        attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["buyer_approved"], to: "capture_pending", now: now() });
+      } else if (attempt.status === "reconciliation_required") {
+        attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["reconciliation_required"], to: "capture_pending", failureCode: undefined, reconciliationStatus: "pending", now: now() });
+      }
       const captured = await deps.provider.captureOrder({ orderId: attempt.providerOrderId!, idempotencyKey: attempt.id });
       if (!captured.ok) {
         await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: captured.error.retryable ? "reconciliation_required" : "failed", failureCode: captured.error.code, reconciliationStatus: captured.error.retryable ? "pending" : "not_required", now: now() });
         throw providerFailure(captured.error);
       }
-      if (captured.value.status !== "COMPLETED" || !sameAmount(attempt, captured.value.amount)) {
+      attempt = await deps.transactions.recordProviderCapture({ id: attempt.id, providerOrderId: attempt.providerOrderId!, providerTransactionId: captured.value.transactionId, now: now() });
+      if (captured.value.orderId !== attempt.providerOrderId || captured.value.status !== "COMPLETED" || !sameAmount(attempt, captured.value.amount)) {
         await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: "reconciliation_required", providerTransactionId: captured.value.transactionId, failureCode: "capture_mismatch", reconciliationStatus: "mismatch", now: now() });
         throw new TransactionStateError("capture_mismatch", "Captured payment requires reconciliation");
       }
-      const verification = await deps.provider.verifyPayment({ orderId: attempt.providerOrderId!, transactionId: captured.value.transactionId, expectedAmount: attempt.expectedAmount });
-      if (!verification.ok || !verification.value.verified) {
-        await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: "reconciliation_required", providerTransactionId: captured.value.transactionId, failureCode: "verification_failed", reconciliationStatus: "mismatch", now: now() });
-        throw new TransactionStateError("verification_failed", "Captured payment requires reconciliation");
-      }
-      attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: "captured", providerTransactionId: captured.value.transactionId, reconciliationStatus: "matched", now: now() });
-      try { await deps.offers.consumeOffer(attempt.offerId, now()); }
-      catch {
-        await deps.transactions.transitionCheckout({ id: attempt.id, from: ["captured"], to: "reconciliation_required", failureCode: "offer_consumption_failed", reconciliationStatus: "pending", now: now() });
-        throw new TransactionStateError("reconciliation_required", "Payment completed but local reconciliation is required");
-      }
-      return { checkoutAttemptId: attempt.id, status: "captured" as const, verified: true };
+      return finalizeCapture(attempt, captured.value.transactionId);
     },
   };
 }

@@ -122,4 +122,22 @@ suite("PostgreSQL transactions", () => {
       blocker.release();
     }
   });
+
+  it("durably records only one PayPal capture identity under concurrency", async () => {
+    const value = await issued();
+    const accepted = (await value.service.accept({ offerId: value.offer.id, sessionId: value.session, cart: value.cart })).offer;
+    const transactions = new PostgresTransactionRepository(pool);
+    const prepared = await createApprovedCheckoutExecutor({ offers: repo, transactions })(accepted.id, { sessionId: value.session, cart: value.cart, idempotencyKey: crypto.randomUUID() });
+    await transactions.transitionCheckout({ id: prepared.checkoutAttemptId, from: ["prepared"], to: "order_pending", now: new Date() });
+    await transactions.transitionCheckout({ id: prepared.checkoutAttemptId, from: ["order_pending"], to: "order_created", providerOrderId: "5O190127TN364715T", now: new Date() });
+    await transactions.transitionCheckout({ id: prepared.checkoutAttemptId, from: ["order_created"], to: "buyer_approved", now: new Date() });
+    await transactions.transitionCheckout({ id: prepared.checkoutAttemptId, from: ["buyer_approved"], to: "capture_pending", now: new Date() });
+    const results = await Promise.allSettled([
+      transactions.recordProviderCapture({ id: prepared.checkoutAttemptId, providerOrderId: "5O190127TN364715T", providerTransactionId: "8MC585209K746392H", now: new Date() }),
+      transactions.recordProviderCapture({ id: prepared.checkoutAttemptId, providerOrderId: "5O190127TN364715T", providerTransactionId: "different-capture", now: new Date() }),
+    ]);
+    expect(results.filter((result) => result.status === "fulfilled")).toHaveLength(1);
+    expect(["8MC585209K746392H", "different-capture"]).toContain((await transactions.getCheckoutAttempt(prepared.checkoutAttemptId))?.providerTransactionId);
+    expect((await transactions.listAuditEvents(accepted.id)).filter((event) => event.eventType === "checkout.provider_capture_observed")).toHaveLength(1);
+  });
 });
