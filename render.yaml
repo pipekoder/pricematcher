@@ -31,6 +31,8 @@ services:
         value: require
       - key: DATABASE_SSL_REJECT_UNAUTHORIZED
         value: "true"
+      - key: DATABASE_SSL_CA_BASE64
+        sync: false
       - key: PRICE_MATCHER_SESSION_SECRET
         sync: false
       - key: PAYPAL_ENVIRONMENT
