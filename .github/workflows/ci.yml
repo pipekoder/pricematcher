@@ -60,10 +60,11 @@ jobs:
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -c "create role anon nologin; create role authenticated nologin;"
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610240001_price_intelligence.sql
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610240002_transactional_payment_readiness.sql
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610250003_paypal_agentic_checkout.sql
 
       - name: Run PostgreSQL integration tests without skips
         env:
           TEST_DATABASE_URL: postgresql://pricematcher_ci:pricematcher_ci_only@localhost:5432/pricematcher_test
         run: |
           npm run test:postgres -- --reporter=json --outputFile=postgres-test-results.json
-          node -e 'const r=require("./postgres-test-results.json"); if(r.numTotalTests!==4 || r.numPassedTests!==4 || r.numPendingTests!==0 || r.numFailedTests!==0 || !r.success){console.error(r); process.exit(1)}; console.log(`PostgreSQL integration tests: ${r.numPassedTests}/${r.numTotalTests} passed; ${r.numPendingTests} skipped`)'
+          node -e 'const r=require("./postgres-test-results.json"); if(r.numTotalTests!==5 || r.numPassedTests!==5 || r.numPendingTests!==0 || r.numFailedTests!==0 || !r.success){console.error(r); process.exit(1)}; console.log(`PostgreSQL integration tests: ${r.numPassedTests}/${r.numTotalTests} passed; ${r.numPendingTests} skipped`)'

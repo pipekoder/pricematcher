@@ -2,7 +2,7 @@
 
 Transparent Pricing. Verified Offers. Fairer Commerce.
 
-PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026. This repository currently contains the **Foundation** phase: a polished fictional storefront, cart, guided price-comparison checkout, merchant dashboard preview, deterministic pricing rules, fixtures, and deployment scaffolding.
+PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026. It combines customer-initiated price comparison, deterministic merchant authorization, and an explicitly approved PayPal Sandbox checkout.
 
 ## What works now
 
@@ -11,10 +11,12 @@ PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026
 - Guided comparison using clearly labeled fixture data
 - Deterministic delivered-price, floor, discount, verification, currency, and expiration checks
 - Explicit acceptance of the adjusted or original price
+- Server-authorized PayPal Sandbox order creation and capture through the restricted Agent Toolkit adapter
+- PayPal JavaScript SDK v6 buyer approval and independent server verification
 - Merchant dashboard and browser-only policy preview
 - `/api/health`, Render Blueprint, environment template, and unit tests
 
-No live market, AI, database, or payment call is made in this phase. PayPal is visibly disabled; the app never simulates payment success.
+Fixture comparison remains the safe default and is visibly labeled. PayPal calls occur only when Sandbox credentials are configured and the customer accepts an eligible offer and clicks the PayPal Sandbox action. The application never reports success without a verified provider response.
 
 ## Local setup
 
@@ -55,8 +57,9 @@ The fixture merchant uses a configurable `match` strategy. The policy also suppo
 
 1. Foundation (current)
 2. Price intelligence: Channel3 adapter, seller/product verification, structured AI assistance
-3. PayPal Sandbox: server-created orders and idempotent capture
+3. PayPal Sandbox: server-created orders and idempotent capture (current)
 4. Authenticated merchant policies and Supabase persistence
 5. Release hardening, E2E tests, submission package
 
 See [Render deployment](docs/RENDER_DEPLOYMENT.md). Do not use PayPal Live credentials for this project.
+See [PayPal agentic checkout](docs/PAYPAL_AGENTIC_CHECKOUT.md) for Sandbox setup and manual verification.
