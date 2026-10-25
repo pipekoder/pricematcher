@@ -30,7 +30,9 @@ Copy names from `.env.example` into Render. Never commit values.
 - `CHANNEL3_API_KEY`: server-only product-data credential
 - `AI_PROVIDER`, `AI_API_KEY`, `AI_MODEL`: server-only AI configuration
 
-Render requires PostgreSQL configuration and a stable session secret. Missing shared persistence makes health checks fail closed. PayPal credentials remain unused and payment execution remains disabled in this PR.
+Render requires PostgreSQL configuration and a stable session secret. Missing shared persistence makes health checks fail closed. PayPal remains Sandbox-only and is unchanged by the health-check fix.
+
+The PostgreSQL health probe uses an approximately five-second connection timeout, four-second query/statement timeout, and a 4.8-second route deadline. Keep the Supabase Session pooler on port 5432, TLS enabled, and certificate validation enabled. See [Render health-check diagnosis](RENDER_HEALTHCHECK.md) for safe failure categories and manual checks.
 
 ## 4. Supabase
 
