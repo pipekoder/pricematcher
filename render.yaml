@@ -15,6 +15,22 @@ services:
         value: postgres
       - key: DATABASE_URL
         sync: false
+      - key: DATABASE_POOL_MAX
+        value: 3
+      - key: DATABASE_CONNECT_TIMEOUT_MS
+        value: 4500
+      - key: DATABASE_QUERY_TIMEOUT_MS
+        value: 4000
+      - key: DATABASE_STATEMENT_TIMEOUT_MS
+        value: 4000
+      - key: DATABASE_IDLE_TIMEOUT_MS
+        value: 30000
+      - key: DATABASE_HEALTH_TIMEOUT_MS
+        value: 4800
+      - key: DATABASE_SSL
+        value: require
+      - key: DATABASE_SSL_REJECT_UNAUTHORIZED
+        value: "true"
       - key: PRICE_MATCHER_SESSION_SECRET
         sync: false
       - key: PAYPAL_ENVIRONMENT
