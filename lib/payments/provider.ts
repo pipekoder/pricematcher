@@ -4,7 +4,7 @@ export type ProviderError = { code: "authentication"|"validation"|"declined"|"co
 export type ProviderResult<T> = { ok: true; value: T } | { ok: false; error: ProviderError };
 export interface PaymentProvider {
   readonly provider: "paypal_sandbox";
-  createOrder(input: { checkoutAttemptId: string; idempotencyKey: string; amount: Money; intent: "CAPTURE" }): Promise<ProviderResult<{ orderId: string; status: string }>>;
+  createOrder(input: { checkoutAttemptId: string; idempotencyKey: string; amount: Money; intent: "CAPTURE"; description: string }): Promise<ProviderResult<{ orderId: string; status: string }>>;
   getOrder(orderId: string): Promise<ProviderResult<{ orderId: string; status: string; amount: Money }>>;
   captureOrder(input: { orderId: string; idempotencyKey: string }): Promise<ProviderResult<{ transactionId: string; status: string; amount: Money }>>;
   verifyPayment(input: { orderId: string; transactionId?: string; expectedAmount: Money }): Promise<ProviderResult<{ verified: boolean; status: string }>>;

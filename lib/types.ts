@@ -69,7 +69,7 @@ export type PricingDecision = {
 };
 export type ComparisonResult = { comparison: ComparisonRequest; decision: PricingDecision; evidence: CompetitorEvidence[]; offer?: AuthorizedOffer };
 
-export type CheckoutAttemptStatus = "prepared" | "order_created" | "buyer_approved" | "capture_pending" | "captured" | "failed" | "reconciliation_required" | "reconciled";
+export type CheckoutAttemptStatus = "prepared" | "order_pending" | "order_created" | "buyer_approved" | "capture_pending" | "captured" | "failed" | "reconciliation_required" | "reconciled";
 export type CheckoutAttempt = {
   id: string; offerId: string; merchantId: string; sessionId: string;
   provider: "paypal_sandbox"; idempotencyKey: string; expectedAmount: Money;

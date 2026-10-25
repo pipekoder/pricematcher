@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@channel3/sdk": "^4.5.0",
+    "@paypal/agent-toolkit": "1.11.0",
+    "@paypal/paypal-js": "11.3.0",
     "lucide-react": "^0.468.0",
     "next": "^16.0.0",
     "pg": "^8.23.1",
