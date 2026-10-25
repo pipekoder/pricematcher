@@ -1,18 +1,25 @@
 "use client";
-import { useState } from "react";
+
 import { loadCoreSdkScript } from "@paypal/paypal-js/sdk-v6";
+import { useState } from "react";
+import { invalidatesAuthorizedOffer } from "@/lib/checkout-summary";
 import type { CartItemInput } from "@/lib/types";
+
+class CheckoutApiError extends Error { constructor(message: string, readonly code?: string) { super(message); } }
 
 async function post<T>(url: string, body?: unknown): Promise<T> {
   const response = await fetch(url, { method: "POST", headers: body ? { "content-type": "application/json" } : undefined, body: body ? JSON.stringify(body) : undefined });
-  const value = await response.json(); if (!response.ok) throw new Error(value.error ?? "PayPal Sandbox request failed"); return value as T;
+  const value = await response.json();
+  if (!response.ok) throw new CheckoutApiError(value.error ?? "PayPal Sandbox request failed", value.code);
+  return value as T;
 }
 
-export function PayPalCheckout({ offerId, cart }: { offerId?: string; cart: CartItemInput[] }) {
+export function PayPalCheckout({ offerId, cart, onOfferInvalidated }: { offerId?: string; cart: CartItemInput[]; onOfferInvalidated?: (reason: "expired" | "invalid") => void }) {
   const [state, setState] = useState<"idle"|"loading"|"success"|"failed"|"canceled">("idle");
   const [message, setMessage] = useState("");
   async function pay() {
-    if (!offerId || state === "loading") return; setState("loading"); setMessage("Preparing your authorized checkout…");
+    if (!offerId || state === "loading") return;
+    setState("loading"); setMessage("Preparing your authorized checkout…");
     try {
       const prepared = await post<{ checkoutAttemptId: string }>("/api/checkout/prepare", { offerId, cart });
       const token = await post<{ clientToken: string }>("/api/paypal/client-token");
@@ -26,7 +33,15 @@ export function PayPalCheckout({ offerId, cart }: { offerId?: string; cart: Cart
         onError: () => { setState("failed"); setMessage("PayPal Sandbox could not complete the approval flow."); },
       });
       await session.start({ presentationMode: "popup" }, Promise.resolve({ orderId: order.orderId }));
-    } catch (error) { setState("failed"); setMessage(error instanceof Error ? error.message : "PayPal Sandbox checkout failed"); }
+    } catch (error) {
+      if (error instanceof CheckoutApiError && invalidatesAuthorizedOffer(error.code)) {
+        setState("failed"); setMessage("Your PriceMatcher offer has expired. Run a fresh price comparison to continue.");
+        onOfferInvalidated?.(error.code === "expired" || error.code === "stale_evidence" ? "expired" : "invalid");
+        return;
+      }
+      setState("failed"); setMessage(error instanceof Error ? error.message : "PayPal Sandbox checkout failed");
+    }
   }
+
   return <div className="payment-disabled" aria-live="polite"><strong>PayPal Sandbox checkout</strong><p>{offerId ? "Your accepted server-authorized total is ready. PayPal will ask for explicit buyer approval before capture." : "Accept an eligible PriceMatcher offer to enable PayPal Sandbox."}</p><button className="button primary large" disabled={!offerId || state === "loading" || state === "success"} onClick={pay}>{state === "loading" ? "Opening PayPal Sandbox…" : state === "success" ? "Sandbox payment verified" : "Continue with PayPal Sandbox"}</button>{message && <p role={state === "failed" ? "alert" : "status"}>{message}</p>}<small>Sandbox only · No live payment credentials or real money</small></div>;
 }
