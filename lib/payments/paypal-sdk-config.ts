@@ -1,0 +1,1 @@
+export function getPayPalSandboxSdkConfig(env:Record<string,string|undefined>=process.env){if((env.PAYPAL_ENVIRONMENT??"SANDBOX").toUpperCase()!=="SANDBOX")throw new Error("PriceMatcher only permits PayPal Sandbox");const clientId=env.PAYPAL_CLIENT_ID;if(!clientId)throw new Error("PayPal Sandbox client ID is not configured");return{clientId,environment:"sandbox" as const};}

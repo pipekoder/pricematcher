@@ -3,7 +3,7 @@ import { getProduct } from "../catalog";
 import { defaultPolicy } from "../demo-data";
 import { addMoney, money, multiplyMoney, subtractMoney } from "../money";
 import { evaluatePricing, type PricingClock, systemClock } from "../pricing";
-import type { AuthorizedOffer, CartItemInput, CartSnapshot, ComparisonRequest, CompetitorEvidence, ComparisonResult, MerchantPolicy } from "../types";
+import type { AuthorizedLineAdjustment, AuthorizedOffer, CartComparisonResult, CartItemInput, CartSnapshot, ComparisonRequest, CompetitorEvidence, ComparisonResult, MerchantPolicy, PolicyOutcome } from "../types";
 import { OfferValidationError, type PriceIntelligenceRepository } from "../persistence/repository";
 import { verifyEquivalence, unavailableAiEvaluator, type AiEquivalenceEvaluator } from "./equivalence";
 import type { PriceIntelligenceProvider } from "./provider";
@@ -63,6 +63,41 @@ export class PriceIntelligenceService {
     }
     comparison.status = "completed"; comparison.completedAt = this.clock.now().toISOString(); await this.repo.saveComparison(comparison); return { comparison, decision, evidence, offer };
   }
+  async compareCart(input: { sessionId: string; cart: CartItemInput[] }): Promise<CartComparisonResult> {
+    const snapshot=buildCartSnapshot(input.cart); const checkedAt=this.clock.now(); const results:ComparisonResult[]=[]; const lines:AuthorizedLineAdjustment[]=[];
+    for(const cartLine of snapshot.lines){
+      const product=getProduct(cartLine.productId)!;
+      try{
+        const result=await this.compare({sessionId:input.sessionId,productId:product.id,cart:input.cart}); results.push(result);
+        const verified=result.evidence.find((item)=>item.id===result.decision.evidenceId);
+        const hasPossible=result.evidence.some((item)=>item.productMatch==="probable"||item.productMatch==="uncertain");
+        const missingCommercial=result.evidence.some((item)=>item.productMatch==="exact"&&(item.shipping===null||item.fees===null||item.availability==="unknown"));
+        const status=result.decision.eligible?"VERIFIED_MATCH":missingCommercial?"INSUFFICIENT_DATA":hasPossible?"POSSIBLE_MATCH":"NO_VERIFIED_MATCH";
+        const authorizedUnit=result.decision.eligible?result.decision.approvedUnitPrice:product.price;
+        const originalLineTotal=multiplyMoney(product.price,cartLine.quantity); const finalLineTotal=multiplyMoney(authorizedUnit,cartLine.quantity); const savings=subtractMoney(originalLineTotal,finalLineTotal);
+        let policyOutcome:PolicyOutcome="UNVERIFIED"; if(result.decision.eligible)policyOutcome=(await this.repo.getPolicy(DEMO_MERCHANT_ID))?.pricingStrategy.type==="better_by_fixed_amount"?"BETTER_OFFER":"PRICE_MATCH";else if(result.decision.reasonCode==="already_competitive")policyOutcome="KEEP_ORIGINAL";
+        lines.push({productId:product.id,productName:product.name,variantKey:cartLine.variantKey,quantity:cartLine.quantity,originalUnitPrice:{...product.price},authorizedUnitPrice:{...authorizedUnit},originalLineTotal,finalLineTotal,savings,comparisonStatus:status,policyOutcome,explanation:result.decision.reason,evidence:verified&&structuredClone(verified)});
+      }catch{
+        const total=multiplyMoney(product.price,cartLine.quantity); lines.push({productId:product.id,productName:product.name,variantKey:cartLine.variantKey,quantity:cartLine.quantity,originalUnitPrice:{...product.price},authorizedUnitPrice:{...product.price},originalLineTotal:total,finalLineTotal:{...total},savings:money(0,"USD"),comparisonStatus:"SOURCE_UNAVAILABLE",policyOutcome:"UNVERIFIED",explanation:"The comparison service could not provide a reliable result."});
+      }
+    }
+    for(const result of results)if(result.offer)await this.repo.revokeOffer(result.offer.id,checkedAt,"replaced_by_cart_offer");
+    const discounted=lines.filter((line)=>line.savings.amountMinor>0&&line.evidence); let offer:AuthorizedOffer|undefined;
+    if(discounted.length){
+      const policy=await this.repo.getPolicy(DEMO_MERCHANT_ID); if(!policy)throw new OfferValidationError("policy_unavailable","Merchant policy unavailable");
+      const first=discounted[0]; const firstResult=results.find((result)=>result.comparison.productId===first.productId)!; const discount=addMoney(...lines.map((line)=>line.savings)); const approvedSubtotal=subtractMoney(snapshot.subtotal,discount); const finalTotal=subtractMoney(snapshot.total,discount); const expiresAt=new Date(checkedAt.getTime()+policy.offerTtlSeconds*1000).toISOString();
+      offer={id:randomUUID(),comparisonId:firstResult.comparison.id,merchantId:DEMO_MERCHANT_ID,sessionId:input.sessionId,productId:first.productId,productGtin:getProduct(first.productId)!.gtin,variantKey:first.variantKey,quantity:first.quantity,cartFingerprint:cartFingerprint(input.sessionId,snapshot),originalUnitPrice:{...first.originalUnitPrice},approvedUnitPrice:{...first.authorizedUnitPrice},originalSubtotal:{...snapshot.subtotal},approvedSubtotal,tax:{...snapshot.tax},shipping:{...snapshot.shipping},fees:{...snapshot.fees},finalTotal,currency:"USD",discountAmount:discount,policyId:policy.id,policyVersion:policy.version,evidenceId:first.evidence!.id,evidenceSnapshot:structuredClone(first.evidence!),cartSnapshot:structuredClone(snapshot),createdAt:checkedAt.toISOString(),expiresAt,status:"issued",lineAdjustments:structuredClone(lines)};
+      await this.repo.saveOffer(offer);
+    }
+    return{lines,offer,sourceType:this.provider.sourceType,checkedAt:checkedAt.toISOString()};
+  }
+  async authorizeOriginalCart(input:{sessionId:string;cart:CartItemInput[]}){
+    const now=this.clock.now();const snapshot=buildCartSnapshot(input.cart);let policy=await this.repo.getPolicy(DEMO_MERCHANT_ID);if(!policy){policy=defaultPolicy;await this.repo.savePolicy(policy);}const first=snapshot.lines[0];const product=getProduct(first.productId)!;
+    const comparison:ComparisonRequest={id:randomUUID(),merchantId:DEMO_MERCHANT_ID,sessionId:input.sessionId,productId:first.productId,quantity:first.quantity,cartFingerprint:cartFingerprint(input.sessionId,snapshot),status:"completed",sourceType:"cached",createdAt:now.toISOString(),completedAt:now.toISOString()};await this.repo.saveComparison(comparison);
+    const lines:AuthorizedLineAdjustment[]=snapshot.lines.map((line)=>{const item=getProduct(line.productId)!;return{productId:item.id,productName:item.name,variantKey:line.variantKey,quantity:line.quantity,originalUnitPrice:{...item.price},authorizedUnitPrice:{...item.price},originalLineTotal:{...line.lineTotal},finalLineTotal:{...line.lineTotal},savings:money(0,"USD"),comparisonStatus:"NO_VERIFIED_MATCH",policyOutcome:"KEEP_ORIGINAL",explanation:"Original-price checkout selected by the customer."};});
+    const evidence:CompetitorEvidence={id:randomUUID(),comparisonId:comparison.id,providerProductId:"merchant-catalog",retailer:"PriceMatcher demo merchant",retailerDomain:"localhost",sourceUrl:"https://localhost/",sourceType:"cached",retrievedAt:now.toISOString(),productTitle:product.name,brand:product.brand,model:product.model,gtin:product.gtin,variant:{color:product.variant.color,size:product.variant.size,condition:product.variant.condition},productPrice:{...product.price},shipping:{...snapshot.shipping},fees:{...snapshot.fees},deliveredCostSource:"retailer_api",deliveredCostRetrievedAt:now.toISOString(),availability:"in_stock",sellerVerification:"approved",productMatch:"exact",aiAssisted:false,verificationReasons:["Authoritative merchant catalog snapshot; not competitor evidence"]};
+    const offer:AuthorizedOffer={id:randomUUID(),comparisonId:comparison.id,merchantId:DEMO_MERCHANT_ID,sessionId:input.sessionId,productId:product.id,productGtin:product.gtin,variantKey:first.variantKey,quantity:first.quantity,cartFingerprint:comparison.cartFingerprint,originalUnitPrice:{...product.price},approvedUnitPrice:{...product.price},originalSubtotal:{...snapshot.subtotal},approvedSubtotal:{...snapshot.subtotal},tax:{...snapshot.tax},shipping:{...snapshot.shipping},fees:{...snapshot.fees},finalTotal:{...snapshot.total},currency:"USD",discountAmount:money(0,"USD"),policyId:policy.id,policyVersion:policy.version,evidenceId:evidence.id,evidenceSnapshot:evidence,cartSnapshot:structuredClone(snapshot),createdAt:now.toISOString(),expiresAt:new Date(now.getTime()+policy.offerTtlSeconds*1000).toISOString(),status:"issued",lineAdjustments:lines,authorizationKind:"original"};await this.repo.saveOffer(offer);return this.repo.acceptOffer({offerId:offer.id,sessionId:input.sessionId,cartFingerprint:offer.cartFingerprint,expectedPolicyId:policy.id,expectedPolicyVersion:policy.version,now});
+  }
   async accept(input: { offerId: string; sessionId: string; cart: CartItemInput[] }) {
     const now = this.clock.now(); const existing = await this.repo.getOffer(input.offerId); if (!existing) throw new OfferValidationError("not_found", "Offer not found");
     if (new Date(existing.expiresAt) <= now) throw new OfferValidationError("expired", "Offer has expired; check the price again");
@@ -71,6 +106,17 @@ export class PriceIntelligenceService {
     if (existing.cartFingerprint !== fingerprint) throw new OfferValidationError("cart_changed", "Cart no longer matches the authorized snapshot");
     const product = getProduct(existing.productId); if (!product) throw new OfferValidationError("product_changed", "Product is no longer available");
     const policy = await this.repo.getPolicy(existing.merchantId); if (!policy || policy.id !== existing.policyId || policy.version !== existing.policyVersion) throw new OfferValidationError("policy_changed", "Merchant policy changed; check the price again");
+    if(existing.lineAdjustments){
+      let totalDiscount=money(0,"USD");
+      for(const line of existing.lineAdjustments){
+        const product=getProduct(line.productId);const current=snapshot.lines.find((item)=>item.productId===line.productId);
+        if(!product||!current||current.variantKey!==line.variantKey||current.quantity!==line.quantity)throw new OfferValidationError("cart_changed","Cart no longer matches the authorized snapshot");
+        if(line.savings.amountMinor>0){if(!line.evidence||!evidenceIsFresh(line.evidence,policy,now))throw new OfferValidationError("stale_evidence","Competitor evidence is stale; check the price again");const decision=evaluatePricing(product,[line.evidence],policy);if(!decision.eligible||decision.approvedUnitPrice.amountMinor!==line.authorizedUnitPrice.amountMinor)throw new OfferValidationError("offer_invalid","A cart item no longer satisfies merchant policy");}
+        const expectedOriginal=multiplyMoney(product.price,current.quantity);const expectedFinal=multiplyMoney(line.authorizedUnitPrice,current.quantity);if(expectedOriginal.amountMinor!==line.originalLineTotal.amountMinor||expectedFinal.amountMinor!==line.finalLineTotal.amountMinor)throw new OfferValidationError("totals_changed","Authoritative line totals changed; check the price again");totalDiscount=addMoney(totalDiscount,subtractMoney(expectedOriginal,expectedFinal));
+      }
+      const expectedTotal=subtractMoney(snapshot.total,totalDiscount);if(expectedTotal.amountMinor!==existing.finalTotal.amountMinor||totalDiscount.amountMinor!==existing.discountAmount.amountMinor)throw new OfferValidationError("totals_changed","Authoritative cart total changed; check the price again");
+      return this.repo.acceptOffer({offerId:existing.id,sessionId:input.sessionId,cartFingerprint:fingerprint,expectedPolicyId:policy.id,expectedPolicyVersion:policy.version,now});
+    }
     if (!evidenceIsFresh(existing.evidenceSnapshot, policy, now)) throw new OfferValidationError("stale_evidence", "Competitor evidence is stale; check the price again");
     const decision = evaluatePricing(product, [existing.evidenceSnapshot], policy);
     const target = snapshot.lines.find((line) => line.productId === product.id);

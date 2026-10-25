@@ -59,6 +59,21 @@ export type AuthorizedOffer = {
   cartSnapshot: CartSnapshot;
   createdAt: string; expiresAt: string; status: OfferStatus;
   acceptedAt?: string; consumedAt?: string;
+  lineAdjustments?: AuthorizedLineAdjustment[];
+  authorizationKind?: "matched" | "original";
+};
+
+export type ComparisonStatus = "VERIFIED_MATCH" | "POSSIBLE_MATCH" | "NO_VERIFIED_MATCH" | "INSUFFICIENT_DATA" | "SOURCE_UNAVAILABLE";
+export type PolicyOutcome = "BETTER_OFFER" | "PRICE_MATCH" | "KEEP_ORIGINAL" | "UNVERIFIED";
+export type AuthorizedLineAdjustment = {
+  productId: string; productName: string; variantKey: string; quantity: number;
+  originalUnitPrice: Money; authorizedUnitPrice: Money; originalLineTotal: Money;
+  finalLineTotal: Money; savings: Money; comparisonStatus: ComparisonStatus;
+  policyOutcome: PolicyOutcome; explanation: string; evidence?: CompetitorEvidence;
+};
+export type CartComparisonResult = {
+  lines: AuthorizedLineAdjustment[]; offer?: AuthorizedOffer;
+  sourceType: DataProvenance; checkedAt: string;
 };
 
 export type OfferAcceptance = { id: string; offerId: string; merchantId: string; sessionId: string; acceptedAt: string; cartFingerprint: string };

@@ -10,6 +10,7 @@ describe("PayPal v6 client token", () => {
     expect(fetch.mock.calls.map(([url]) => url)).toEqual(["https://api-m.sandbox.paypal.com/v1/oauth2/token", "https://api-m.sandbox.paypal.com/v1/identity/generate-token"]);
   });
   it("fails closed for Live configuration", async () => {
-    await expect(createPayPalSandboxClientToken({ PAYPAL_ENVIRONMENT: "PRODUCTION", PAYPAL_CLIENT_ID: "id", PAYPAL_CLIENT_SECRET: "secret" })).rejects.toThrow("only permits");
+    await expect(createPayPalSandboxClientToken({ PAYPAL_ENVIRONMENT: "PRODUCTION", PAYPAL_CLIENT_ID: "id", PAYPAL_CLIENT_SECRET: "secret" })).rejects.toMatchObject({code:"paypal_environment_invalid",category:"configuration"});
   });
+  it("distinguishes OAuth authentication from client-token failures without exposing provider details",async()=>{const fetch=vi.fn().mockResolvedValue(new Response(JSON.stringify({error_description:"sensitive provider detail"}),{status:401}));vi.stubGlobal("fetch",fetch);await expect(createPayPalSandboxClientToken({PAYPAL_ENVIRONMENT:"SANDBOX",PAYPAL_CLIENT_ID:"id",PAYPAL_CLIENT_SECRET:"secret"})).rejects.toMatchObject({code:"paypal_oauth_failed",stage:"oauth",category:"authentication",status:401,message:"PayPal Sandbox authentication is unavailable."});});
 });
