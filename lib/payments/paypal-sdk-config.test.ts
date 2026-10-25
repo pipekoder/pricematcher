@@ -1,0 +1,2 @@
+import{describe,expect,it}from"vitest";import{getPayPalSandboxSdkConfig}from"./paypal-sdk-config";
+describe("PayPal v6 public SDK configuration",()=>{it("returns only the browser-safe Sandbox client ID",()=>expect(getPayPalSandboxSdkConfig({PAYPAL_ENVIRONMENT:"SANDBOX",PAYPAL_CLIENT_ID:"public-sandbox-id",PAYPAL_CLIENT_SECRET:"must-not-leak"})).toEqual({clientId:"public-sandbox-id",environment:"sandbox"}));it("fails closed for Live",()=>expect(()=>getPayPalSandboxSdkConfig({PAYPAL_ENVIRONMENT:"LIVE",PAYPAL_CLIENT_ID:"id"})).toThrow("Sandbox"));});

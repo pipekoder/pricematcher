@@ -22,9 +22,9 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated }: { offerId?
     setState("loading"); setMessage("Preparing your authorized checkout…");
     try {
       const prepared = await post<{ checkoutAttemptId: string }>("/api/checkout/prepare", { offerId, cart });
-      const token = await post<{ clientToken: string }>("/api/paypal/client-token");
+      const config = await post<{ clientId: string; environment:"sandbox" }>("/api/paypal/sdk-config");
       const paypal = await loadCoreSdkScript({ environment: "sandbox" }); if (!paypal) throw new Error("PayPal Sandbox SDK could not load");
-      const sdk = await paypal.createInstance({ clientToken: token.clientToken, components: ["paypal-payments"], locale: "en-US", pageType: "checkout" });
+      const sdk = await paypal.createInstance({ clientId: config.clientId, components: ["paypal-payments"], locale: "en-US", pageType: "checkout" });
       const eligibility = await sdk.findEligibleMethods(); if (!eligibility.isEligible("paypal")) throw new Error("PayPal is not eligible for this Sandbox session");
       const order = await post<{ orderId: string }>("/api/paypal/orders", { checkoutAttemptId: prepared.checkoutAttemptId });
       const session = sdk.createPayPalOneTimePaymentSession({
