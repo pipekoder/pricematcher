@@ -1,0 +1,6 @@
+.summary-row.original-total { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 16px; }
+.summary-row.savings { color: var(--green); }
+.summary-row.authorized-total { font-size: 23px; }
+.offer-expired { margin-bottom: 20px; padding: 20px; border: 1px solid #9a5b37; background: #fff3e8; }
+.offer-expired p { color: #68432e; line-height: 1.5; }
+.offer-expired .button { margin-top: 4px; }

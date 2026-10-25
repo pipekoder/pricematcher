@@ -1,19 +1,54 @@
 "use client";
-import { useState } from "react";
+
 import Link from "next/link";
-import { PriceCheck } from "@/components/price-check";
+import { useEffect, useMemo, useState } from "react";
 import { PayPalCheckout } from "@/components/paypal-checkout";
+import { PriceCheck } from "@/components/price-check";
 import { useCart } from "@/components/cart-provider";
+import type { AcceptedOfferSummary } from "@/lib/checkout-summary";
 import { products } from "@/lib/catalog";
 import { formatMoney } from "@/lib/format";
+import "./checkout.css";
 
 export default function CheckoutPage() {
-  const [acceptedOfferId, setAcceptedOfferId] = useState<string>();
+  const [acceptedState, setAcceptedState] = useState<{ offer: AcceptedOfferSummary; cartKey: string }>();
+  const [offerNotice, setOfferNotice] = useState<"expired" | "invalid">();
+  const [comparisonKey, setComparisonKey] = useState(0);
   const { items, count } = useCart();
   const lines = products.filter((product) => items[product.id]);
-  if (!count) return <div className="empty-state"><p className="eyebrow">Checkout</p><h1>Your bag is empty.</h1><p>A price check is only available for a product you choose.</p><Link className="button primary" href="/">Browse products</Link></div>;
+  const cartKey = lines.map((product) => `${product.id}:${items[product.id]}`).join("|");
+  const cart = useMemo(() => lines.map((product) => ({ productId: product.id, variantKey: [product.sku, product.variant.color, product.variant.size ?? "", product.variant.condition].join(":"), quantity: items[product.id] })), [cartKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const subtotal = lines.reduce((sum, product) => sum + product.price.amountMinor * items[product.id], 0);
-  const shipping = subtotal >= 7500 ? 0 : 590; const tax = 0; const total = subtotal + shipping + tax;
-  const cart=lines.map((product) => ({ productId: product.id, variantKey: [product.sku, product.variant.color, product.variant.size ?? "", product.variant.condition].join(":"), quantity: items[product.id] }));
-  return <div className="page-shell"><div className="breadcrumb">Bag / Checkout</div><h1 className="page-title">Checkout</h1><div className="checkout-layout"><section className="checkout-main"><PriceCheck productId={lines[0].id} cart={cart} onAccepted={setAcceptedOfferId} /><div className="trust-note"><strong>Prefer the original price?</strong><br />Comparison is optional. You can continue without checking or accepting an offer.</div><PayPalCheckout offerId={acceptedOfferId} cart={cart} /></section><aside className="summary"><h2>Order summary</h2>{lines.map((product) => <div className="summary-row" key={product.id}><span>{items[product.id]} × {product.name}</span><span>{formatMoney({ amountMinor: product.price.amountMinor * items[product.id], currency: "USD" })}</span></div>)}<div className="summary-row"><span>Shipping</span><span>{shipping ? formatMoney({ amountMinor: shipping, currency: "USD" }) : "Free"}</span></div><div className="summary-row"><span>Tax</span><span>{formatMoney({ amountMinor: tax, currency: "USD" })}</span></div><div className="summary-row total"><strong>Original total</strong><strong>{formatMoney({ amountMinor: total, currency: "USD" })}</strong></div><p className="subhead">All amounts are USD. Fixture comparison data is demo-only; any payment action is restricted to PayPal Sandbox.</p></aside></div></div>;
+  const shipping = subtotal >= 7500 ? 0 : 590;
+  const tax = 0;
+  const originalTotal = subtotal + shipping + tax;
+
+  const acceptedOffer = acceptedState?.cartKey === cartKey ? acceptedState.offer : undefined;
+  const visibleNotice = offerNotice ?? (acceptedState && !acceptedOffer ? "invalid" : undefined);
+  useEffect(() => {
+    if (!acceptedOffer) return;
+    const delay = Math.max(0, new Date(acceptedOffer.expiresAt).getTime() - Date.now());
+    const timer = window.setTimeout(() => { setAcceptedState(undefined); setOfferNotice("expired"); setComparisonKey((key) => key + 1); }, delay);
+    return () => window.clearTimeout(timer);
+  }, [acceptedOffer]);
+  function acceptOffer(offer?: AcceptedOfferSummary) { setAcceptedState(offer ? { offer, cartKey } : undefined); setOfferNotice(undefined); }
+  function invalidateOffer(reason: "expired" | "invalid") { setAcceptedState(undefined); setOfferNotice(reason); setComparisonKey((key) => key + 1); }
+
+  if (!count) return <div className="empty-state"><p className="eyebrow">Checkout</p><h1>Your bag is empty.</h1><p>A price check is only available for a product you choose.</p><Link className="button primary" href="/">Browse products</Link></div>;
+
+  return <div className="page-shell"><div className="breadcrumb">Bag / Checkout</div><h1 className="page-title">Checkout</h1><div className="checkout-layout"><section className="checkout-main">
+    {visibleNotice && <div className="offer-expired" role="alert"><strong>{visibleNotice === "expired" ? "Your PriceMatcher offer has expired." : "Your PriceMatcher offer is no longer valid."}</strong><p>{visibleNotice === "expired" ? "A fresh comparison is required before checkout." : "Your cart or authorized offer changed. Check the price again to continue."}</p><button className="button primary" onClick={() => { setAcceptedState(undefined); setOfferNotice(undefined); setComparisonKey((key) => key + 1); }}>Check price again</button></div>}
+    <PriceCheck key={`${comparisonKey}:${cartKey}`} productId={lines[0].id} cart={cart} onAccepted={acceptOffer} />
+    <div className="trust-note"><strong>Prefer the original price?</strong><br />Comparison is optional. You can continue without checking or accepting an offer.</div>
+    <PayPalCheckout key={`${acceptedOffer?.offerId ?? "none"}:${cartKey}`} offerId={acceptedOffer?.offerId} cart={cart} onOfferInvalidated={invalidateOffer} />
+  </section><aside className="summary"><h2>Order summary</h2>
+    {lines.map((product) => <div className="summary-row" key={product.id}><span>{items[product.id]} × {product.name}</span><span>{formatMoney({ amountMinor: product.price.amountMinor * items[product.id], currency: "USD" })}</span></div>)}
+    <div className="summary-row"><span>Original subtotal</span><span>{formatMoney(acceptedOffer?.originalSubtotal ?? { amountMinor: subtotal, currency: "USD" })}</span></div>
+    <div className="summary-row"><span>Shipping</span><span>{(acceptedOffer?.shipping.amountMinor ?? shipping) ? formatMoney(acceptedOffer?.shipping ?? { amountMinor: shipping, currency: "USD" }) : "Free"}</span></div>
+    <div className="summary-row"><span>Tax</span><span>{formatMoney(acceptedOffer?.tax ?? { amountMinor: tax, currency: "USD" })}</span></div>
+    {acceptedOffer && <><div className="summary-row original-total"><span>Original total</span><span>{formatMoney(acceptedOffer.originalTotal)}</span></div><div className="summary-row savings"><strong>PriceMatcher savings</strong><strong>−{formatMoney(acceptedOffer.savings)}</strong></div><div className="summary-row total authorized-total"><strong>Total to pay</strong><strong>{formatMoney(acceptedOffer.totalToPay)}</strong></div></>}
+    {!acceptedOffer && <div className="summary-row total"><strong>Original total</strong><strong>{formatMoney({ amountMinor: originalTotal, currency: "USD" })}</strong></div>}
+    <p className="subhead">All amounts are USD. Fixture comparison data is demo-only; any payment action is restricted to PayPal Sandbox.</p>
+  </aside></div></div>;
 }
