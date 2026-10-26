@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
 import { getProduct } from "../catalog";
+import { virtualSkus } from "../footwear/operations";
 import { defaultPolicy } from "../demo-data";
 import { addMoney, money, multiplyMoney, subtractMoney } from "../money";
 import { evaluatePricing, type PricingClock, systemClock } from "../pricing";
@@ -9,7 +10,7 @@ import { verifyEquivalence, unavailableAiEvaluator, type AiEquivalenceEvaluator 
 import type { PriceIntelligenceProvider } from "./provider";
 
 export const DEMO_MERCHANT_ID = "north-01";
-export const productVariantKey = (product: NonNullable<ReturnType<typeof getProduct>>) => `${product.sku}:${product.variant.color}:${product.variant.size ?? ""}:${product.variant.condition}`;
+export const productVariantKey = (product: NonNullable<ReturnType<typeof getProduct>>, size?: number) => `${product.sku}:${product.variant.color}:${size ? `EU${size}` : product.variant.size ?? ""}:${product.variant.condition}`;
 
 export function buildCartSnapshot(items: CartItemInput[]): CartSnapshot {
   if (!items.length) throw new OfferValidationError("invalid_cart", "Cart cannot be empty");
@@ -17,11 +18,16 @@ export function buildCartSnapshot(items: CartItemInput[]): CartSnapshot {
   for (const item of items) {
     if (!Number.isSafeInteger(item.quantity) || item.quantity < 1 || item.quantity > 9) throw new OfferValidationError("invalid_cart", "Invalid quantity");
     const product = getProduct(item.productId);
-    if (!product || item.variantKey !== productVariantKey(product)) throw new OfferValidationError("invalid_cart", "Unknown product or variant");
-    if (merged.has(item.productId)) throw new OfferValidationError("invalid_cart", "Duplicate cart line");
-    merged.set(item.productId, item);
+    if (!product) throw new OfferValidationError("invalid_cart", "Unknown product or variant");
+    if (product.id.startsWith("footwear-")) {
+      const sku = virtualSkus.find((entry) => entry.productId === product.id && item.variantKey === productVariantKey(product, entry.size));
+      if (!sku || sku.stock < item.quantity) throw new OfferValidationError("invalid_cart", "Unknown, sold-out, or insufficiently stocked shoe size");
+    } else if (item.variantKey !== productVariantKey(product)) throw new OfferValidationError("invalid_cart", "Unknown product or variant");
+    const key = `${item.productId}:${item.variantKey}`;
+    if (merged.has(key)) throw new OfferValidationError("invalid_cart", "Duplicate cart line");
+    merged.set(key, item);
   }
-  const lines = [...merged.values()].sort((a, b) => a.productId.localeCompare(b.productId)).map((item) => {
+  const lines = [...merged.values()].sort((a, b) => `${a.productId}:${a.variantKey}`.localeCompare(`${b.productId}:${b.variantKey}`)).map((item) => {
     const product = getProduct(item.productId)!;
     return { ...item, unitPrice: { ...product.price }, lineTotal: multiplyMoney(product.price, item.quantity) };
   });
@@ -109,7 +115,7 @@ export class PriceIntelligenceService {
     if(existing.lineAdjustments){
       let totalDiscount=money(0,"USD");
       for(const line of existing.lineAdjustments){
-        const product=getProduct(line.productId);const current=snapshot.lines.find((item)=>item.productId===line.productId);
+        const product=getProduct(line.productId);const current=snapshot.lines.find((item)=>item.productId===line.productId&&item.variantKey===line.variantKey);
         if(!product||!current||current.variantKey!==line.variantKey||current.quantity!==line.quantity)throw new OfferValidationError("cart_changed","Cart no longer matches the authorized snapshot");
         if(line.savings.amountMinor>0){if(!line.evidence||!evidenceIsFresh(line.evidence,policy,now))throw new OfferValidationError("stale_evidence","Competitor evidence is stale; check the price again");const decision=evaluatePricing(product,[line.evidence],policy);if(!decision.eligible||decision.approvedUnitPrice.amountMinor!==line.authorizedUnitPrice.amountMinor)throw new OfferValidationError("offer_invalid","A cart item no longer satisfies merchant policy");}
         const expectedOriginal=multiplyMoney(product.price,current.quantity);const expectedFinal=multiplyMoney(line.authorizedUnitPrice,current.quantity);if(expectedOriginal.amountMinor!==line.originalLineTotal.amountMinor||expectedFinal.amountMinor!==line.finalLineTotal.amountMinor)throw new OfferValidationError("totals_changed","Authoritative line totals changed; check the price again");totalDiscount=addMoney(totalDiscount,subtractMoney(expectedOriginal,expectedFinal));

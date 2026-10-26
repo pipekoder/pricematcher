@@ -1,0 +1,3855 @@
+{
+  "budget": 30,
+  "scope": "PR #12 footwear discovery only",
+  "requests": [
+    {
+      "number": 1,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "PUMA Voyage Nitro trail running shoes",
+      "requestedAt": "2026-10-26T12:27:56.684Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:27:58.960Z",
+        "products": [
+          {
+            "id": "TD4URPv",
+            "title": "Men's Puma Voyage Nitro Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "The PUMA Voyage Nitro Trail Running Shoes are designed for long-distance trail runs, featuring a high stack of premium NITRO cushioning for superior responsiveness and a lightweight feel. The shoes are built with a grippy PUMAGRIP ATR rubber outsole for durability on challenging terrains, and a wider upper reinforced with PWRTAPE for enhanced support. Additional functional features include forefoot drain ports to shed water and a design that supports runners with a neutral foot strike. The upper is constructed from at least 20% recycled materials, aligning with PUMA's 'Forever Better' sustainability commitment.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/3de4a167-073a-4585-a2be-0016723842f1?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/edd47e38-b293-435c-98d1-421399bbb56f?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/5ed22d74-ab2e-414e-882d-43980da4f982?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/025508d1-7296-440a-8b65-8fa27ee4dfba?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/2c31c126-5a84-44eb-bdc7-b691bc731f53?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a4665eb4-ab69-4980-aaef-4d4ab7309095?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/446f49ce-5f59-4c10-9639-7ea9ae307a36?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/baaf26d0-01b0-4b55-ace5-f2c0c1b29c62?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=fsxO"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "pattern": [
+                "Color-block"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "heel-height-type": [
+                "Low"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "insole-material": [
+                "Ethylene vinyl acetate (EVA)"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Polyester",
+                "Ethylene vinyl acetate (EVA)",
+                "Rubber"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "upper-material": [
+                "Mesh"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "shoe-features": [
+                "Lightweight",
+                "Recycled materials"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "zappos.com",
+                "url": "https://buy.trychannel3.com/TD4URPv-fsxO-5NDeHv?o=01M4K1PV5XGFER7DDTVX6RYC1Q&aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W",
+                "price": {
+                  "price": 112,
+                  "compare_at_price": 160,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "wmJLHiy",
+            "title": "Voyage Nitro™ 4 Men's Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "Hit the trails with confidence in the Voyage NITRO™ 4 Men's Trail Running Shoes. Designed for adventure, these shoes feature a breathable mesh upper with PWRTAPE reinforcement for a secure, locked-in feel. The NITROFOAM™ midsole provides exceptional cushioning and energy return, making long runs more comfortable. With a durable PUMAGRIP ATR outsole, you'll get superior traction on any terrain, from steep climbs to unpredictable conditions. Built for neutral pronators with a 6mm heel-to-toe drop.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/2ef3000d-c636-415c-8f6b-a465d0a748e3?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/e0197926-a929-436f-9edf-b869128a4e66?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/2acca063-a795-4413-81f0-566193f08771?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/5afd88cb-1ba4-42db-9b7b-fbcdec8161b4?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4b7d10e2-43d2-4dcf-a36d-94037b885f76?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cfd2f815-8359-41d5-9550-b5a0cca2365b?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "PUMA Black-PUMA Silver"
+              }
+            ],
+            "attributes": {
+              "activity": [
+                "Running",
+                "Hiking",
+                "Track & field"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Recycled materials"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Rubber",
+                "Synthetic",
+                "Textile"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "pattern": [
+                "Solid"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "shoebacca.com",
+                "url": "https://buy.trychannel3.com/wmJLHiy-lGBj-5NDeHv?o=01M3C5T5TN4KZ1MW2AR0B3VSPV&aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W",
+                "price": {
+                  "price": 159.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "us.puma.com",
+                "url": "https://buy.trychannel3.com/wmJLHiy-hqaF-5NDeHv?o=01KPF0V9H5NG0VW9CRXW6H6V04&aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W",
+                "price": {
+                  "price": 160,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/wmJLHiy-hHvi-5NDeHv?o=01M2V5TQB9VV8123E2WCDHMCFW&aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W",
+                "price": {
+                  "price": 291.33,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "WEwaAT5",
+            "title": "Voyage NITRO 4 Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "Conquer any trail with the PUMA Voyage NITRO 4. These trail running shoes feature a breathable, structured upper with PWRTAPE for a secure fit and a NITROFOAM midsole for superior cushioning and protection. The PUMAGRIP ATR rubber outsole offers reliable multi-directional traction on ascents and varied terrain. Designed for long-distance comfort and support.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/19af4da7-8830-406b-8717-687fd5f70513?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Textile",
+                "Synthetic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "shoebacca.com",
+                "url": "https://buy.trychannel3.com/WEwaAT5-lGBj-5NDeHv?o=01KW24GN2NHEPQX603CFKWSKGC&aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W",
+                "price": {
+                  "price": 159.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "Ho674JQ",
+            "title": "Voyage NITRO 4 Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "These Puma Voyage NITRO 4 trail running shoes are designed for comfort and performance on any terrain. They feature a breathable mesh upper with PWRTAPE reinforcement for a secure fit, and a NITROFOAM midsole for exceptional cushioning and protection on long runs. The PUMAGRIP ATR rubber outsole provides reliable multi-directional traction, making them ideal for steep ascents and varied trail conditions.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/96d5f8a3-620f-466b-b268-5d2ee6be8205?aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W&mid=lGBj"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "upper-material": [
+                "Synthetic",
+                "Knit"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Recycled materials",
+                "Lightweight"
+              ],
+              "footwear-material": [
+                "Synthetic",
+                "Textile",
+                "Rubber",
+                "Polyester"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "activity": [
+                "Running",
+                "Walking"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "shoebacca.com",
+                "url": "https://buy.trychannel3.com/Ho674JQ-lGBj-5NDeHv?o=01KW4H2NVJTK6Y62S6RD9QYN67&aid=01M5W2X1QSZ1E8TCQYNY6Q0Z3W",
+                "price": {
+                  "price": 159.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 2,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "New Balance Fresh Foam Hierro trail shoes",
+      "requestedAt": "2026-10-26T12:28:15.111Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:28:17.570Z",
+        "products": [
+          {
+            "id": "UkSfHvK",
+            "title": "Fresh Foam Hierro v8 Trail Running Shoes",
+            "brands": [
+              "New Balance"
+            ],
+            "description": "The New Balance Fresh Foam Hierro v8 is a high-cushion trail running shoe designed for off-road adventures and road-to-trail versatility. It features a tall stack of responsive Fresh Foam X cushioning for smooth comfort over long distances and a durable Vibram® Micro-Traction Lug outsole, which includes Eco-Step Natural compound made with over 90% petroleum-free ingredients, ensuring confident grip on varied wet or dry terrain. The lightweight upper provides breathable yet protected coverage suitable for rugged conditions.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/2c774b66-042a-468a-aeea-5fa11c10d6e7?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f7df0ffc-41ac-49f1-8fee-22c5bccc0c19?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1044d293-3cc4-4b98-854b-a17719f92282?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c79b8e72-2145-4099-8ba8-f108102c898f?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cba7343a-01ea-4237-b4b5-4b0dcdaebe16?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/98d4caa7-b0f6-4cac-b4c3-fb61cd9b49f1?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-material": [
+                "Faux fur",
+                "Polyester"
+              ],
+              "compatible-playing-surface": [
+                "Artificial grass",
+                "Multi-surface",
+                "Natural grass",
+                "Soft ground",
+                "Turf"
+              ],
+              "activity": [
+                "Hiking",
+                "Running",
+                "Walking",
+                "Handball"
+              ],
+              "upper-material": [
+                "Mesh"
+              ],
+              "sole-construction": [
+                "Split sole"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-cut": [
+                "Mid cut"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ],
+              "occasion-style": [
+                "Casual"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/UkSfHvK-hHvi-5NDeHv?o=01KBPD343GKFGJAVRVTPC74XXP&aid=01M5W2XKNE1MFP8EPC8SXDBZXJ",
+                "price": {
+                  "price": 102.96,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "5C9PoHR",
+            "title": "Fresh Foam Hierro v9 Trail Run Shoe",
+            "brands": [
+              "New Balance"
+            ],
+            "description": "The New Balance Fresh Foam Hierro v9 is a high-cushion trail running shoe designed for comfort and performance across varied and rugged terrain. It features a dual-density Fresh Foam X midsole, providing plush impact absorption without sacrificing responsiveness. Traction is delivered by the durable Vibram Megagrip outsole, equipped with micro-traction lugs for reliable grip on dirt, rock, and mud. The upper is constructed from engineered mesh for breathability, reinforced with Toe Protect technology to guard against trail hazards. This specific pair is in good, previously owned condition with minor sole dirt but plenty of life remaining.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/442a5f59-7a6d-4e50-a319-6517313f1da3?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=JOor"
+              },
+              {
+                "url": "https://geartrade.com/cdn/shop/files/5535651368a9996b84539.webp?v=1761235497&width=1406"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-material": [
+                "Mesh"
+              ],
+              "footwear-support-type": [
+                "Max cushion"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "upper-material": [
+                "Mesh"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "occasion-style": [
+                "Casual"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "geartrade.com",
+                "url": "https://buy.trychannel3.com/5C9PoHR-JOor-5NDeHv?o=01KBP7RY1PM59R8X63F6BATVH2&aid=01M5W2XKNE1MFP8EPC8SXDBZXJ",
+                "price": {
+                  "price": 93.64,
+                  "compare_at_price": 154.95,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "GjUeyvW",
+            "title": "Fresh Foam Hierro v9 Trail Run Shoe",
+            "brands": [
+              "New Balance"
+            ],
+            "description": "The New Balance Fresh Foam Hierro v9 is a high-performance trail running shoe engineered for tackling rugged and technical terrain while prioritizing comfort. It features a plush Fresh Foam X midsole that delivers soft, responsive cushioning for long-distance support. Traction is managed by a durable Vibram Megagrip outsole, ensuring reliable grip on diverse surfaces like dirt, rock, and mud. The upper is constructed from breathable engineered mesh to maintain ventilation, complemented by a Toe Protect overlay for safeguarding against trail debris. This model is noted for balancing maximum cushioning with a 4mm heel-to-toe drop, making it suitable for varied trail adventures.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/3eead0da-870b-492c-bf19-972b606a29ae?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=JOor"
+              },
+              {
+                "url": "https://geartrade.com/cdn/shop/files/60492228468aedf913098a.webp?v=1761235655&width=1406"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Nylon",
+                "Textile",
+                "Mesh"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "activity": [
+                "Running",
+                "Walking"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "pattern": [
+                "Solid"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "geartrade.com",
+                "url": "https://buy.trychannel3.com/GjUeyvW-JOor-5NDeHv?o=01KBP9EHGB7EVB9C14SDDYJDGB&aid=01M5W2XKNE1MFP8EPC8SXDBZXJ",
+                "price": {
+                  "price": 105.78,
+                  "compare_at_price": 154.95,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "67KJMEr",
+            "title": "Men's Fresh Foam X Hierro v9 Trail Running Shoes",
+            "brands": [
+              "New Balance"
+            ],
+            "description": "The New Balance Men's Fresh Foam X Hierro v9 is a high-performance trail running shoe designed for durability and comfort on rugged terrain. It features a breathable mesh and synthetic upper with printed overlays for enhanced durability and a gusseted tongue to keep debris out. The Fresh Foam X midsole provides superior cushioning, while the Vibram® Megagrip lugged outsole with 6mm lugs ensures exceptional traction. Additionally, integrated Toe Protect technology shields the feet from rocks, roots, and debris, making it ideal for both trail running and all-day wear.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/7ecfc342-3a4e-4a94-9f04-f5537c4b9f11?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9b040284-ddc8-448a-abb8-dac399ad28b1?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/09c141cb-25fb-4850-82e6-b766bf23a7f7?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/25ff1067-69f7-4789-b7cf-7c6e786c83da?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ad73e658-0b90-4974-a4f9-bc2b97bcbbc7?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/15df57de-251b-4f66-9884-cec6df4f3afe?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=fdOw"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "closure-type": [
+                "Lace-up"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "activity": [
+                "Running",
+                "Hiking"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "dickssportinggoods.com",
+                "url": "https://buy.trychannel3.com/67KJMEr-fdOw-5NDeHv?o=01M3HSTEMR7H4PCEBRSCFYQVCS&aid=01M5W2XKNE1MFP8EPC8SXDBZXJ",
+                "price": {
+                  "price": 159.99,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "N9hgNeQ",
+            "title": "Fresh Foam X Hierro",
+            "brands": [
+              "New Balance"
+            ],
+            "description": "The Fresh Foam X Hierro Trail Running Shoes are engineered for trail running and all‑day wear. They feature a Vibram® Megagrip™ outsole with Traction Lug™ technology for superior grip on wet, dry, rocky, or rugged terrain, and Fresh Foam X cushioning for responsive comfort. Available in several soft‑tint colors and a range of sizes, these shoes are designed to be lightweight, durable, and water‑resistant with a 4 mm heel‑to‑toe drop. Sold at an outlet price of $77.99 (originally $155).",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/d4cfb967-c1d7-489d-b5f0-34512f408dc7?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=bcQt"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/5217caad-dfa8-4567-90c3-31385752f9d0?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=bcQt"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/3c2145b1-fb11-4cb9-b6bd-e2735c90b489?aid=01M5W2XKNE1MFP8EPC8SXDBZXJ&mid=bcQt"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-material": [
+                "Textile"
+              ],
+              "insole-material": [
+                "Ethylene vinyl acetate (EVA)"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "upper-material": [
+                "Mesh"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "shoe-features": [
+                "Lightweight",
+                "Breathable design",
+                "Cushioned"
+              ],
+              "activity": [
+                "Running",
+                "Walking"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "footwear-support-type": [
+                "Max cushion"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "titlenine.com",
+                "url": "https://buy.trychannel3.com/N9hgNeQ-bcQt-5NDeHv?o=01KH761YAX2XKF7HB2WWCMDFG2&aid=01M5W2XKNE1MFP8EPC8SXDBZXJ",
+                "price": {
+                  "price": 77.99,
+                  "compare_at_price": 155,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "geartrade.com",
+                "url": "https://buy.trychannel3.com/N9hgNeQ-JOor-5NDeHv?o=01KBPCG44GF9QWZ93PDRNVJBBN&aid=01M5W2XKNE1MFP8EPC8SXDBZXJ",
+                "price": {
+                  "price": 93.98,
+                  "compare_at_price": 154.95,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 3,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "Reebok Floatride Energy 5 Adventure",
+      "requestedAt": "2026-10-26T12:28:25.547Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:28:29.444Z",
+        "products": [
+          {
+            "id": "1Vzvoh1",
+            "title": "Reebok Men's Floatride Energy 5 Adventure Sneakers",
+            "brands": [
+              "Reebok"
+            ],
+            "description": "A performance-oriented sneaker featuring a breathable upper with a layered design, stability via a chunky midsole, and rugged outsole for trail-ready grip. The colorway shown is a Stucco/Gro/Citglo palette with light green accents, suitable for men. Weight is 1.0 lb; listed price indicates current value in USD with a sale price aligned to regular pricing. Product appears to be marketed as a rugged lifestyle/trail sneaker with Floatride cushioning for comfort.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/12926f5c-95be-4428-ba43-e85b998cda87?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c28f16b8-1146-4c56-a5e3-61e88c27b5a0?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/7f94a23e-ac33-4d5f-bf23-a372bf06392c?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/dc586337-6b02-4e30-9255-08465118dbfa?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/90b4e3a6-0f6c-4689-b3f9-d6c4804135a5?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/fcbfe97b-4788-4bc1-8ee6-53f2aff0a274?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/36e7e9cb-a652-4028-9c91-9d760a8a3137?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight",
+                "Breathable design"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "pattern": [
+                "Organic",
+                "Solid"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "activity": [
+                "Running",
+                "Walking",
+                "Hiking"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-material": [
+                "Nylon",
+                "Textile",
+                "Synthetic"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "stadiumgoods.com",
+                "url": "https://buy.trychannel3.com/1Vzvoh1-wscm-5NDeHv?o=01M363MT9DXS3V4N37AFDA9CTB&aid=01M5W2XXXAGWHD011RC97SQ2YZ",
+                "price": {
+                  "price": 93,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "sBVWNc6",
+            "title": "Floatride Energy 5 Adventure",
+            "brands": [
+              "Reebok"
+            ],
+            "description": "This is the Reebok Floatride Energy 5 Adventure athletic sneaker in a black and grey colorway. It features a low-cut profile, laced closure for a secure fit, and a mesh and synthetic upper construction. The shoe is designed with a midsole featuring a textured tread pattern for enhanced grip, and includes a pull tab at the heel for easy wear. It is intended for adult use.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/1aa8a3ec-b5b4-48af-ab11-070ba20fee69?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cd0c1d77-1e57-4f65-af70-73e0aa78f8b1?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/04fe6bb6-40a5-4ca6-9999-72bf4df6cd50?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/52b9c630-9ea4-44fd-979b-4ddb65d701e9?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c227dc83-06f8-4e50-9eaf-59286f4bd0ad?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "activity": [
+                "Running",
+                "Walking"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-material": [
+                "Polyester"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/sBVWNc6-hHvi-5NDeHv?o=01KBPA8P328BKJE91GY24YRGAQ&aid=01M5W2XXXAGWHD011RC97SQ2YZ",
+                "price": {
+                  "price": 97.11,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "tdum6qZ",
+            "title": "Floatride Energy 5 Adventure Sneakers",
+            "brands": [
+              "Reebok"
+            ],
+            "description": "Durable and stylish Reebok Floatride Energy 5 Adventure sneakers designed for outdoor exploration. These low-top trainers feature a rugged, chunky white sole for superior cushioning and traction, paired with a textured upper in a deep burgundy/red hue with black accents. The lace-up closure ensures a secure fit, while the CORDURA branding suggests enhanced durability for varied terrains.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/5b2e68b5-2c75-4e0d-a559-dcdc5e0fd118?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=NuBr"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "footwear-material": [
+                "Textile"
+              ],
+              "pattern": [
+                "Texture"
+              ],
+              "sneaker-style": [
+                "Low-top"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "activity": [
+                "Universal"
+              ],
+              "shoe-features": [
+                "Cushioned"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "farfetch.com",
+                "url": "https://buy.trychannel3.com/tdum6qZ-NuBr-5NDeHv?o=01KBRA84JQ5FTDF1KNFTYZ08QE&aid=01M5W2XXXAGWHD011RC97SQ2YZ",
+                "price": {
+                  "price": 101,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "WKcbW94",
+            "title": "Reebok Women's Floatride Energy 5 Adventure Sneakers",
+            "brands": [
+              "Reebok"
+            ],
+            "description": "Product description: A women's trail-running sneaker featuring Floatride midsole for comfort, rugged outsole for traction, and a burgundy/red upper with supportive overlays. Designed for outdoor adventures with durable materials and secure lace system. The colorway appears as Sedros/Clamar/Gro, with a white midsole and dark outsole. Gender: Women. Style code 100025745/HQ9061.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/b667c9d7-8c86-436e-bdf3-62ce591a20d9?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/81a5860b-ac2c-4af6-adc4-36350203613a?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/2495be9c-0b8a-481f-afc0-9d91d98d5b35?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6522f5e6-f7af-43a0-89b1-37a24dcb87f9?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0c76f8cd-0995-458d-a5a4-7d682ab03465?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=ak4n"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "footwear-material": [
+                "Polyester",
+                "Rubber",
+                "Textile"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-features": [
+                "Cushioned"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "activity": [
+                "Training",
+                "Running",
+                "Walking"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "pattern": [
+                "Solid"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "zulily.com",
+                "url": "https://buy.trychannel3.com/WKcbW94-ak4n-5NDeHv?o=01KHNRA0MPKB65FW54NKBJME7K&aid=01M5W2XXXAGWHD011RC97SQ2YZ",
+                "price": {
+                  "price": 85.99,
+                  "compare_at_price": 127.49,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "stadiumgoods.com",
+                "url": "https://buy.trychannel3.com/WKcbW94-wscm-5NDeHv?o=01M35YMJGFVNAYTP4HBHM6GJN0&aid=01M5W2XXXAGWHD011RC97SQ2YZ",
+                "price": {
+                  "price": 101,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "eUu8WC2",
+            "title": "Reebok Floatride Energy 5 Adventure 'Coubro Gro'",
+            "brands": [
+              "Reebok"
+            ],
+            "description": "The Reebok Floatride Energy 5 Adventure 'Coubro Gro' is a performance running shoe designed for versatility. It features an orange and brown mesh upper with strategic layered overlays for durability, complemented by black and dark brown accents. The shoe is built with a thick, cushioned white sole for enhanced comfort during athletic activities.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/7447066e-4f94-426c-a9a8-9ba88446fb9a?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/acbc78f6-8f5f-46c2-982d-a4d2e2435cbd?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a9491c35-6fbc-4906-bc12-92080b272d27?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/121be9db-3085-4831-9bfd-2383d1a6d0c7?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/78d7564a-6f1c-4dc0-ad15-978601510eb4?aid=01M5W2XXXAGWHD011RC97SQ2YZ&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {},
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/eUu8WC2-hHvi-5NDeHv?o=01M2VCWA5D56NQ0Q1QWFTD5BNN&aid=01M5W2XXXAGWHD011RC97SQ2YZ",
+                "price": {
+                  "price": 70.2,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "ASICS GEL-Trabuco trail running shoes",
+      "requestedAt": "2026-10-26T12:28:48.126Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:28:49.935Z",
+        "products": [
+          {
+            "id": "RkeTDT2",
+            "title": "ASICS Gel-Trabuco 13 Black Cream",
+            "brands": [
+              "ASICS"
+            ],
+            "description": "Athletic trail running sneakers featuring a dark black upper with olive accents, bold side Stripes branding, and a rugged, trail-ready outsole. The Gel-Trabuco 13 is designed for grip and stability on uneven terrain, with FF Blast+ cushioning for responsive comfort. Ideal for trail runners seeking durable construction with a grippy tread and supportive midfoot cage. Available in UK sizing with multiple colorways, including Black/Cream.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/b0e58f15-6fc3-4805-9549-187a8a62317c?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/53e44e99-3d5e-4d4c-bb5a-4a6ff0fbb69c?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9b7cd627-b973-4eae-bd97-0e6b20fdb24a?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ca0bda5d-e983-42b9-88ad-bc0648857933?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/3794bdd7-1c67-4c9c-b508-d3c0602f6b8d?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0508916c-2cbe-4b87-b7c2-f3955dd3cf7f?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b5161a0d-2a96-434f-933f-ad985f06b3c2?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/284c26e7-c923-433f-90a8-14dab7645d2d?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/59b2f4f6-f9c0-4e94-b9d4-f0d3d03af543?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ace8c8d6-855e-4973-867f-8f185ace5fdf?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/dbd41c50-98f0-41c3-9f19-32660f4e3591?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0f13d72e-67c6-47ec-9cea-bb676001a804?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/14b9cc5a-3fd3-42fe-b6d4-e935ce29cb26?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid",
+                "Geometric"
+              ],
+              "activity": [
+                "Running",
+                "Hiking"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "heel-height-type": [
+                "Flat",
+                "Low"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight",
+                "Vegan friendly"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "stockx.com",
+                "url": "https://buy.trychannel3.com/RkeTDT2-fFUX-5NDeHv?o=01M290WM4ZPEHRJ88NCDHZBPSG&aid=01M5W2YKVN29B1W7PYRN4VTYP4",
+                "price": {
+                  "price": 140,
+                  "compare_at_price": 194,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "MUA3lfn",
+            "title": "ASICS Gel-Trabuco 12 Feather Grey Dark Mint Men's",
+            "brands": [
+              "ASICS"
+            ],
+            "description": "The ASICS Gel-Trabuco 12 is a high-performance men's trail running shoe featuring a Feather Grey and Dark Mint colorway. Designed for durability and comfort on rugged terrain, it incorporates a breathable mesh upper, a supportive sole with FF Blast cushioning for impact absorption, and a bright orange high-traction outsole. The design is completed with subtle orange accents and the signature ASICS stripe detailing.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/b25a8b56-e3c2-44dd-8749-3c24a27b969b?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ddbf4268-8524-4a77-afe3-bb69cf789600?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0b04e9db-0a84-4b57-bddd-85334b93e379?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f7742741-6751-466c-a44d-04ab05190c7d?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/bf153e8d-fcdd-45c5-acd0-a53c6a9b92e1?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "footwear-material": [
+                "Mesh"
+              ],
+              "sneaker-style": [
+                "Athletic",
+                "Low-top"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid",
+                "Geometric"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Knit"
+              ],
+              "shoe-features": [
+                "Lightweight",
+                "Cushioned"
+              ],
+              "closure-type": [
+                "Lace-up",
+                "Straps"
+              ],
+              "activity": [
+                "Running",
+                "Walking"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "sole-construction": [
+                "Split sole"
+              ],
+              "cleat-stud-type": [
+                "Molded"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/MUA3lfn-hHvi-5NDeHv?o=01KBPAJKD8BFM2ECSJ8PNYZY4E&aid=01M5W2YKVN29B1W7PYRN4VTYP4",
+                "price": {
+                  "price": 3363.75,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "UkbssSs",
+            "title": "ASICS Gel‑TraBucO 11 GTX",
+            "brands": [
+              "ASICS"
+            ],
+            "description": "The ASICS Gel‑TraBucO 11 GTX is a trail‑running shoe featuring Gore‑Tex protection, GTX insulation, and ASICS gel‑stability technology. Designed for unisex adult athletes, the shoe comes in a bold Black‑Sandstorm colorway (Black/Pink/Gold/Red) and was released on May 19, 2023.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/454311d3-37d6-4559-96d0-ad37d4d90cbc?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4afe5c9c-2204-41b4-93ff-0efc43f71d2a?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/270fc1a6-8c81-4ce0-9aea-afa436417bcd?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/2a236221-75bb-4c4f-a830-0fc217f77d2d?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/988f2849-31d8-431e-abff-6eda713a0134?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-material": [
+                "Synthetic",
+                "Rubber"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "waterproof-level": [
+                "Waterproof (no warranty)"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "shoe-features": [
+                "Waterproof"
+              ],
+              "upper-material": [
+                "Synthetic",
+                "Mesh"
+              ],
+              "pattern": [
+                "Solid"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/UkbssSs-hHvi-5NDeHv?o=01KHF1VM0Q5EV83BG080MQ31BD&aid=01M5W2YKVN29B1W7PYRN4VTYP4",
+                "price": {
+                  "price": 693.68,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "25cm4w9",
+            "title": "Gel-Trabuco 1 GTX",
+            "brands": [
+              "ASICS",
+              "GORE-TEX"
+            ],
+            "description": "The ASICS Gel-Trabuco 1 GTX is a high-performance trail running shoe designed for challenging conditions. It features a waterproof GORE-TEX membrane to keep feet dry, a mesh upper for breathability, and a cushioned midsole utilizing FF Blast technology for responsive energy return. The exterior is styled in a black and golden yellow colorway with a light beige midsole and a rugged blue outsole for superior grip on uneven terrain.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/d31ddbf7-3bdc-4c3b-9bfe-b3c96931510b?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/64835fa6-886a-4d7d-b583-3400741677f2?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cfe90cbe-a19a-4f24-829c-d82fc7bf1433?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/740b4b22-49b6-4aa2-bb80-07ef7d7d34fa?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=fFUX"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "footwear-material": [
+                "Synthetic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-features": [
+                "Waterproof"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "activity": [
+                "Hiking"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "stockx.com",
+                "url": "https://buy.trychannel3.com/25cm4w9-fFUX-5NDeHv?o=01M2A6HZM5AQJ40YDVYD7PQEWM&aid=01M5W2YKVN29B1W7PYRN4VTYP4",
+                "price": {
+                  "price": 120,
+                  "compare_at_price": 132,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "ez4FYFM",
+            "title": "ASICS Gel‑Trabuco Terra",
+            "brands": [
+              "ASICS"
+            ],
+            "description": "Trail running shoe with mesh upper, FlyteFoam midsole, padded collar, lugged outsole, and heel loop. Unisex, adult, available in black/teal/gray colorway.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/b354bdac-3715-497d-b39d-11ba869810c5?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/897c24d1-1fe5-4caa-a80d-64ca0f7ebcdc?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/aa8bba72-7b94-4e8b-8b0e-6a5a719edf57?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/93324b2a-34df-4044-ac4e-8a23a8a1c1d6?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0aca4d27-e511-40d3-8b77-ef79d9af7bbc?aid=01M5W2YKVN29B1W7PYRN4VTYP4&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "visibility-features": [
+                "Reflective elements"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight"
+              ],
+              "footwear-material": [
+                "Textile"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/ez4FYFM-hHvi-5NDeHv?o=01KHSM8Y7ZQ1M7QEZAZCP4XC7A&aid=01M5W2YKVN29B1W7PYRN4VTYP4",
+                "price": {
+                  "price": 208.26,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "The North Face Vectiv hiking shoes",
+      "requestedAt": "2026-10-26T12:28:59.236Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:29:01.545Z",
+        "products": [
+          {
+            "id": "sGHCp5I",
+            "title": "The North Face VECTIV Hiking Shoes - Men's",
+            "brands": [
+              "The North Face"
+            ],
+            "description": "The North Face VECTIV Hiking Shoes for men are engineered for exploration, featuring revolutionary VECTIV technology to maximize energy return and propel you forward, reducing fatigue on long treks. These shoes offer superior comfort and support, utilizing a 3D-molded heel counter for a precise fit and a dual-density midsole with ultra-lightweight foam for stability. The construction includes a synthetic and mesh upper with a traditional lace-up system. Traction is guaranteed by the SurfaceCTRL™ grip outsole, designed for excellent grip on varied terrains. Please note, this specific item is pre-owned ('UnNew') and listed in 'Good' condition, showing signs of wear such as dirt and age, though functionality remains intact.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/01f3a5ac-8ef6-4b0f-805f-46a57b28eda7?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=JOor"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/5a00f337-8c42-4bcd-969f-e6487ed4b530?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=JOor"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/821920ef-1723-4070-b55f-709ce22fbdf7?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=JOor"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6e3dcf9d-46a6-4539-9c89-cbb87aa7bac6?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=JOor"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "activity": [
+                "Hiking"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "upper-material": [
+                "Synthetic",
+                "Mesh"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-material": [
+                "Synthetic",
+                "Mesh"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "geartrade.com",
+                "url": "https://buy.trychannel3.com/sGHCp5I-JOor-5NDeHv?o=01KBPCB24YS8SNXKK89TBR6DP7&aid=01M5W2YYXQR0PF2Q1DC83Q7Y02",
+                "price": {
+                  "price": 50.29,
+                  "compare_at_price": 149,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "vYT9mu8",
+            "title": "Vectiv Enduris III Hiking Shoes",
+            "brands": [
+              "The North Face"
+            ],
+            "description": "The North Face Vectiv Enduris III Hiking Shoes in the 'High Rise Grey Monument Grey' colorway (Model A7W5O-J4U) are designed for trail performance, featuring VECTIV technology for energy return. These unisex adult shoes have a breathable mesh upper, a durable, textured sole suitable for hiking, and a modern gray and white aesthetic. They were released in March 2024.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/vYT9mu8?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_67246086-979c-4a86-a00b-6a8c83b0c77a_3840x.jpg?=75&v=1715750739"
+              },
+              {
+                "url": "https://cdn.shopify.com/s/files/1/0603/3031/1875/files/1_c149ee8e-08a8-4f94-8916-0c08e4dfa860_3840x.jpg?=75&v=1715750739"
+              },
+              {
+                "url": "https://cdn.shopify.com/s/files/1/0603/3031/1875/files/2_d8fd1d91-b185-4388-ae75-bf9905ec633a_3840x.jpg?=75&v=1715750743"
+              },
+              {
+                "url": "https://cdn.shopify.com/s/files/1/0603/3031/1875/files/3_22c09826-13d4-4d3a-8d21-d4270f66aa44_3840x.jpg?=75&v=1715750742"
+              },
+              {
+                "url": "https://cdn.shopify.com/s/files/1/0603/3031/1875/files/4_d587ce20-3358-48d9-a0fe-bcf0a9cd5d42_3840x.jpg?=75&v=1715750739"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "boot-style": [
+                "Hiking"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "activity": [
+                "Hiking"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/vYT9mu8-hHvi-5NDeHv?o=01KBPCTBHT7ZTJH4CM8ZFHHNNP&aid=01M5W2YYXQR0PF2Q1DC83Q7Y02",
+                "price": {
+                  "price": 168.48,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "9EyZwQZ",
+            "title": "(WMNS) THE NORTH FACE Vectiv Taraval Hiking Shoes 'Tnf Black Tnf White'",
+            "brands": [
+              "The North Face"
+            ],
+            "description": "A pair of women's THE NORTH FACE Vectiv Taraval hiking shoes in 'Tnf Black Tnf White'. These rugged outdoor shoes feature a black upper with a breathable mesh design, reinforced overlays for durability, and a supportive laced closure. The midsole incorporates Vectiv technology for stability, while the outsole is designed for traction on varied terrain. Accented with white branding and 'FUTURELIGHT' waterproof breathable technology, these shoes are built for performance and comfort during hiking excursions.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/658564f1-4157-45df-b43f-ac2e0c6ec126?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/fd637e6f-8e36-46da-87ef-2919ebdf584c?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6a796491-d4aa-4338-8182-596ef11c6a10?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/acface88-f8a5-4511-8fc3-cbc55e5ad0c4?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/586519b9-c925-419d-8a96-c2cc5c073b0b?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "outsole-material": [
+                "Rubber"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "boot-style": [
+                "Hiking"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "activity": [
+                "Hiking"
+              ],
+              "footwear-material": [
+                "Synthetic"
+              ],
+              "lining-material": [
+                "Synthetic"
+              ],
+              "shoe-features": [
+                "Lightweight"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "upper-material": [
+                "Synthetic"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/9EyZwQZ-hHvi-5NDeHv?o=01M3J4C7T5TG2VKT6HRD221BVK&aid=01M5W2YYXQR0PF2Q1DC83Q7Y02",
+                "price": {
+                  "price": 146.25,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "bHVMkZj",
+            "title": "Vectiv Taraval Hiking Shoes 'Tnf Black'",
+            "brands": [
+              "The North Face"
+            ],
+            "description": "The THE NORTH FACE Vectiv Taraval Hiking Shoes in 'Tnf Black' are durable, rugged outdoor shoes designed for hiking. They feature a textured black upper with a secure lacing system and a high-traction, aggressive outsole for stability on various terrains. The sleek, monochromatic black design is complemented by the iconic THE NORTH FACE branding on the side.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/4024eea7-105f-49b3-82d4-9ab1f812305c?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/3a65a262-5b31-4f16-8ee3-da036cfc1580?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/420e0778-3c7e-4a6e-9d00-5ef3a18b1d74?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/91eb7694-09fc-4152-8abd-f1d959485c32?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/41542a02-48b7-4f2b-8c08-cdb35f090fb8?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "footwear-material": [
+                "Synthetic"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "upper-material": [
+                "Synthetic"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "activity": [
+                "Hiking"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "boot-style": [
+                "Hiking"
+              ],
+              "pattern": [
+                "Solid"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/bHVMkZj-hHvi-5NDeHv?o=01M3ECQ014A41JK3VBX958S5C7&aid=01M5W2YYXQR0PF2Q1DC83Q7Y02",
+                "price": {
+                  "price": 129.87,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "JVo5DBI",
+            "title": "Vectiv Taraval Hiking Shoes",
+            "brands": [
+              "The North Face"
+            ],
+            "description": "The THE NORTH FACE Vectiv Taraval Hiking Shoes in 'Beige' are durable and supportive hiking shoes designed for adult explorers. They feature a neutral beige upper with contrasting white and black accents on the sole, providing a clean, outdoorsy aesthetic. These shoes are built for stability and performance on the trail, blending functional hiking technology with a modern style.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/6bed6c0d-18c8-4bae-802b-167507e5a875?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b3fc0bd0-c24f-413e-b767-73980f14d67c?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/344fc67c-3c8e-4a2a-9f3c-a5c7e581caca?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6bf6d05f-1b8e-44e4-9f89-c89cfea1d279?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/2e488849-0843-4d95-abaa-c917bb05a253?aid=01M5W2YYXQR0PF2Q1DC83Q7Y02&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "activity": [
+                "Hiking"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Synthetic"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "upper-material": [
+                "Synthetic"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "boot-style": [
+                "Hiking"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/JVo5DBI-hHvi-5NDeHv?o=01M3BS5M8FDWT9JS0NRMVYEF32&aid=01M5W2YYXQR0PF2Q1DC83Q7Y02",
+                "price": {
+                  "price": 148.59,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "Timberland Premium 6 Inch waterproof boot",
+      "requestedAt": "2026-10-26T12:29:10.123Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:29:14.859Z",
+        "products": [
+          {
+            "id": "oWN1XrA",
+            "title": "Timberland Premium 6-inch Waterproof Boot",
+            "brands": [
+              "Timberland"
+            ],
+            "description": "The Men's Timberland 6 Inch Premium Waterproof Boots are an icon of rugged style and performance. Crafted from premium full-grain waterproof leather, these boots feature a seam-sealed construction to keep feet dry in any weather. They are equipped with 400g of PrimaLoft insulation for lightweight warmth, an anti-fatigue footbed for shock absorption and energy return, and a lug rubber outsole for superior traction across various terrains. The design is completed with a padded leather collar for comfort and rustproof hardware for enhanced durability.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/cc567eae-18ec-430f-a16a-084b876e4eee?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6b5b5b6f-c6c4-49bf-91cc-6114fbd953c1?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/fd24c548-591b-4204-b111-9370b5103c71?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f990d4cc-7821-4a97-8b1e-d19d1047796f?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0ddc8b83-e967-4eca-921d-32c8e12b9725?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6d3bc962-e131-422b-a87c-6fdc3ef838ec?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0b21b790-ad75-4191-b227-8db05d6a2194?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/90e25669-0792-4815-a787-04dc12264bfe?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=NlEl"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "Black"
+              }
+            ],
+            "attributes": {
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Leather",
+                "Rubber",
+                "Suede"
+              ],
+              "shoe-features": [
+                "Waterproof",
+                "Arch support",
+                "Slip resistant",
+                "Recycled materials",
+                "Eco friendly",
+                "Cushioned",
+                "Lightweight",
+                "Anti-microbial"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "boot-style": [
+                "Work",
+                "Boot",
+                "Rain",
+                "Classic"
+              ],
+              "lining-material": [
+                "Leather",
+                "Textile"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "heel-height-type": [
+                "Low",
+                "Flat"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "sole-construction": [
+                "Split sole"
+              ],
+              "visibility-features": [
+                "Reflective elements"
+              ],
+              "upper-material": [
+                "Nubuck",
+                "Leather",
+                "Suede"
+              ],
+              "activity": [
+                "Handball",
+                "Walking"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "footwear-cut": [
+                "Mid cut",
+                "Low cut"
+              ],
+              "ankle-collar-style": [
+                "Mid cut"
+              ],
+              "waterproof-level": [
+                "Waterproof (no warranty)",
+                "Water resistant"
+              ],
+              "insole-material": [
+                "Memory foam"
+              ],
+              "shoe-collar-height": [
+                "Mid-top"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "jdsports.com",
+                "url": "https://buy.trychannel3.com/oWN1XrA-NlEl-5NDeHv?o=01M58QHJV3XW83KHGVFBNC12FQ&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 220,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "finishline.com",
+                "url": "https://buy.trychannel3.com/oWN1XrA-61sn-5NDeHv?o=01M56ETB62WPNARJ250Y3YAQ0Y&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 220,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "timberland.com",
+                "url": "https://buy.trychannel3.com/oWN1XrA-UjrP-5NDeHv?o=01M3MRZYPHEVTMT44QWMQ030VG&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 220,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "farfetch.com",
+                "url": "https://buy.trychannel3.com/oWN1XrA-NuBr-5NDeHv?o=01M3WH4ER1EMEXFXZBFT9M0GQW&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 253,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "hDNO8XA",
+            "title": "(WMNS) Timberland Premium 6 Inch Waterproof Boot 'Black'",
+            "brands": [
+              "Timberland"
+            ],
+            "description": "The Timberland Women's 6 Inch Premium Waterproof Boots are a timeless blend of functionality and signature style. Crafted with a waterproof nubuck leather upper and a comfortable leather lining, these boots are designed to keep feet dry and warm during the chilly season. They feature a padded leather collar for ankle comfort, Primaloft Eco Insulation for warmth in wet conditions, and durable rustproof hardware. The rugged rubber sole provides excellent traction, making them a dependable choice for various weather conditions.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/5c738c30-2f16-411d-9955-ed6522fd1a7a?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=EcGY"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/21bfdf01-e89f-48ea-aae4-4fd18e6c1a53?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=EcGY"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/320e83db-561e-4a32-850b-7a8e767052b8?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=EcGY"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4ddf7b03-0d57-4f4f-ac6d-9d2d10d7822d?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=EcGY"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cadb6b5a-304b-41f4-bd31-c71b6900cc50?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=EcGY"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/712cfe77-49cd-409b-9718-b37809855afe?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=EcGY"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "heel-height-type": [
+                "Low"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "boot-style": [
+                "Classic",
+                "Work",
+                "Snow",
+                "Boot"
+              ],
+              "shoe-collar-height": [
+                "Mid-top",
+                "High-top"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "upper-material": [
+                "Suede",
+                "Leather"
+              ],
+              "activity": [
+                "Walking"
+              ],
+              "footwear-material": [
+                "Leather",
+                "Rubber",
+                "Suede"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "lining-material": [
+                "Polyester",
+                "Leather"
+              ],
+              "shoe-features": [
+                "Arch support",
+                "Waterproof",
+                "Recycled materials",
+                "Cushioned"
+              ],
+              "care-instructions": [
+                "Tumble dry",
+                "Spot clean only"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "footwear-cut": [
+                "High cut"
+              ],
+              "waterproof-level": [
+                "Waterproof (no warranty)"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "us.vestiairecollective.com",
+                "url": "https://buy.trychannel3.com/hDNO8XA-EcGY-5NDeHv?o=01M3RFA58TMZECY6YRS5A2ZAV5&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 87,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "used"
+              },
+              {
+                "domain": "macys.com",
+                "url": "https://buy.trychannel3.com/hDNO8XA-K6RA-5NDeHv?o=01M19CTA6Y2WAFJDMYF02HECAH&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 180,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/hDNO8XA-hHvi-5NDeHv?o=01M3KA7YBAW7XNWKZFXM15NCJK&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 212.94,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "v3Hoh0o",
+            "title": "Timberland Premium 6 Inch Waterproof Boot 'Medium Brown Yellow'",
+            "brands": [
+              "Timberland"
+            ],
+            "description": "The Timberland Premium 6 Inch Waterproof Boot in 'Medium Brown Yellow' is a durable, lifestyle boot designed for adult men. It features a waterproof leather upper in a rich brown hue, contrasted by a tan collar and matching laces. The boot is constructed with a 6-inch shaft and a thick, rugged rubber sole for enhanced traction and support.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/eac721f6-abb9-4625-9bdd-0a50c00babe5?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/27964b39-c4d8-453b-87cb-8c8cc994731f?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a5feb2ec-0212-420e-ba63-f4fa4914a487?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4256ba8b-f0b1-4b85-886c-4a1e01b61b51?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/7e23585c-f485-491e-9163-a516c9a08c96?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "shoe-features": [
+                "Waterproof"
+              ],
+              "heel-height-type": [
+                "Low"
+              ],
+              "footwear-material": [
+                "Leather"
+              ],
+              "boot-style": [
+                "Boot"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "lining-material": [
+                "Textile"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/v3Hoh0o-hHvi-5NDeHv?o=01M2VZN9SW0QTEQWK2X2R1T0WR&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 315.9,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "NOZxlXI",
+            "title": "Timberland Premium 6-inch Waterproof Boot 'Cloudy Black Nubuck'",
+            "brands": [
+              "Timberland"
+            ],
+            "description": "The (WMNS) Timberland Premium 6-inch Waterproof Boot in 'Cloudy Black Nubuck' is a durable and stylish piece of footwear. These boots feature a black nubuck upper that is waterproof, ensuring protection in various weather conditions. They are designed with a classic 6-inch height and a secure lace-up front. The interior is lined with a cloudy-patterned material, adding a unique visual touch to the traditional silhouette, while the thick rubber sole provides strong traction and support.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/66306853-f6d3-4ae0-beb8-2cf9a00c047a?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1381cb9b-ef97-4cbf-a047-3a4c2a563e5e?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/8be10cd8-e9fc-4223-b415-17622a1190ec?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/7a14696c-77fb-42bc-a8db-10b13210b6a6?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/bfa812d5-de20-4fa2-b519-d987e8428060?aid=01M5W2ZA6TE7S2F7ZT0RM20H6G&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "heel-height-type": [
+                "Low"
+              ],
+              "boot-style": [
+                "Boot"
+              ],
+              "lining-material": [
+                "Shearling"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-features": [
+                "Waterproof"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/NOZxlXI-hHvi-5NDeHv?o=01M3KA6FMTT7KEYYM0XKRXH29T&aid=01M5W2ZA6TE7S2F7ZT0RM20H6G",
+                "price": {
+                  "price": 168.48,
+                  "compare_at_price": 205.92,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 7,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "Hunter Original Chelsea boot",
+      "requestedAt": "2026-10-26T12:29:22.681Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:29:26.655Z",
+        "products": [
+          {
+            "id": "sJnmtOF",
+            "title": "Hunter Original Chelsea Mens Boot",
+            "brands": [
+              "Hunter"
+            ],
+            "description": "The Hunter Men's Original Chelsea Boots are practical yet stylish waterproof boots featuring a smooth matte rubber upper in Dark Olive. Designed for ease of wear, they include elastic goring at the sides, a convenient pull tab at the back ankle, and the iconic Hunter red logo on the front ankle. The boots are finished with a durable rubber sole and a polyester lining for comfort.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/f5f80561-cb85-44d9-96e1-3cbfd6c5c948?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c7228acc-ca4f-4d22-9768-b5727d40ae94?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/dc996475-e2fe-4314-b161-b0c17c3cf27b?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/46f28e5a-59aa-4665-83da-8055bfff01ba?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "boot-style": [
+                "Chelsea"
+              ],
+              "heel-height-type": [
+                "Flat",
+                "Mid"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-features": [
+                "Vegan friendly",
+                "Waterproof"
+              ],
+              "closure-type": [
+                "Slip-on",
+                "Elastic"
+              ],
+              "lining-material": [
+                "Polyester"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "footwear-material": [
+                "Rubber"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "tog24.com",
+                "url": "https://buy.trychannel3.com/sJnmtOF-gD6W-5NDeHv?o=01M2K0DDP6AE8BXEVEFT2ZHEPY&aid=01M5W2ZNQKFWAYW19MKR4ZZKV7",
+                "price": {
+                  "price": 130,
+                  "compare_at_price": 145,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "bloomingdales.com",
+                "url": "https://buy.trychannel3.com/sJnmtOF-DyQi-5NDeHv?o=01M2V12HBW7YTJAR59B4G43YEC&aid=01M5W2ZNQKFWAYW19MKR4ZZKV7",
+                "price": {
+                  "price": 175,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "gXCWAZM",
+            "title": "Original Chelsea Boot",
+            "brands": [
+              "Hunter Leonard"
+            ],
+            "description": "Classic black Chelsea boots from Hunter, crafted from natural rubber for all-day comfort and superior protection. These boots feature elasticated gussets for easy on and off, a durable lugged sole for reliable traction, and a stylish low heel. Certified vegan, they are perfect for rainy days and everyday wear. The boots are lined with 100% recycled polyester and boast a 100% rubber sole.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/0d98aca4-a75f-4b4c-b334-00031e39d1c1?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0dfdd0f3-4ccb-49eb-8bd8-62020e90c16f?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/80c4859e-c0b6-4397-b022-9f82d6133542?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cdfef489-eedb-46f2-8814-546b7e3fd788?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/d63c9ef4-1c91-4b71-b95b-6becd028866e?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b5828f8e-439d-4942-af5e-782692585313?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/954df25e-1fba-49be-b067-b37c5107a8cc?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "footwear-material": [
+                "Rubber"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "closure-type": [
+                "Elastic",
+                "Slip-on"
+              ],
+              "shoe-features": [
+                "Waterproof",
+                "Vegan friendly",
+                "Lightweight"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "tog24.com",
+                "url": "https://buy.trychannel3.com/gXCWAZM-gD6W-5NDeHv?o=01KRW34QGE8SSFQX70MB3C2W8T&aid=01M5W2ZNQKFWAYW19MKR4ZZKV7",
+                "price": {
+                  "price": 135,
+                  "compare_at_price": 150,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "HpbPuCS",
+            "title": "Original Chelsea Boot",
+            "brands": [
+              "Hunter"
+            ],
+            "description": "These navy blue Hunter Original Chelsea boots are designed for all-day comfort and protection from the rain. They are handcrafted from natural rubber and vulcanized for superior durability. The boots feature elasticated gussets and a nylon pull-tab for easy on and off, making them a practical and stylish choice. They are also certified vegan.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/c08411fc-d680-4faf-b4b7-6a83a6c54dce?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/396a20fb-8b7e-4930-b053-e1016c9f1953?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c2cfe2a2-0476-49a3-9e96-0b06a73f7f87?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1ccb4469-60fe-44a2-b484-90e3b9aa1cb3?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/33d75d65-3417-4d8b-8a63-b95084f7b92f?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/551b6544-177a-49bf-bd6f-191b2d56f121?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/934a7f4c-8d54-4fdd-9b0c-fd2e1a691201?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "boot-style": [
+                "Chelsea"
+              ],
+              "lining-material": [
+                "Polyester"
+              ],
+              "closure-type": [
+                "Slip-on",
+                "Elastic",
+                "Adjustable/Pull"
+              ],
+              "footwear-material": [
+                "Rubber"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "shoe-features": [
+                "Vegan friendly",
+                "Waterproof"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "waterproof-level": [
+                "Waterproof – 2-year warranty"
+              ],
+              "upper-material": [
+                "Synthetic"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "tog24.com",
+                "url": "https://buy.trychannel3.com/HpbPuCS-gD6W-5NDeHv?o=01KRWD3A94CCNPYMJMT59A8SWD&aid=01M5W2ZNQKFWAYW19MKR4ZZKV7",
+                "price": {
+                  "price": 145,
+                  "compare_at_price": 160,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "XenDcmb",
+            "title": "Original Chelsea Womens Boot",
+            "brands": [
+              "Hunter"
+            ],
+            "description": "These Hunter Original Chelsea Boots in Dark Olive are designed for improved fit and all-day comfort. They are waterproof, handcrafted, and vegan-friendly, featuring elasticated side gussets and a nylon pull-tab for easy on and off. The lining is made from recycled polyester and the upper and sole are crafted from natural vulcanised rubber.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/4b8878d1-e684-447c-a551-ede2d3407c34?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b9f413ed-3732-4ced-8047-9a770c0dffd4?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/76ebfe7e-07bb-4aa7-bb7a-1fa9093ef721?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f21be2f9-27d7-4931-9426-a36ce8656be9?aid=01M5W2ZNQKFWAYW19MKR4ZZKV7&mid=gD6W"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "shoe-features": [
+                "Waterproof",
+                "Vegan friendly",
+                "Recycled materials"
+              ],
+              "footwear-construction-method": [
+                "Vulcanized"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "closure-type": [
+                "Elastic",
+                "Slip-on"
+              ],
+              "waterproof-level": [
+                "Waterproof (no warranty)"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "upper-material": [
+                "Synthetic"
+              ],
+              "footwear-material": [
+                "Rubber"
+              ],
+              "boot-style": [
+                "Chelsea"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "activity": [
+                "Walking"
+              ],
+              "lining-material": [
+                "Polyester"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "tog24.com",
+                "url": "https://buy.trychannel3.com/XenDcmb-gD6W-5NDeHv?o=01KRVHXDSTMW31XQMAW3FT1FEV&aid=01M5W2ZNQKFWAYW19MKR4ZZKV7",
+                "price": {
+                  "price": 135,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 8,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "Arc'teryx Norvan trail running shoes",
+      "requestedAt": "2026-10-26T12:29:34.784Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:29:38.624Z",
+        "products": [
+          {
+            "id": "knqIDpy",
+            "title": "Norvan Trail Running Shoes",
+            "brands": [
+              "Arc'teryx"
+            ],
+            "description": "Lightweight and durable women's trail running shoes from Arc'teryx, perfect for rugged terrain and long distances. These shoes feature a Vibram Megagrip outsole for superior traction on varied surfaces and a breathable, sock-like upper construction to keep feet cool and dry. Note: This specific pair is an older version and shows signs of previous use, including wear on the uppers, toe area, and minor tread wear.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/7d7845f1-c876-4842-8e66-e57bec620d2a?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=JOor"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6d47ee46-218b-404d-9eb8-753d7f793ac0?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=JOor"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/e8139393-3272-4d0b-8dc1-44f8de08d7ff?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=JOor"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f2d47433-657b-402f-b9c4-91a39e1d562c?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=JOor"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "activity": [
+                "Running",
+                "Walking"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "footwear-material": [
+                "Nylon",
+                "Textile"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "geartrade.com",
+                "url": "https://buy.trychannel3.com/knqIDpy-JOor-5NDeHv?o=01KBPC719GYVZMDF24P760DY1K&aid=01M5W301JB7DJA8CGKSRWHCJPE",
+                "price": {
+                  "price": 34.65,
+                  "compare_at_price": 165,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "eAZZkij",
+            "title": "Norvan LD 4 GTX Trail-Running Shoes",
+            "brands": [
+              "Arc'teryx",
+              "GORE-TEX",
+              "Vibram®"
+            ],
+            "description": "The Arc'teryx Norvan LD 4 GTX is a high-performance men's trail running shoe designed for versatility across diverse terrains. It features a GORE-TEX liner for waterproof protection and a lightweight, abrasion-resistant upper reinforced with TPU zones for durability. The shoe is engineered with a Vibram Megagrip outsole utilizing LITEBASE technology and a custom 4mm lug pattern for superior traction. Additional comfort and stability are provided by a dual-density midsole for shock absorption, a flexible external frame, and a form-molded sockliner.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/368b0b7c-f9f3-4959-b1f0-5c81de0fc438?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c536a6c8-06ac-4883-a786-7c3fd7d71200?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0c39413c-3c26-4cc2-8faf-5876b0037dc2?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4a83f23f-fe4c-488c-b2cf-6db7b1730619?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f04b1d03-0f3f-4c64-afa5-d8e2ccaf2443?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/47e593a7-8ed5-42cc-b49e-71a298ed89d3?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a2b04239-0b81-497b-8fff-8126263f572b?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b810e9dc-d21b-44d9-bb15-3e44edbc71ba?aid=01M5W301JB7DJA8CGKSRWHCJPE&mid=fsxO"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "upper-material": [
+                "Synthetic"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "waterproof-level": [
+                "Waterproof (no warranty)"
+              ],
+              "outsole-stud-type": [
+                "Rubber lugs"
+              ],
+              "footwear-material": [
+                "Polyester",
+                "Synthetic",
+                "Thermoplastic polyurethane (TPU)",
+                "Textile",
+                "Spandex"
+              ],
+              "activity": [
+                "Running",
+                "Hiking"
+              ],
+              "lining-material": [
+                "Synthetic",
+                "Textile"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "outsole-material": [
+                "Rubber",
+                "Ethylene vinyl acetate (EVA)"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "sneaker-style": [
+                "Athletic",
+                "Low-top"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Lightweight",
+                "Waterproof"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "insole-material": [
+                "Ethylene vinyl acetate (EVA)"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "footwear-support-type": [
+                "Minimalist/Barefoot"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "zappos.com",
+                "url": "https://buy.trychannel3.com/eAZZkij-fsxO-5NDeHv?o=01M4JZJH9F9YNHHR7EWFYZ7CEK&aid=01M5W301JB7DJA8CGKSRWHCJPE",
+                "price": {
+                  "price": 200,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "cettire.com",
+                "url": "https://buy.trychannel3.com/eAZZkij-5MLj-5NDeHv?o=01M5VAT9B5JKCRH6HPZ853VB7R&aid=01M5W301JB7DJA8CGKSRWHCJPE",
+                "price": {
+                  "price": 227.64,
+                  "compare_at_price": 380.3,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 9,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "Nike Pegasus Trail running shoes",
+      "requestedAt": "2026-10-26T12:29:46.498Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:29:50.389Z",
+        "products": [
+          {
+            "id": "UVxkCqd",
+            "title": "Nike Pegasus Trail 5 Trail Running Shoes",
+            "brands": [
+              "Nike"
+            ],
+            "description": "Embrace stealth utility and elite off road performance with the all black Nike Pegasus Trail 5 Black. Engineered to transition seamlessly from pavement to dirt paths, this rugged runner features a highly breathable and durable engineered mesh upper cloaked entirely in a deep black monochrome finish. A subtle tonal Swoosh scales the side, matching the responsive ReactX foam midsole underfoot that delivers supreme energy return and maximum impact cushioning. Finished with an aggressive rubber lugged outsole, it offers uncompromising multi surface grip for your darkest trail adventures.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/88f89721-953b-432f-bfe3-0907f28e8a8f?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6b90b5b6-9e27-45e2-b330-d80939cee2a4?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f330ee9e-eec3-4dd0-a2da-b443c129e127?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/fadfa6ae-6f1e-4370-92b3-acef2f63d750?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9a6b797e-402a-4050-8f41-60d9c1388453?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/149f991d-70ef-4507-ac37-453c9107998e?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/59b91bd6-f463-4b24-b0fa-75a16cfef8e6?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=wscm"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "sneaker-style": [
+                "Athletic",
+                "Low-top"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Rubber",
+                "Synthetic",
+                "Leather"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight",
+                "Recycled materials",
+                "Arch support"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "activity": [
+                "Running",
+                "Hiking",
+                "Walking"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "visibility-features": [
+                "Reflective elements"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "lining-material": [
+                "Cotton",
+                "Mesh"
+              ],
+              "insole-material": [
+                "Ethylene vinyl acetate (EVA)"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "stadiumgoods.com",
+                "url": "https://buy.trychannel3.com/UVxkCqd-wscm-5NDeHv?o=01M3MNTZM4PMJF8M00CVDQZMJZ&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 119,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "zappos.com",
+                "url": "https://buy.trychannel3.com/UVxkCqd-fsxO-5NDeHv?o=01M4CB5KPXB0TM4RYYHTBDDXZ9&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 155,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "Hr4QYfc",
+            "title": "Men's Pegasus Trail 5 Running Shoes",
+            "brands": [
+              "Nike"
+            ],
+            "description": "The Nike Men's Pegasus Trail 5 is a versatile running shoe designed for a seamless transition between road and trail. It features an engineered mesh upper with reinforced high-wear areas for durability and open holes for enhanced breathability. The midsole is powered by Nike ReactX foam, which provides plush cushioning while reducing its carbon footprint. For stability, Flywire technology is integrated into the laces to secure the midfoot. The outsole is designed for technical terrain, utilizing a generative traction pattern and rubber wrap-around protection at the forefoot for extra grip and durability.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/5d9c1fa7-88fe-448e-beb5-a17e0dbbd66d?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/128c1c1b-aaac-4639-92fd-de33792edb53?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/73e62526-148f-4937-84e1-c43ee71b7f53?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/2ceaf685-b48c-4a47-86d5-566ab32ea084?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/42e78f3a-2057-4cd6-81d1-1d7dd7aa3f2e?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/aed51c7d-fdc6-4398-ba1b-8db4b9d4863f?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/76e1ed10-be83-4d60-a7b2-f4e1e18d4217?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/72e22bdf-6c6b-4639-bc2e-b017c88a4cb0?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f64bfcf1-1c6f-4bd6-b757-c9ecca83a9d9?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "pattern": [
+                "Solid"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Mesh"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "dickssportinggoods.com",
+                "url": "https://buy.trychannel3.com/Hr4QYfc-fdOw-5NDeHv?o=01M3MMMWSGYKZJJWDG1ND2E991&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 154.99,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "HeNKaf0",
+            "title": "Nike ACG Pegasus Trail",
+            "brands": [
+              "Nike"
+            ],
+            "description": "The Nike ACG Pegasus Trail is a high-performance trail running shoe designed for cushioned comfort and stability across moderately technical terrain. It features a breathable engineered mesh upper and a redesigned, wider toe box for increased stability and comfort. The midsole is powered by ReactX foam for responsive energy return, while the Nike All Terrain Compound (ATC) rubber outsole provides superior traction on wet and technical surfaces.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/b1b6ff93-ca8a-43de-ba97-5772956da5fa?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=pxA7"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/5d7beb86-ed1e-4d19-a8da-4cb75cd1bf1d?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=pxA7"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "Cream II/Black/Light Orewood Brown"
+              }
+            ],
+            "attributes": {
+              "upper-material": [
+                "Mesh"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight",
+                "Recycled materials"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Rubber"
+              ],
+              "activity": [
+                "Running",
+                "Hiking"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "footwear-support-type": [
+                "Stability"
+              ],
+              "shoe-fit": [
+                "Wide"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "nike.com",
+                "url": "https://buy.trychannel3.com/HeNKaf0-pxA7-5NDeHv?o=01M50BCEEAZ34TJSXH4TK56JV1&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 155,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "farfetch.com",
+                "url": "https://buy.trychannel3.com/HeNKaf0-NuBr-5NDeHv?o=01M5FXNT1R5FM9FTEXJKCSWCXB&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 463,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "ycB3ysE",
+            "title": "Acg Pegasus Trail Sabatilles De Trail Running",
+            "brands": [
+              "Nike"
+            ],
+            "description": "The Nike ACG Pegasus Trail Running Shoes are designed for versatile transitions between road and scenic trail miles. Featuring a lightweight engineered mesh upper for breathability and durability, these shoes include a wider forefoot for increased toe room and stability on technical terrain. The updated design incorporates ReactX foam for enhanced energy return and a responsive feel, paired with Nike's All Terrain Compound (ATC) for superior traction on wet and technical surfaces.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/7e4642dc-31f2-41c2-9751-a4fe7e7ff7d1?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=hHvi"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "Jade Horizon/Light Silver/Safety Orange/Phantom, Cream II/Light Orewood Brown/Safety Orange/Cream II, Black/Anthracite/Black, Summit White/Phantom/Safety Orange/Black, Black/Anthracite/Summit White, Baltic Blue/Light Orewood Brown/Ironstone/Summit White"
+              }
+            ],
+            "attributes": {
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat",
+                "Low"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Synthetic",
+                "Polyester",
+                "Textile"
+              ],
+              "pattern": [
+                "Solid",
+                "Camouflage"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "activity": [
+                "Hiking",
+                "Running"
+              ],
+              "sneaker-style": [
+                "Athletic",
+                "Low-top"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "waterproof-level": [
+                "Not water resistant"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-hHvi-5NDeHv?o=01M3G3SC8SFRN2WB59T4M55V80&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 122.85,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "backcountry.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-Nn6J-5NDeHv?o=01M33K0290MTW76E7E0R69TV4A&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 154.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "dickssportinggoods.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-fdOw-5NDeHv?o=01M16XKXRNPYNVZ4FB8ZZ77TCQ&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 154.99,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "nike.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-pxA7-5NDeHv?o=01M4EB9QJRPQFBH7FZ6QRGD7XT&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 155,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "nordstrom.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-asdf-5NDeHv?o=01M1JR4Z0MW9Y5ED22S9W3BEWD&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 160,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "farfetch.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-NuBr-5NDeHv?o=01M34KMWP488TA6JYCH4DSVKQP&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 204,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "stadiumgoods.com",
+                "url": "https://buy.trychannel3.com/ycB3ysE-wscm-5NDeHv?o=01M336KKM5YAMA37C5WS7H1PQM&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 205,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "YuNZcVf",
+            "title": "ACG Pegasus Trail Running Shoes",
+            "brands": [
+              "Nike"
+            ],
+            "description": "The Nike Men's ACG Pegasus Trail Running Shoes are designed for scenic miles on technical trails, blending road-running responsiveness with trail-ready durability. They feature a lightweight engineered mesh upper for breathability and a wider forefoot to provide extra toe room and stability. Enhanced with ReactX foam for increased stack height and energy return, these shoes also utilize the Nike All Terrain Compound (ATC) for superior traction on wet and rugged terrain.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/36c8a30b-a10e-40db-911c-de2bd7ce6139?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a05bc9c8-8657-4667-823b-e0cb49191dc3?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/756975ef-2ffd-4fe9-a81c-d3b969b09970?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a1c4e975-a028-4fb2-a478-076a3886743d?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/751afcf7-efae-4bdb-acd4-522462401f5c?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/33eb79cf-4326-42b3-a9c7-c5c1afa3301f?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/801be897-4c24-4e42-af6c-6da50fb31d33?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0fff95a0-9efa-4b4b-8139-a459597db9d0?aid=01M5W30CXDFDAAHBKM3WRYM9GX&mid=fdOw"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "heel-height-type": [
+                "Flat"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Textile"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "pattern": [
+                "Solid",
+                "Logo"
+              ],
+              "activity": [
+                "Running",
+                "Walking",
+                "Hiking",
+                "Training"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "lining-material": [
+                "Mesh"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "dickssportinggoods.com",
+                "url": "https://buy.trychannel3.com/YuNZcVf-fdOw-5NDeHv?o=01M16QQK8Q83YE0GAGNC789D2D&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 154.99,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "giglio.com",
+                "url": "https://buy.trychannel3.com/YuNZcVf-Rteo-5NDeHv?o=01M33WYQ8G9V5PAMHCQP3KEXD8&aid=01M5W30CXDFDAAHBKM3WRYM9GX",
+                "price": {
+                  "price": 210.91,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 10,
+      "purpose": "PR #12 footwear product discovery",
+      "query": "PUMA Fast-Trac Nitro trail running shoes",
+      "requestedAt": "2026-10-26T12:29:58.420Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-10-26T12:30:01.702Z",
+        "products": [
+          {
+            "id": "DoR8Z1M",
+            "title": "Fast-trac Nitro 3 Men's Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "These PUMA Fast-Trac NITRO 3 trail running shoes are designed for low-profile performance on any terrain. They feature a full-length NITROFOAM™ midsole for responsive cushioning and PUMAGRIP ATR lugs for superior traction. The engineered mesh upper, made with at least 30% recycled materials, offers support and durability, enhanced by PWRTAPE reinforcement. With a comfortable rolled collar and an 8mm heel-to-toe drop, these shoes are ideal for neutral pronators seeking to elevate their trail running experience.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/2dea2d99-0e08-45eb-9d6b-e2942d107877?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c33de2aa-6f8f-4d11-b716-5f8252dc93e0?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ea2c5cbe-b5b9-46f9-b9cc-e938bcb4d899?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/8d580675-f26f-44fb-a837-1a6fd250bb7e?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/77b95e92-d4a4-4d53-a157-470046c6bf2a?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/fdc6bf6a-c417-48e3-a3b8-03e04b6fd179?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "PUMA Black-Sage Frost-Ruby Shimmer"
+              }
+            ],
+            "attributes": {
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight",
+                "Recycled materials",
+                "Breathable design"
+              ],
+              "footwear-material": [
+                "Synthetic",
+                "Mesh",
+                "Rubber"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "activity": [
+                "Running",
+                "Hiking"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "shoebacca.com",
+                "url": "https://buy.trychannel3.com/DoR8Z1M-lGBj-5NDeHv?o=01KT1J6WD2WJA9MS9FMF9V5C2T&aid=01M5W30RKFC0V5T1EZ2BQ4CCDS",
+                "price": {
+                  "price": 69.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "nXrtD5y",
+            "title": "Fast Trac NITRO 3 Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "These PUMA Fast Trac NITRO 3 trail running shoes are designed for low-profile performance on any terrain. They feature a full-length NITROFOAM midsole for responsive cushioning and 4mm PUMAGRIP ATR lugs for superior traction. The comfortable rolled collar upper ensures a secure fit, making these shoes ideal for conquering challenging trails. The shoes have a camouflage pattern in olive green, tan, and black, with a cream-colored midsole and a light teal heel stabilizer. They are equipped with a lace-up closure for a secure fit and a pull tab at the heel for easy on and off.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/43aba88c-0da4-47ac-a5ad-23e50a336981?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Polyester",
+                "Synthetic"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "pattern": [
+                "Camouflage"
+              ],
+              "shoe-features": [
+                "Cushioned"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "shoebacca.com",
+                "url": "https://buy.trychannel3.com/nXrtD5y-lGBj-5NDeHv?o=01KW759FHTCT0Q6XHHBJ375G94&aid=01M5W30RKFC0V5T1EZ2BQ4CCDS",
+                "price": {
+                  "price": 74.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "rkCOGg0",
+            "title": "Fast-trac Nitro™ 4 Trail Running Shoes Men",
+            "brands": [
+              "Puma"
+            ],
+            "description": "The PUMA FAST-Trac NITRO™ 4 is a nimble, moderate-stack trail running shoe engineered for speed and control on rugged terrain, including steep climbs and loose descents. It features nitrogen-infused NITROFOAM™ for high-rebound energy return without adding weight, and a durable PUMAGRIP ATR rubber outsole designed for traction on mud, ice, and unstable surfaces. The shoe is further reinforced with a structured upper, toe cap, and mudguard skins for increased durability in mountain environments.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/a6a155de-4e98-4925-ac1c-451405e94cd4?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=hqaF"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6f38039c-c6cf-42a8-9785-bca87311bbef?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=hqaF"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/346bff14-a397-4bba-8e48-4cd65b69a0b4?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=hqaF"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a90ee764-e35b-4668-80f1-f9dfa09e3811?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=hqaF"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f6de1824-ae3a-4de2-9d17-de33eccbcc95?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=hqaF"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4e66ff6b-7592-4d3e-80f1-5508ff436e1f?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=hqaF"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "PUMA Black-Cast Iron-Red Glamour"
+              }
+            ],
+            "attributes": {
+              "pattern": [
+                "Solid"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "toe-style": [
+                "Cap"
+              ],
+              "footwear-material": [
+                "Textile",
+                "Synthetic"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "shoe-features": [
+                "Cushioned"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "us.puma.com",
+                "url": "https://buy.trychannel3.com/rkCOGg0-hqaF-5NDeHv?o=01M5QY3NGKR57RH6PZ73GQPCKH&aid=01M5W30RKFC0V5T1EZ2BQ4CCDS",
+                "price": {
+                  "price": 140,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "0XxamKL",
+            "title": "Fast Trac NITRO 2 Trail Running Shoes",
+            "brands": [
+              "Puma"
+            ],
+            "description": "These Puma Fast Trac NITRO 2 trail running shoes are designed for performance on any terrain. They feature a lightweight, breathable knit upper with forefoot drainage ports and debris protection. The PROFOAMLITE midsole incorporates a full-length NITRO Infused top layer for a smooth ride and enhanced ground feel, complemented by a durable PUMAGRIP ATR outsole for superior traction. Integrated eyestays ensure a snug fit, making these shoes ideal for all runners in all seasons.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/374aa189-9eff-4c5e-b3db-1a4354a122e6?aid=01M5W30RKFC0V5T1EZ2BQ4CCDS&mid=lGBj"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "footwear-material": [
+                "Nylon",
+                "Synthetic"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "activity": [
+                "Running",
+                "Hiking",
+                "Walking",
+                "Universal"
+              ],
+              "shoe-features": [
+                "Cushioned"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "shoebacca.com",
+                "url": "https://buy.trychannel3.com/0XxamKL-lGBj-5NDeHv?o=01KSSSAWQ3EK79KMKBNE7GXG13&aid=01M5W30RKFC0V5T1EZ2BQ4CCDS",
+                "price": {
+                  "price": 64.95,
+                  "compare_at_price": 120,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
