@@ -4,6 +4,10 @@ export type Channel3DemoOffer = {
   url: string;
   price: { amountMinor: number; currency: "USD" };
   availability: "in_stock" | "out_of_stock" | "unknown";
+  condition: string | null;
+  shipping: null;
+  mandatoryFees: null;
+  actionable: false;
 };
 
 export type Channel3DemoProduct = {
@@ -19,25 +23,96 @@ export type Channel3DemoProduct = {
 };
 
 export const channel3DemoInvestigation = {
-  status: "BLOCKED" as const,
-  requestedAt: "2026-10-26T06:08:01.796Z",
-  completedAt: "2026-10-26T06:08:16.854Z",
-  requestCount: 6,
+  status: "LIVE_AND_VERIFIED" as const,
+  requestedAt: "2026-10-26T06:55:30.000Z",
+  completedAt: "2026-10-26T06:55:40.882Z",
+  requestCount: 1,
   requestBudget: 6,
-  failure: "All six bounded searches failed at the network transport layer before returning product data.",
-  queries: [
-    "Nike Downshifter 14",
-    "Brooks Ghost Max 3",
-    "Apple AirPods Pro 2nd generation USB-C",
-    "Sony WH-1000XM5",
-    "Nintendo Switch OLED Model white",
-    "Garmin Forerunner 265 black",
-  ],
+  summary: "Authenticated Channel3 search succeeded and returned five verified product records. Shipping and mandatory fees were not returned, so every live offer remains non-actionable.",
+  queries: ["Nike Downshifter 14"],
 };
 
-// Intentionally empty: the bounded investigation returned no verifiable product data.
-// Never populate this list from documentation examples, fixtures, or hand-authored offers.
-export const channel3DemoProducts: Channel3DemoProduct[] = [];
+const nonActionableOffer = (merchant: string, domain: string, url: string, amountMinor: number): Channel3DemoOffer => ({
+  merchant,
+  domain,
+  url,
+  price: { amountMinor, currency: "USD" },
+  availability: "in_stock",
+  condition: "new",
+  shipping: null,
+  mandatoryFees: null,
+  actionable: false,
+});
+
+// Captured from one authenticated Channel3 search on 2026-10-26. No values are
+// inferred from documentation, fixtures, or merchant pages.
+export const channel3DemoProducts: Channel3DemoProduct[] = [
+  {
+    channel3ProductId: "kRteKNW",
+    name: "Nike Downshifter 14",
+    brand: "Nike",
+    model: "Downshifter 14",
+    variant: { fit: "Regular", cut: "Low cut", activity: "Running" },
+    identifiers: {},
+    retrievedAt: "2026-10-26T06:55:40.882Z",
+    identity: { matched: ["brand", "model", "title"], differed: [], missing: ["GTIN", "MPN", "size", "color"] },
+    offers: [nonActionableOffer("nike.com", "nike.com", "https://buy.trychannel3.com/kRteKNW-pxA7-5NDeHv?o=01M5TFZ261ATG4Y1Y63TAGFBG2&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 8000)],
+  },
+  {
+    channel3ProductId: "9NKNXXR",
+    name: "Nike Downshifter 14 Running Shoes",
+    brand: "Nike",
+    model: "Downshifter 14",
+    variant: { cut: "Low cut", activities: "Running, Walking", pattern: "Solid, Color-block" },
+    identifiers: {},
+    retrievedAt: "2026-10-26T06:55:40.882Z",
+    identity: { matched: ["brand", "model", "title"], differed: [], missing: ["GTIN", "MPN", "size", "color"] },
+    offers: [
+      nonActionableOffer("academy.com", "academy.com", "https://buy.trychannel3.com/9NKNXXR-DEoc-5NDeHv?o=01KWHDFP9GCWZGDVQD8ZDDH2JD&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 5599),
+      nonActionableOffer("finishline.com", "finishline.com", "https://buy.trychannel3.com/9NKNXXR-61sn-5NDeHv?o=01KXJWHAD4802M4BCPQCP91QX6&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 8000),
+    ],
+  },
+  {
+    channel3ProductId: "rL4QVw1",
+    name: "Nike Downshifter 14",
+    brand: "Nike",
+    model: "Downshifter 14",
+    variant: { fit: "Wide, Regular", cut: "Low cut", pattern: "Texture, Solid" },
+    identifiers: {},
+    retrievedAt: "2026-10-26T06:55:40.882Z",
+    identity: { matched: ["brand", "model", "title"], differed: [], missing: ["GTIN", "MPN", "size", "color"] },
+    offers: [
+      nonActionableOffer("zappos.com", "zappos.com", "https://buy.trychannel3.com/rL4QVw1-fsxO-5NDeHv?o=01M4CFPAQ4ENSZTYWN75ECZKN6&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 6097),
+      nonActionableOffer("hibbett.com", "hibbett.com", "https://buy.trychannel3.com/rL4QVw1-4XVr-5NDeHv?o=01KRETXJKFPTPT0WNS1FPB8WPX&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 8000),
+      nonActionableOffer("kickscrew.com", "kickscrew.com", "https://buy.trychannel3.com/rL4QVw1-hHvi-5NDeHv?o=01M2VDJH3B6XWDVNFEDDE9H633&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 10062),
+    ],
+  },
+  {
+    channel3ProductId: "taUUvTb",
+    name: "Nike Downshifter 14",
+    brand: "Nike",
+    model: "Downshifter 14",
+    variant: { support: "Neutral", cut: "Low cut", activities: "Running, Walking" },
+    identifiers: {},
+    retrievedAt: "2026-10-26T06:55:40.882Z",
+    identity: { matched: ["brand", "model", "title"], differed: [], missing: ["GTIN", "MPN", "size", "color"] },
+    offers: [nonActionableOffer("sidekicks.co.uk", "sidekicks.co.uk", "https://buy.trychannel3.com/taUUvTb-wXmd-5NDeHv?o=01KKNMXQFQC8G8A8RH29J48XFP&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 14600)],
+  },
+  {
+    channel3ProductId: "pcgUHoJ",
+    name: "Men's Downshifter 14 Running Shoes",
+    brand: "Nike",
+    model: "Downshifter 14",
+    variant: { fit: "Regular", activities: "Running, Walking, Training", material: "Textile, Nylon, Mesh" },
+    identifiers: {},
+    retrievedAt: "2026-10-26T06:55:40.882Z",
+    identity: { matched: ["brand", "model", "title"], differed: [], missing: ["GTIN", "MPN", "size", "color"] },
+    offers: [
+      nonActionableOffer("dickssportinggoods.com", "dickssportinggoods.com", "https://buy.trychannel3.com/pcgUHoJ-fdOw-5NDeHv?o=01M35TDYABSY3NM859004VXSFX&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 7999),
+      nonActionableOffer("jdsports.com", "jdsports.com", "https://buy.trychannel3.com/pcgUHoJ-NlEl-5NDeHv?o=01KKSVXABTFM53VGPCXEQZTE3J&aid=01M5VFWH9VB5FDPHSCHW2YJG79", 8000),
+    ],
+  },
+];
 
 export const channel3DemoScenarios = [
   {
