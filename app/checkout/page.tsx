@@ -52,6 +52,6 @@ export default function CheckoutPage() {
     <div className="summary-row"><span>Tax</span><span>{formatMoney(acceptedOffer?.tax ?? { amountMinor: tax, currency: "USD" })}</span></div>
     {acceptedOffer && <><div className="summary-row original-total"><span>Original total</span><span>{formatMoney(acceptedOffer.originalTotal)}</span></div>{acceptedOffer.savings.amountMinor>0&&<div className="summary-row savings"><strong>PriceMatcher savings</strong><strong>−{formatMoney(acceptedOffer.savings)}</strong></div>}<div className="summary-row total authorized-total"><strong>Total to pay</strong><strong>{formatMoney(acceptedOffer.totalToPay)}</strong></div></>}
     {!acceptedOffer && <div className="summary-row total"><strong>Original total</strong><strong>{formatMoney({ amountMinor: originalTotal, currency: "USD" })}</strong></div>}
-    <p className="subhead">All amounts are USD. Fixture comparison data is demo-only; any payment action is restricted to PayPal Sandbox.</p>
+    <p className="subhead">All amounts are USD. Channel3 snapshots and demo pricing assumptions are labeled; payment is PayPal Sandbox only.</p>
   </aside></div></div>;
 }

@@ -7,6 +7,7 @@ export type Product = {
   variant: { color: string; size?: string; condition: "new" };
   image: string; stock: "In stock" | "Low stock"; delivery: string;
   description: string; features: string[]; priceMatchEligible: boolean;
+  channel3FamilyId?: string; demoMerchant?: boolean;
 };
 
 export type DataProvenance = "live" | "fixture" | "cached";
@@ -61,6 +62,7 @@ export type AuthorizedOffer = {
   acceptedAt?: string; consumedAt?: string;
   lineAdjustments?: AuthorizedLineAdjustment[];
   authorizationKind?: "matched" | "original";
+  demoAuthorization?: { scenario: "MATCH_LOWEST" | "PARTIAL_MATCH" | "KEEP_ORIGINAL"; assumption: string };
 };
 
 export type ComparisonStatus = "VERIFIED_MATCH" | "POSSIBLE_MATCH" | "NO_VERIFIED_MATCH" | "INSUFFICIENT_DATA" | "SOURCE_UNAVAILABLE";
