@@ -32,17 +32,17 @@ The public documentation pages were unreachable from the development environment
 PRICE_DISCOVERY_MODE=fixture | channel3
 CHANNEL3_API_KEY=server-only
 CHANNEL3_TIMEOUT_SECONDS=8
-CHANNEL3_REQUESTS_PER_MINUTE=20
+CHANNEL3_REQUEST_BUDGET=6
 ```
 
-The adapter uses no automatic retries, limits results to ten, requests live offer refresh with a three-second bound, applies an in-process request budget and caches identical searches for 60 seconds. These controls limit a single instance; a durable distributed quota counter is a known future requirement for horizontally scaled deployments.
+The adapter uses no automatic retries, limits results to five, requests live offer refresh with a three-second bound, caps its in-process per-minute request budget at six and caches identical searches for 60 seconds. The independent real-product refresh is opt-in and documented in `CHANNEL3_REAL_PRODUCT_DEMO.md`; it performs zero requests by default and prioritizes saved product IDs. These controls limit a single instance; a durable distributed quota counter is a known future requirement for horizontally scaled deployments.
 
 There is no silent fallback. `fixture` is visibly labeled demo data; `channel3` errors return truthful per-line `SOURCE_UNAVAILABLE` results.
 
 ## Status
 
-- Channel3 SDK integration: **IMPLEMENTED BUT NOT CREDENTIAL-TESTED**
-- Semantic search configuration: **IMPLEMENTED BUT NOT CREDENTIAL-TESTED**
+- Channel3 SDK integration: **BLOCKED** after credential-present requests failed at the network transport layer on 2026-10-26
+- Semantic search configuration: **BLOCKED**; no product response was received
 - Shipping/mandatory-fee resolver: **BLOCKED** for live results
 - Fixture adapter: **FIXTURE / DEMO**
 - Free-credit quota and expiry: **BLOCKED** pending Channel3 account confirmation
