@@ -6,8 +6,8 @@ PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026
 
 ## What works now
 
-- Responsive storefront with six fictional demo products
-- Product detail pages and browser-local cart
+- Responsive outdoor-footwear storefront with 22 saved Channel3 product records and 198 simulated size SKUs; the original fixture catalog remains isolated
+- Product detail pages and a versioned browser-local, size-specific cart
 - Guided comparison using clearly labeled fixture data
 - Deterministic delivered-price, floor, discount, verification, currency, and expiration checks
 - Explicit acceptance of the adjusted or original price
@@ -17,6 +17,14 @@ PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026
 - `/api/health`, Render Blueprint, environment template, and unit tests
 
 Fixture comparison remains the safe default and is visibly labeled. PayPal calls occur only when Sandbox credentials are configured and the customer accepts an eligible offer and clicks the PayPal Sandbox action. The application never reports success without a verified provider response.
+
+## Outdoor footwear demo (PR #12)
+
+The storefront uses saved Channel3 product identities and observed new-product prices; it does not call Channel3 on page load. Product size inventory, merchant prices, transactions, returns, inventory movements, and 90-day price history are synthetic. The 60-day sales ledger and inventory movements are deterministic and reconcile by SKU. These are not claims of real merchant availability or sales. The 10 authenticated discovery requests are recorded in `docs/CHANNEL3_PR12_REQUEST_LOG.json`; do not rerun discovery for this branch.
+
+Select an in-stock EU size on a product page, add it to the bag, then check prices at checkout. Distinct sizes are distinct cart lines. The server validates each size and current simulated stock and derives original prices and all totals from its catalog. Demo proposal modes are MATCH_LOWEST, PARTIAL_MATCH, and KEEP_ORIGINAL; observed competitor shipping and fees remain unknown, so any demo discount is explicitly a Sandbox-only assumption. Alternatively, continue at the independently authorized original price. The existing `/channel3-demo` and merchant routes remain available.
+
+To enable only the clearly labeled Sandbox proposal demonstration, set `PRICEMATCHER_DEMO_ASSUMPTIONS=1` with `PAYPAL_ENVIRONMENT=SANDBOX`. Keep it disabled elsewhere. PayPal credentials, a session-signing secret, and persistent PostgreSQL are required for a shared payment-capable deployment; local development can inspect the storefront without them. Never use live PayPal credentials here. No payment was executed during PR #12 implementation.
 
 ## Local setup
 

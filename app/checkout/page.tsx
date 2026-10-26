@@ -6,7 +6,7 @@ import { PayPalCheckout } from "@/components/paypal-checkout";
 import { CartPriceCheck } from "@/components/cart-price-check";
 import { useCart } from "@/components/cart-provider";
 import type { AcceptedOfferSummary } from "@/lib/checkout-summary";
-import { products } from "@/lib/catalog";
+import { footwearCartLines } from "@/lib/footwear/cart-lines";
 import { formatMoney } from "@/lib/format";
 import "./checkout.css";
 
@@ -16,11 +16,11 @@ export default function CheckoutPage() {
   const [comparisonKey, setComparisonKey] = useState(0);
   const [originalLoading,setOriginalLoading]=useState(false);const[originalError,setOriginalError]=useState("");
   const { items, count,revision } = useCart();
-  const lines = products.filter((product) => items[product.id]);
-  const cartKey = lines.map((product) => `${product.id}:${items[product.id]}`).join("|");
-  const cart = useMemo(() => lines.map((product) => ({ productId: product.id, variantKey: [product.sku, product.variant.color, product.variant.size ?? "", product.variant.condition].join(":"), quantity: items[product.id] })), [cartKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const cartKey = Object.entries(items).sort(([a],[b])=>a.localeCompare(b)).map(([key,quantity])=>`${key}:${quantity}`).join("|");
+  const lines = useMemo(() => footwearCartLines(items), [items]);
+  const cart = useMemo(() => lines.map(({product,variantKey,quantity}) => ({ productId: product.id, variantKey, quantity })), [lines]);
 
-  const subtotal = lines.reduce((sum, product) => sum + product.price.amountMinor * items[product.id], 0);
+  const subtotal = lines.reduce((sum, {product,quantity}) => sum + product.price.amountMinor * quantity, 0);
   const shipping = subtotal >= 7500 ? 0 : 590;
   const tax = 0;
   const originalTotal = subtotal + shipping + tax;
@@ -46,7 +46,7 @@ export default function CheckoutPage() {
     {!acceptedOffer&&<div className="original-checkout"><button className="button secondary large" disabled={originalLoading} onClick={continueOriginal}>{originalLoading?"Authorizing current cart…":"Continue at original price"}</button>{originalError&&<p role="alert">{originalError}</p>}</div>}
     <PayPalCheckout key={`${acceptedOffer?.offerId ?? "none"}:${cartKey}`} offerId={acceptedOffer?.offerId} cart={cart} onOfferInvalidated={invalidateOffer} />
   </section><aside className="summary"><h2>Order summary</h2>
-    {lines.map((product) => <div className="summary-row" key={product.id}><span>{items[product.id]} × {product.name}</span><span>{formatMoney({ amountMinor: product.price.amountMinor * items[product.id], currency: "USD" })}</span></div>)}
+    {lines.map(({key,product,quantity,sku}) => <div className="summary-row" key={key}><span>{quantity} × {product.name} · EU {sku.size}</span><span>{formatMoney({ amountMinor: product.price.amountMinor * quantity, currency: "USD" })}</span></div>)}
     <div className="summary-row"><span>Original subtotal</span><span>{formatMoney(acceptedOffer?.originalSubtotal ?? { amountMinor: subtotal, currency: "USD" })}</span></div>
     <div className="summary-row"><span>Shipping</span><span>{(acceptedOffer?.shipping.amountMinor ?? shipping) ? formatMoney(acceptedOffer?.shipping ?? { amountMinor: shipping, currency: "USD" }) : "Free"}</span></div>
     <div className="summary-row"><span>Tax</span><span>{formatMoney(acceptedOffer?.tax ?? { amountMinor: tax, currency: "USD" })}</span></div>

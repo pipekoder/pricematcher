@@ -1,0 +1,4 @@
+import { resolveSkuKey } from "./footwear/operations";
+export const CART_VERSION=2;
+export function validateCartItems(input:unknown):Record<string,number>{const source=input&&typeof input==="object"&&!Array.isArray(input)?input as Record<string,unknown>:{};const candidate=source.version===CART_VERSION&&source.items&&typeof source.items==="object"?source.items as Record<string,unknown>:source;return Object.fromEntries(Object.entries(candidate).filter(([id,quantity])=>{const sku=resolveSkuKey(id)?.sku;return Boolean(sku&&sku.stock>0)&&Number.isSafeInteger(quantity)&&Number(quantity)>0}).map(([id,quantity])=>[id,Math.min(Number(quantity),resolveSkuKey(id)!.sku.stock,9)]));}
+export function cartCount(items:Record<string,number>){return Object.values(validateCartItems(items)).reduce((sum,quantity)=>sum+quantity,0);}
