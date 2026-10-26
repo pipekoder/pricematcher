@@ -42,7 +42,7 @@ export function createPayPalCheckoutService(deps: Dependencies) {
       if (!authorized || authorized.status !== "accepted" || authorized.sessionId !== sessionId || new Date(authorized.expiresAt) <= now()) throw new TransactionStateError("offer_invalid", "Accepted offer is unavailable or expired");
       const activePolicy = await deps.offers.getPolicy(authorized.merchantId);
       if (!activePolicy || activePolicy.id !== authorized.policyId || activePolicy.version !== authorized.policyVersion) throw new TransactionStateError("policy_changed", "Merchant policy changed");
-      if (authorized.finalTotal.currency !== attempt.expectedAmount.currency || authorized.finalTotal.amountMinor !== attempt.expectedAmount.amountMinor) throw new TransactionStateError("amount_changed", "Authorized checkout amount changed");
+      if (authorized.finalTotal.currency !== "USD" || attempt.expectedAmount.currency !== "USD" || !Number.isSafeInteger(attempt.expectedAmount.amountMinor) || attempt.expectedAmount.amountMinor <= 0 || authorized.finalTotal.amountMinor !== attempt.expectedAmount.amountMinor) throw new TransactionStateError("amount_changed", "Authorized checkout amount changed");
       if (attempt.providerOrderId && ["order_created","buyer_approved","capture_pending","captured","reconciliation_required","reconciled"].includes(attempt.status)) return { orderId: attempt.providerOrderId, status: attempt.status, created: false };
       if (attempt.status !== "prepared") throw new TransactionStateError("invalid_transition", "Checkout is not ready to create an order");
       attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["prepared"], to: "order_pending", now: now() });

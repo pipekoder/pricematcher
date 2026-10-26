@@ -125,4 +125,5 @@ describe("PayPal authorized checkout", () => {
     const expired=await setup();expired.offers.offers.get(expired.offer.id)!.expiresAt="2000-01-01T00:00:00.000Z";
     await expect(expired.service.createOrder(expired.prepared.checkoutAttemptId,expired.sessionId)).rejects.toMatchObject({code:"offer_invalid"});
   });
+  it("rejects zero and negative stored checkout amounts before provider contact",async()=>{for(const amountMinor of [0,-1]){const value=await setup();value.transactions.attempts.get(value.prepared.checkoutAttemptId)!.expectedAmount.amountMinor=amountMinor;await expect(value.service.createOrder(value.prepared.checkoutAttemptId,value.sessionId)).rejects.toMatchObject({code:"amount_changed"});}});
 });
