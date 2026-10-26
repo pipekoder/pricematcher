@@ -1,41 +1,25 @@
+import { ArrowRight, ExternalLink, ShieldCheck, TriangleAlert } from "lucide-react";
 import { channel3DemoInvestigation, channel3DemoProducts, channel3DemoScenarios } from "@/lib/price-intelligence/channel3-demo-catalog";
+import { groupChannel3Products } from "@/lib/price-intelligence/channel3-demo";
 
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+const dateTime = new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" });
+const families = groupChannel3Products(channel3DemoProducts);
+const statusCopy = {
+  exact_variant: { label: "Exact variant verified", detail: "Strong identifiers and required variant attributes agree." },
+  same_product_family: { label: "Same model — variant not verified", detail: "Brand and model align, but exact variant evidence is incomplete." },
+  variant_mismatch: { label: "Different variant", detail: "At least one required variant attribute conflicts." },
+  insufficient_evidence: { label: "Insufficient evidence", detail: "The returned data cannot establish product equivalence." },
+} as const;
 
 export default function Channel3DemoPage() {
-  const multiMerchantProducts = channel3DemoProducts.filter((product) => product.offers.length > 1).length;
-
-  return <div className="page-shell">
-    <p className="eyebrow">Channel3 / real product demo</p>
-    <h1 className="page-title">Live evidence, conservative decisions.</h1>
-    <p className="subhead">This catalog is separate from the fictional store catalog. Every product and offer below was returned by one authenticated Channel3 search.</p>
-    <div className="stat-grid">
-      <div className="stat-card"><strong>{channel3DemoProducts.length}</strong><span>verified real products</span></div>
-      <div className="stat-card"><strong>{channel3DemoInvestigation.requestCount}/{channel3DemoInvestigation.requestBudget}</strong><span>API request budget used</span></div>
-      <div className="stat-card"><strong>{multiMerchantProducts}</strong><span>multi-merchant products</span></div>
-      <div className="stat-card"><strong>{channel3DemoInvestigation.status}</strong><span>integration status</span></div>
-    </div>
-    <section className="compare-panel">
-      <span className="demo-label">Authenticated live result</span>
-      <h2>Verification result</h2>
-      <p>{channel3DemoInvestigation.summary}</p>
-      <p>Window: <time dateTime={channel3DemoInvestigation.requestedAt}>{channel3DemoInvestigation.requestedAt}</time> — <time dateTime={channel3DemoInvestigation.completedAt}>{channel3DemoInvestigation.completedAt}</time></p>
-      <div className="evidence">{channel3DemoInvestigation.queries.map((query) => <div className="evidence-row" key={query}><span>{query}</span><strong>Success</strong></div>)}</div>
-    </section>
-    <section className="collection" style={{ paddingLeft: 0, paddingRight: 0 }}>
-      <div className="section-heading"><div><p className="eyebrow">Verified catalog</p><h2>Real Channel3 results</h2></div><p>Prices are product prices only. Unknown shipping and fees make every offer non-actionable.</p></div>
-      <div className="product-grid">{channel3DemoProducts.map((product) => <article className="stat-card" key={product.channel3ProductId}>
-        <span className="demo-label">Channel3 ID {product.channel3ProductId}</span>
-        <h3>{product.name}</h3>
-        <p>{Object.entries(product.variant).map(([key, value]) => `${key}: ${value}`).join(" · ")}</p>
-        <small>Retrieved <time dateTime={product.retrievedAt}>{product.retrievedAt}</time></small>
-        <div className="evidence">{product.offers.map((offer) => <div className="evidence-row" key={offer.url}>
-          <span><a href={offer.url} target="_blank" rel="noreferrer">{offer.merchant}</a><br /><small>Shipping + fees unknown</small></span>
-          <strong>{money.format(offer.price.amountMinor / 100)}<br /><small>Not actionable</small></strong>
-        </div>)}</div>
-      </article>)}</div>
-    </section>
-    <section className="collection" style={{ paddingLeft: 0, paddingRight: 0 }}><div className="section-heading"><div><p className="eyebrow">Authorization controls</p><h2>Three demo outcomes</h2></div><p>Merchant prices are configured demo prices. Competitor fixtures are never presented as live merchant prices.</p></div><div className="product-grid">{channel3DemoScenarios.map((scenario) => <article className="stat-card" key={scenario.id}><span className="demo-label">{scenario.evidence}</span><h3>{scenario.title}</h3><p className="subhead">{scenario.explanation}</p><strong style={{ fontSize: 18 }}>{scenario.actionable ? "Fixture-authorized" : "Not actionable"}</strong></article>)}</div></section>
-    <section className="trust-note"><strong>Delivered-cost limitation</strong><br />A live Channel3 product price is not an executable match when shipping or mandatory fees are unknown. Unknown values remain unknown—never zero—and no live discount is generated.</section>
+  const offerCount = families.reduce((total, family) => total + family.offers.length, 0);
+  return <div className="page-shell channel3-page">
+    <header className="channel3-hero"><div><p className="eyebrow">PriceMatcher / live market discovery</p><h1 className="page-title">Compare the evidence.<br />Keep the decision honest.</h1><p className="subhead">Real product prices discovered through Channel3, grouped into recognizable product families. Product price is only one part of the total—unknown delivery costs never become an automatic discount.</p></div><aside className="channel3-principle"><ShieldCheck aria-hidden="true" /><strong>Discovery is live.<br />Authorization stays controlled.</strong><p>Every live offer below is informational until exact identity and delivered cost are verified.</p></aside></header>
+    <dl className="channel3-stats" aria-label="Live catalog summary"><div><dt>Product families</dt><dd>{families.length}</dd></div><div><dt>Channel3 records</dt><dd>{channel3DemoProducts.length}</dd></div><div><dt>Merchant offers</dt><dd>{offerCount}</dd></div><div><dt>Additional searches</dt><dd>{channel3DemoInvestigation.requestCount}/{channel3DemoInvestigation.requestBudget}</dd></div></dl>
+    <section className="channel3-section" aria-labelledby="choose-product"><div className="channel3-section-head"><div><p className="eyebrow">Live catalog</p><h2 id="choose-product">Choose a product family</h2></div><p>Repeated Channel3 records are grouped together. Price ranges are observed product prices—not delivered-price claims.</p></div><div className="family-grid">{families.map((family) => <article className="family-card" key={family.id}><div><span className="family-brand">{family.brand}</span><h3>{family.name}</h3><p>{family.products.length} Channel3 {family.products.length === 1 ? "record" : "records"} · {family.merchantCount} {family.merchantCount === 1 ? "merchant" : "merchants"}</p></div><div className="family-price"><span>Observed product price</span><strong>{money.format(family.priceRange.minimumMinor / 100)}{family.priceRange.minimumMinor !== family.priceRange.maximumMinor && <>–{money.format(family.priceRange.maximumMinor / 100)}</>}</strong></div><div className="verification-line"><TriangleAlert aria-hidden="true" size={16} /><span>Same model — variant not verified</span></div><a className="button" href={`#${family.id}`}>View comparison <ArrowRight size={15} aria-hidden="true" /></a></article>)}</div></section>
+    <section className="channel3-section" aria-labelledby="comparisons"><div className="channel3-section-head"><div><p className="eyebrow">Offer evidence</p><h2 id="comparisons">Product comparisons</h2></div><p>Offers are sorted by observed product price. The first row is not necessarily the lowest delivered price.</p></div><div className="comparison-stack">{families.map((family) => <article className="family-comparison" id={family.id} key={family.id}><header className="comparison-title"><div><span className="family-brand">{family.brand}</span><h3>{family.name}</h3><p>{family.models.join(" · ")}</p></div><div className="status-chip warning"><TriangleAlert size={15} aria-hidden="true" />Same model — variant not verified</div></header><div className="record-evidence"><h4>What Channel3 returned</h4>{family.products.map((product) => <div className="record-row" key={product.channel3ProductId}><div><strong>{product.name}</strong><small>Channel3 ID {product.channel3ProductId}</small></div><div><span>{Object.entries(product.variant).map(([key, value]) => `${key}: ${value}`).join(" · ") || "No variant attributes returned"}</span><small>Missing: {product.identity.missing.join(", ") || "none"}</small></div><p>{product.verificationExplanation}</p></div>)}</div><div className="offer-list" role="table" aria-label={`${family.name} merchant offers`}><div className="offer-row offer-row-head" role="row"><span role="columnheader">Merchant</span><span role="columnheader">Product price</span><span role="columnheader">Evidence</span><span role="columnheader">Source</span></div>{family.offers.map((offer) => { const status = statusCopy[offer.verificationStatus]; return <div className="offer-row" role="row" key={`${offer.productId}-${offer.url}`}><div role="cell"><strong>{offer.merchant}</strong><small>{offer.availability === "in_stock" ? "In stock" : "Availability unknown"} · Condition {offer.condition ?? "unknown"}</small></div><div role="cell"><strong>{money.format(offer.price.amountMinor / 100)}</strong><small>Product price only</small></div><div role="cell"><span className="status-text">{status.label}</span><small>{status.detail}</small><small>Shipping unknown · Mandatory fees unknown</small><span className="not-actionable">Delivered cost unknown · Not actionable</span></div><div role="cell"><a className="source-link" href={offer.url} target="_blank" rel="noreferrer">Visit merchant <ExternalLink size={13} aria-hidden="true" /></a><small>Retrieved {dateTime.format(new Date(offer.retrievedAt))} UTC</small></div></div>; })}</div></article>)}</div></section>
+    <section className="decision-note" aria-labelledby="decision-title"><TriangleAlert aria-hidden="true" /><div><h2 id="decision-title">Why no live price adjustment is authorized</h2><p>Channel3 returned product prices, availability, conditions, and merchant links—but not verified shipping and mandatory fees. Unknown does not mean free or zero. Exact size, color, capacity, generation, or stable identifiers are also missing for at least part of every family. These offers support market discovery only.</p></div></section>
+    <section className="channel3-section" aria-labelledby="safe-demo"><div className="channel3-section-head"><div><p className="eyebrow">Separate authorization demo</p><h2 id="safe-demo">Merchant-controlled outcomes</h2></div><p>Executable examples remain isolated fixture data and are never presented as live market evidence.</p></div><div className="scenario-grid">{channel3DemoScenarios.map((scenario) => <article key={scenario.id}><span className="demo-label">{scenario.evidence}</span><h3>{scenario.title}</h3><p>{scenario.explanation}</p><strong>{scenario.actionable ? "Fixture-authorized" : "Not actionable"}</strong></article>)}</div></section>
   </div>;
 }

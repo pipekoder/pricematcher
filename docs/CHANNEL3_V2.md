@@ -41,8 +41,8 @@ There is no silent fallback. `fixture` is visibly labeled demo data; `channel3` 
 
 ## Status
 
-- Channel3 SDK integration: **LIVE AND VERIFIED** by an authenticated search on 2026-10-26
-- Semantic search configuration: **LIVE AND VERIFIED**; one search returned five products and nine offers
+- Channel3 SDK integration: **LIVE AND VERIFIED** by five authenticated searches on 2026-10-26
+- Semantic search configuration: **LIVE AND VERIFIED**; the curated demo contains five product families, 14 records, and 26 offers
 - Shipping/mandatory-fee resolver: **BLOCKED** for live results; all affected offers remain non-actionable
 - Fixture adapter: **FIXTURE / DEMO**
 - Free-credit quota and expiry: **BLOCKED** pending Channel3 account confirmation

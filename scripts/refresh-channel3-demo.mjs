@@ -1,7 +1,11 @@
 import { Channel3 } from "@channel3/sdk";
 
 const MAX_BUDGET = 6;
-const savedProductIds = ["kRteKNW", "9NKNXXR", "rL4QVw1", "taUUvTb", "pcgUHoJ"];
+const savedProductIds = [
+  "kRteKNW", "9NKNXXR", "rL4QVw1", "taUUvTb", "pcgUHoJ",
+  "aggqNMU", "rmAiFzV", "UfUgP5k", "KAiWQbg", "UIckAxH",
+  "ExGJQgW", "qiuI126", "4oT9ZT1", "OUrIuPy",
+];
 const searchQueries = [
   "Nike Downshifter 14",
   "Brooks Ghost Max 3",

@@ -40,4 +40,41 @@ describe("identity comparison explanations", () => {
     expect(result.match).toBe("mismatch");
     expect(result.reasons).toEqual(expect.arrayContaining(["Missing: GTIN", "Differed: color"]));
   });
+
+  it("does not claim an exact variant when the stable identifier is missing", async () => {
+    const result = await verifyEquivalence(product, candidate({ gtin: undefined }));
+    expect(result).toMatchObject({ match: "uncertain", aiAssisted: false });
+    expect(result.reasons).toContain("Missing: GTIN");
+  });
+
+  it("treats a missing required condition as insufficient evidence, not a conflict", async () => {
+    const result = await verifyEquivalence(product, candidate({ condition: undefined }));
+    expect(result).toMatchObject({ match: "uncertain", aiAssisted: false });
+    expect(result.reasons).toContain("Missing: condition");
+  });
+
+  it("rejects a conflicting required size", async () => {
+    const sizedProduct = { ...product, variant: { ...product.variant, size: "M" } };
+    const result = await verifyEquivalence(sizedProduct, candidate({ size: "L" }));
+    expect(result).toMatchObject({ match: "mismatch", aiAssisted: false });
+    expect(result.reasons).toContain("Differed: size");
+  });
+
+  it("reports a missing required size as insufficient evidence", async () => {
+    const sizedProduct = { ...product, variant: { ...product.variant, size: "M" } };
+    const result = await verifyEquivalence(sizedProduct, candidate({ size: undefined }));
+    expect(result).toMatchObject({ match: "uncertain", aiAssisted: false });
+    expect(result.reasons).toContain("Missing: size");
+  });
+
+  it("rejects a conflicting model even when the title is similar", async () => {
+    const result = await verifyEquivalence(product, candidate({ model: "NS3", productTitle: product.name }));
+    expect(result).toMatchObject({ match: "mismatch", aiAssisted: false });
+    expect(result.reasons).toContain("Differed: model");
+  });
+
+  it("labels a real AI evaluation only when an evaluator is called", async () => {
+    const result = await verifyEquivalence(product, candidate({ gtin: undefined }), { source: "ai", evaluate: async () => "probable" });
+    expect(result).toMatchObject({ match: "probable", aiAssisted: true });
+  });
 });
