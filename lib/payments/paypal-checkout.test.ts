@@ -119,4 +119,10 @@ describe("PayPal authorized checkout", () => {
     await expect(value.service.createOrder(value.prepared.checkoutAttemptId, crypto.randomUUID())).rejects.toMatchObject({ code: "unauthorized" });
     expect(value.provider.captures).toBe(0);
   });
+  it("rejects changed server amounts and expired offers before creating a PayPal order",async()=>{
+    const changed=await setup();changed.offers.offers.get(changed.offer.id)!.finalTotal.amountMinor++;
+    await expect(changed.service.createOrder(changed.prepared.checkoutAttemptId,changed.sessionId)).rejects.toMatchObject({code:"amount_changed"});
+    const expired=await setup();expired.offers.offers.get(expired.offer.id)!.expiresAt="2000-01-01T00:00:00.000Z";
+    await expect(expired.service.createOrder(expired.prepared.checkoutAttemptId,expired.sessionId)).rejects.toMatchObject({code:"offer_invalid"});
+  });
 });
