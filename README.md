@@ -71,3 +71,4 @@ The fixture merchant uses a configurable `match` strategy. The policy also suppo
 
 See [Render deployment](docs/RENDER_DEPLOYMENT.md). Do not use PayPal Live credentials for this project.
 See [PayPal agentic checkout](docs/PAYPAL_AGENTIC_CHECKOUT.md) for Sandbox setup and manual verification.
+See [Dual AI Offer Agents](docs/DUAL_AI_OFFER_AGENTS.md) for the optional two-agent Sandbox workflow, merchant policy, budget and security boundaries.

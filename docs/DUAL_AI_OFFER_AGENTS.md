@@ -1,0 +1,59 @@
+# Dual AI Offer Agents — PR #13
+
+## Trust boundary and customer journey
+
+Shop → Bag → Check Prices → Final Offer → Accept or Keep Original → PayPal Sandbox. The saved 22-record Channel3 footwear catalog, 198 simulated size SKUs, cart fingerprint, original-price checkout, and PayPal server authorization are retained. The consumer no longer selects an internal pricing scenario.
+
+On a footwear price check, the server validates product, size, SKU stock, quantity, currency and merchant prices before any model call. It uses saved Channel3 market snapshots; no new product discovery occurs. A bounded, server-generated JSON fact set (maximum six cart lines) goes to Agent A. Agent A advises on demand and margin. Agent B sees those facts and Agent A's structured advice and proposes one decision and integer-cent unit price per line plus a consolidated subtotal. The server rejects incomplete line sets, invalid totals, insufficient stock, stale market evidence, below-cost prices and merchant-policy violations. At most one sanitized revision request goes to Agent B. A failed model call or second invalid proposal yields no adjusted offer; independently authorized original-price checkout remains available.
+
+The agents cannot save policies, inventory or payments. Their output is untrusted even when it conforms to the OpenAI JSON schema. Acceptance and PayPal order preparation recompute the cart and AI policy from server records, and check session, offer status, expiration, SKU identity, evidence, and authorized totals. No live-money discount is allowed from variant-incomplete evidence: AI offers require explicit Sandbox demo assumptions.
+
+## Agent instructions and model
+
+The official OpenAI JavaScript SDK invokes the server-side Responses API. `agents/inventory-sales/SKILL.md` and `agents/market-offer/SKILL.md` are read from disk and supplied as instructions for their respective calls. Product descriptions, retailer prose, and URLs are not supplied as instructions or in the model fact set. Strict JSON schemas are requested and Zod independently validates returned data. The initial model candidate is `gpt-6-luna`; model availability and strict Structured Outputs support have **not** been verified on an account because this environment has no `OPENAI_API_KEY`. The implementation falls back safely if the model rejects that API shape. No billable live evaluation was performed.
+
+## Merchant policy examples
+
+- Overstock/no sales: product stock >50 and zero sales in 30 days. Merchant selects a 5% or 10% above-cost minimum with `AI_OVERSTOCK_MARKUP_BPS` (500 or 1000).
+- Scarce/active: product stock <10 and sales on at least `AI_ACTIVE_SALES_DAYS` distinct days in 30 days. Floor is `max(cost, 85% of original retail)`.
+- Normal: existing minimum-price and maximum-discount constraints apply, never below simulated acquisition cost.
+
+The selected SKU must always have enough simulated stock. AI recommendations cannot change these conditions. The market's unknown shipping, fees and size equivalence remain explicitly unverified. A saved product-price reference can support only a clearly labeled Sandbox assumption, not an exact delivered-price match.
+
+## Cost and latency controls
+
+One-item checks use at most two initial model calls (one per agent); only a rejected proposal permits one extra Agent B call. Up to six lines are batched in those same calls. Requests use a 12-second timeout, zero automatic SDK retries, `store:false`, and a 1,400-output-token cap. Agent A insights are cached for five minutes on unchanged facts. Repeated identical session/cart checks reuse an offer for 60 seconds while still issued. Per-process concurrency is limited to two. Development has an in-memory daily call/spend guard; production uses the atomic `ai_offer_daily_budget` PostgreSQL table from migration `202610260001_ai_offer_budget.sql`. A production database failure denies model calls.
+
+The application conservatively reserves $0.05 per model request and defaults to 40 calls and $1 estimated daily spend. The usage log contains model, input/output token counts, elapsed time and an **illustrative** estimate using $5/M input and $20/M output tokens. Actual `gpt-6-luna` prices and availability are unverified; these estimates are not a billing guarantee. For a two-call check, the reserved application budget is $0.10; a single revision raises it to $0.15. Configure a project-level OpenAI budget and alerts separately—dashboard budgets may not be hard stops. Do not buy credits or enable auto-recharge for this demo.
+
+## Internal diagnostics
+
+`/merchant/operations` shows simulated cost/stock/sales and the latest Agent A recommendation, Agent B proposal, policy outcome and final authorized unit. It requires Basic authentication (`merchant` as username, `MERCHANT_DEMO_ACCESS_TOKEN` as password, minimum 24 characters). The proxy returns 401 without credentials; the server layout independently withholds the data. The latest agent diagnostic is process-local and not a durable audit record. The public Merchant Demo and `/channel3-demo` routes remain available. Customer responses contain only safe explanations and a minimal offer ID/total/expiry, never acquisition costs, policies, prompts or model diagnostics.
+
+## Automated validation
+
+On the PR branch, `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`, and `git diff --check` passed. The complete unit suite reports 135 passed and 5 skipped tests. Mocked Agent A/B tests cover the three decisions, policy floors, invalid proposals, timeouts, rate limits, malformed output, conflicting advice, SKU substitution, multi-item totals, repeated checks, expiration, offer reuse, original-price isolation and payment amount integrity. Production route smoke checks returned 200 for the storefront, bag, checkout, Channel3 Demo and Merchant Demo, and 401 for unauthenticated Merchant Operations. A comparison POST in this bare production-mode environment returned 503 because `PRICE_MATCHER_SESSION_SECRET` was not configured. A rerun was blocked by environment safety review over the possibility of a Channel3 call, so that HTTP boundary remains unverified. PostgreSQL integration tests were not run because `TEST_DATABASE_URL` is not configured. Live OpenAI and PayPal Sandbox payments were not tested.
+
+## Render setup
+
+1. Apply all committed Supabase/PostgreSQL migrations, including `202610260001_ai_offer_budget.sql`, to a dedicated test/staging database.
+2. Configure `APP_ENV=production`, `PERSISTENCE_BACKEND=postgres`, `DATABASE_URL`, TLS settings, and a 32+ character `PRICE_MATCHER_SESSION_SECRET` per existing deployment documentation.
+3. Configure server-only `OPENAI_API_KEY` in Render secrets for the intended OpenAI project and `OPENAI_MODEL=gpt-6-luna` only after confirming account access and Structured Outputs support. Set `OPENAI_OFFER_AGENT_ENABLED=1`, `PRICEMATCHER_DEMO_ASSUMPTIONS=1`, and `PAYPAL_ENVIRONMENT=SANDBOX` only for the explicit Sandbox demonstration.
+4. Set `AI_OVERSTOCK_MARKUP_BPS` to `500` or `1000`, `AI_ACTIVE_SALES_DAYS` to a positive 1–30 value, `OPENAI_OFFER_TIMEOUT_MS=12000`, `OPENAI_OFFER_MAX_CALLS_PER_DAY=40`, and `OPENAI_OFFER_MAX_ESTIMATED_SPEND_USD=1`. Set a long random `MERCHANT_DEMO_ACCESS_TOKEN`.
+5. Configure existing PayPal **Sandbox** client credentials. Never enter live PayPal credentials. Confirm health and environment readiness before allowing users to test checkout. No deployment was performed in this PR.
+
+## Manual QA (not performed here)
+
+1. Overstock/no sales: inspect an overstocked, unsold model in the protected operations page; choose an in-stock EU size and click Check Prices. Verify Agent A flags stagnant/overstock, Agent B proposes a compliant discount or retains original, and the policy floor is never below configured cost markup.
+2. Scarce/active: use a controlled test fixture with total stock below 10 and sufficient distinct selling days. Check that any offer is at least cost and 85% of original price. Do not mutate the saved storefront inventory to manufacture this case.
+3. Normal: select a normally stocked model, compare, and verify the original-price and approved-offer choices have distinct authorization records. Change size or quantity after checking: the old offer must be rejected.
+
+For each, test a repeated Check Prices request and inspect sanitized usage logs. With the agent disabled, there must be no model call and original-price checkout must still work. Run an explicit live three-scenario evaluation only after valid API credentials, model support, budget and billable-call authorization are confirmed.
+
+### PayPal Sandbox QA (not executed here)
+
+Using buyer and merchant Sandbox accounts only: accept an authorized offer, inspect the displayed total, click the PayPal Sandbox checkout action, approve in the buyer Sandbox window, and verify the server's returned order amount and capture status match the authorized offer. Repeat the prepare request with the same idempotency key; it must not create a second attempt. Attempt a changed SKU, quantity, stale offer, reused acceptance, and browser-modified amount; all must fail before PayPal order creation. Repeat at original price and confirm no AI discount applies. Never run these steps against a live PayPal account.
+
+## Rollback and limitations
+
+Set `OPENAI_OFFER_AGENT_ENABLED=false` to stop model calls immediately; original-price checkout continues. Revert the PR to remove the UI and service path if needed; retain the budget table for audit or drop it separately after confirming no deployments use it. No API key was configured in the development environment, so OpenAI model support and live commercial behavior remain unverified. Channel3 snapshots are cached, variant-incomplete, and have unknown shipping/fees. Inventory, acquisition cost, sales, returns and NORTH/01 retail prices are simulated. Mocked tests do not prove live model quality or a real PayPal Sandbox payment.
