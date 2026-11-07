@@ -1,9 +1,33 @@
-import { ArrowRight, ShieldCheck, Truck } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
-import { PriceMatcherBadge } from "@/components/badge";
 import { products } from "@/lib/catalog";
 
+const brands = ["New Balance", "Nike", "Puma", "adidas", "Reebok", "ASICS", "The North Face"];
+
 export default function Home() {
-  return <><section className="hero"><div className="hero-copy"><p className="eyebrow">The autumn edit / 2026</p><h1>Real products worth<br />living with.</h1><p>Purposeful technology, honest materials and prices you can feel good about.</p><div className="hero-links"><Link className="button light large" href="#collection">Shop the collection <ArrowRight size={18} /></Link><PriceMatcherBadge /></div></div><div className="hero-art"><span>01</span><div className="orb one" /><div className="orb two" /><p>Quiet design.<br />Clear value.</p></div></section><section className="value-strip"><div><ShieldCheck /><span><strong>Market discovery</strong>Channel3 product families and observed prices.</span></div><div><Truck /><span><strong>Delivered cost clarity</strong>Unknown competitor shipping and fees stay unknown.</span></div><div><span className="value-mark">%</span><span><strong>Merchant-approved offers</strong>Fair, transparent and instant.</span></div></section><section className="collection" id="collection"><div className="section-heading"><div><p className="eyebrow">New essentials</p><h2>Discover the demo store</h2></div><p>Five real product families with fictional demo merchant prices.</p></div><div className="product-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div></section><section className="story-block"><p className="eyebrow">Price confidence, built in</p><h2>Found it for less?<br />We&apos;ll look closer.</h2><p>PriceMatcher verifies the same product, seller and total delivered cost—then checks whether we can make you a better offer.</p><Link href="/about">See how it works <ArrowRight size={17} /></Link></section></>;
+  const heroProduct = products.find(product => product.brand === "Nike") ?? products[0];
+  return <>
+    <section className="demo-hero" aria-labelledby="demo-title">
+      <div className="demo-hero-copy">
+        <p className="eyebrow">PayPal Sandbox · Running &amp; sneakers</p>
+        <h1 id="demo-title">PriceMatcher demo site</h1>
+        <p>Find a pair you love. See a saved market-price reference on its product page, choose a size, and check for a merchant-authorized offer at checkout.</p>
+        <Link className="button light large" href="#collection">Explore shoes <ArrowRight size={18} /></Link>
+      </div>
+      <div className="demo-hero-image"><Image src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} width={1000} height={1000} priority /><span>Image supplied with the saved Channel3 product record</span></div>
+    </section>
+    <section className="demo-steps" id="how-it-works" aria-label="How the demo works">
+      <div><span>01</span><strong>Choose a shoe and EU size</strong><p>Size-level availability is simulated for this demo.</p></div>
+      <div><span>02</span><strong>See the market reference</strong><p>Saved Channel3 product prices are shown on each product page.</p></div>
+      <div><span>03</span><strong>Check your offer at checkout</strong><p>Only the server can authorize a final price. PayPal is Sandbox only.</p></div>
+    </section>
+    <section className="collection" id="collection">
+      <div className="section-heading"><div><p className="eyebrow">The collection</p><h2>Running shoes, sneakers &amp; hiking shoes</h2></div><p>Real product identities and images from saved Channel3 results. Merchant prices and EU-size stock are simulated.</p></div>
+      <div className="brand-strip" aria-label="Available brands">{brands.map(brand=><span key={brand}>{brand}</span>)}</div>
+      <div className="product-grid">{products.map(product=><ProductCard key={product.id} product={product} />)}</div>
+    </section>
+    <section className="demo-final-note"><ShieldCheck size={32} /><div><h2>Price difference is not yet an offer.</h2><p>Market prices exclude unknown shipping and mandatory fees, and external size availability is unverified. Add your size to the bag, then use PriceMatcher at checkout to see the server-authorized total—or continue at the original price.</p></div><Link className="button light" href="/cart">View bag <ArrowRight size={17} /></Link></section>
+  </>;
 }

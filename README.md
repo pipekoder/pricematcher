@@ -6,7 +6,7 @@ PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026
 
 ## What works now
 
-- Responsive outdoor-footwear storefront with 22 saved Channel3 product records and 198 simulated size SKUs; the original fixture catalog remains isolated
+- Focused one-page storefront with 19 saved Channel3 running, sneaker and hiking products from seven requested brands, real product-record images, and 171 simulated size SKUs; the original fixture catalog remains isolated
 - Product detail pages and a versioned browser-local, size-specific cart
 - Guided comparison using clearly labeled fixture data
 - Deterministic delivered-price, floor, discount, verification, currency, and expiration checks
@@ -20,7 +20,9 @@ Fixture comparison remains the safe default and is visibly labeled. PayPal calls
 
 ## Outdoor footwear demo (PR #12)
 
-The storefront uses saved Channel3 product identities and observed new-product prices; it does not call Channel3 on page load. Product size inventory, merchant prices, transactions, returns, inventory movements, and 90-day price history are synthetic. The 60-day sales ledger and inventory movements are deterministic and reconcile by SKU. These are not claims of real merchant availability or sales. The 10 authenticated discovery requests are recorded in `docs/CHANNEL3_PR12_REQUEST_LOG.json`; do not rerun discovery for this branch.
+The storefront uses saved Channel3 product identities, images, and observed new-product prices; it does not call Channel3 on page load. Product size inventory, merchant prices, transactions, returns, inventory movements, and 90-day price history are synthetic. The 60-day sales ledger and inventory movements are deterministic and reconcile by SKU. These are not claims of real merchant availability or sales. The original 10 authenticated discovery requests are recorded in `docs/CHANNEL3_PR12_REQUEST_LOG.json`; one additional Adidas query for this focused demo is recorded in `docs/CHANNEL3_RUNNING_DEMO_LOG.json`. Do not rerun either discovery script without a new, scoped need.
+
+The home page is a single-page shop; individual product detail and checkout routes remain. The product page shows saved product-only market quotes and a clearly labeled difference, not an actionable delivered-price match or authorized discount. Exact EU sizes are simulated; the PriceMatcher offer is requested and server-authorized at checkout. Products without an associated real Channel3 image are excluded from the main shop. The older `/channel3-demo` and Merchant Demo routes remain available.
 
 Select an in-stock EU size on a product page, add it to the bag, then check prices at checkout. Distinct sizes are distinct cart lines. The server validates each size and current simulated stock and derives original prices and all totals from its catalog. Demo proposal modes are MATCH_LOWEST, PARTIAL_MATCH, and KEEP_ORIGINAL; observed competitor shipping and fees remain unknown, so any demo discount is explicitly a Sandbox-only assumption. Alternatively, continue at the independently authorized original price. The existing `/channel3-demo` and merchant routes remain available.
 
