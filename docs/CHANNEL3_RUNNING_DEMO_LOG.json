@@ -1,0 +1,1037 @@
+{
+  "scope": "Running-shoe demo follow-up; cumulative discovery cap 30 including PR #12",
+  "requests": [
+    {
+      "number": 11,
+      "purpose": "Verify Adidas footwear for running-shoe demo",
+      "query": "Adidas running shoes sneakers",
+      "requestedAt": "2026-11-07T18:06:59.239Z",
+      "status": "success",
+      "result": {
+        "retrievedAt": "2026-11-07T18:07:03.419Z",
+        "products": [
+          {
+            "id": "GVfeAT0",
+            "title": "X9000L3 Running Sneakers",
+            "brands": [
+              "adidas"
+            ],
+            "description": "The Adidas X900L3 \"Gamer\" is an athletic shoe designed for comfort and style. It features a woven and mesh upper in a striking black and orange colorway with distinct geometric patterns. The sporty design is completed with grey accents on the sole and the iconic Adidas branding.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/c06c2b7e-eb62-45f4-a345-64a89c810145?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1d788ab0-5f2e-4d02-9362-bbfc435ad058?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/39dabadf-371b-4793-a757-ea6be06a5a05?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/023beb54-3f5b-457e-b709-cac43965ced3?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=wscm"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/51d54246-4b5b-41b5-8152-b00cd9293153?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=wscm"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "activity": [
+                "Running",
+                "Walking",
+                "Universal"
+              ],
+              "lining-material": [
+                "Satin"
+              ],
+              "footwear-material": [
+                "Thermoplastic polyurethane (TPU)",
+                "Textile",
+                "Mesh",
+                "Nylon"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "pattern": [
+                "Geometric",
+                "Color-block"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Lightweight"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "occasion-style": [
+                "Casual"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "stadiumgoods.com",
+                "url": "https://buy.trychannel3.com/GVfeAT0-wscm-5NDeHv?o=01M365M9ANN7SGXGTW6W4B1W8J&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 119,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "farfetch.com",
+                "url": "https://buy.trychannel3.com/GVfeAT0-NuBr-5NDeHv?o=01M32RQZ8S86VBZ8SDB9M4QV0Z&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 119,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/GVfeAT0-hHvi-5NDeHv?o=01KBPA8PN10W9MTJD52295Q3RG&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 167.31,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "Ti5xQQA",
+            "title": "Adidas Hyperboost Run Running Sneakers",
+            "brands": [
+              "adidas"
+            ],
+            "description": "The women's adidas Hyperboost Run is a lightweight daily trainer designed for versatile running. It features a Primeweave engineered woven upper for a soft, secure, and breathable fit, and an anatomically shaped heel with 3D-printed elements for support. The midsole is constructed from new, lighter HYPERBOOST PRO foam, providing significant energy return and a lower stack height for better ground connection and control. For traction, the shoe utilizes a LIGHTTRAXION outsole with Continental™ rubber in the forefoot to ensure grip on both wet and dry road surfaces.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/0357dc17-f413-487e-b575-0dec3dbc0116?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1af9908f-b9dc-4e8c-8d50-4aeee5a777c9?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c29c1611-6394-449c-a48a-3ca5a390fa8f?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/a5360dfd-01a5-4a10-8366-46f032088db9?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4d165768-5108-4978-8162-19b322e48a67?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/d7c18fca-8fc3-43e8-99f1-783bd30a7298?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/63ca67ba-8891-4965-bf8a-06f5c440083c?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "Hi-Res Yellow / Matte Silver / Light Solid Grey"
+              }
+            ],
+            "attributes": {
+              "toe-style": [
+                "Round"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Lightweight",
+                "Cushioned"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "footwear-material": [
+                "Textile",
+                "Mesh",
+                "Rubber"
+              ],
+              "upper-material": [
+                "Knit"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "roadrunnersports.com",
+                "url": "https://buy.trychannel3.com/Ti5xQQA-jMOb-5NDeHv?o=01M5XD96V87T22E86RRQ3DX5S3&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 169.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "fleetfeet.com",
+                "url": "https://buy.trychannel3.com/Ti5xQQA-aD8G-5NDeHv?o=01M5ZC63RQRJMRPAAVBBEV9EYB&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 170,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "3auvaOe",
+            "title": "Adidas Runfalcon 5 Running Shoes",
+            "brands": [
+              "adidas"
+            ],
+            "description": "These adidas Men's Runfalcon 5 Running Shoes are designed for versatility, taking you from the track to the treadmill. They feature a breathable mesh upper for ventilation and a cushy Cloudfoam midsole that provides soft and supportive cushioning. The durable Adiwear outsole ensures long-lasting wear, making these trainers ideal for both athletic goals and all-day comfort.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/c48873ce-8a0a-4c20-a915-0407be2ae5ff?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f2d167c8-b176-4b51-a831-b313ef475957?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/39f30c09-45fa-40dd-8cb5-891c82576041?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0c976a33-dca5-41e4-a191-89567df4e6a8?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/8bebc0a8-2031-4980-afa8-d7e053b6053b?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1335a246-d590-46df-b0c0-fa4e6cd7d060?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9f3183ea-493d-439d-82a3-dbc918448b72?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9967e3d2-6b0a-44ca-8f0c-4828d5d5e94f?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/76037a8d-2d26-433c-aee4-3aecea0320f7?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b30b609e-0556-4f91-9866-19cf124aaab9?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=ak4n"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "Solar Yellow / Dark Blue / Cloud White"
+              }
+            ],
+            "attributes": {
+              "upper-material": [
+                "Mesh",
+                "Knit"
+              ],
+              "activity": [
+                "Running",
+                "Training"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Textile"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "outsole-stud-type": [
+                "Flat outsole"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "heel-height-type": [
+                "Low"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "zulily.com",
+                "url": "https://buy.trychannel3.com/3auvaOe-ak4n-5NDeHv?o=01M5SKHWKEPTM7NN82SFHPCPAS&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 36,
+                  "compare_at_price": 60,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "adidas.com",
+                "url": "https://buy.trychannel3.com/3auvaOe-WpzG-5NDeHv?o=01M583G07JCEC3X8SNBT9C9QH8&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 48,
+                  "compare_at_price": 60,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "5HPl7nX",
+            "title": "Hyperboost Run Laufschuh",
+            "brands": [
+              "adidas"
+            ],
+            "description": "The adidas Hyperboost Run is a lightweight, neutral trainer designed for daily miles and long-distance efforts. It features a Primeweave woven upper for comfort and secure lockdown, and a Hyperboost Pro foam midsole that provides high cushioning and explosive energy return without the use of plates. The shoe is completed with a full-length Lighttraxion outsole and Continental™ rubber in the forefoot for exceptional traction in various conditions.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/4d7ca872-0139-4b9d-8d7a-fa74fa13688b?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1a30add4-e9d9-4298-9ac9-e83a8c56ebec?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f019ba7e-547b-44d3-b832-573112a84c8f?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/de1badd0-27dc-406c-9e8c-d797a96e73e4?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/4f3b84f8-0318-4403-beec-cfadfa4e5348?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/008751be-9c54-4667-ac8a-79e4482600f9?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/1f6d0c5d-6129-437b-b7e7-d2477af05c9d?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ea802877-33cb-4916-b133-fe78d7eca561?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/404c4ade-3b6b-4082-a47f-93fd6ae63c32?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/32f7df2d-0dd3-4c51-a2ca-fb3e5a7ec3ca?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/35b54d8d-bebb-47a0-b333-9eda0ef4b64b?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/43549bce-bddb-4d0b-ac1c-9a3da00c4bd0?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=jMOb"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Color",
+                "label": "Hi-Res Yellow / Iron Metallic / Grey Five"
+              }
+            ],
+            "attributes": {
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "upper-material": [
+                "Knit"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "footwear-material": [
+                "Textile",
+                "Rubber"
+              ],
+              "outsole-stud-type": [
+                "Flat outsole"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ],
+              "heel-height-type": [
+                "Flat",
+                "Low"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "roadrunnersports.com",
+                "url": "https://buy.trychannel3.com/5HPl7nX-jMOb-5NDeHv?o=01M5X9K56FQNVN5C50GN0W3BJZ&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 169.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "holabirdsports.com",
+                "url": "https://buy.trychannel3.com/5HPl7nX-DoRK-5NDeHv?o=01M54AJYM06RZD7V6C4386WJEA&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 169.95,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "fleetfeet.com",
+                "url": "https://buy.trychannel3.com/5HPl7nX-aD8G-5NDeHv?o=01M4JVBFK0PQX86JKJD3Q5N602&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 170,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "gGAeboB",
+            "title": "HYPERBOOST EDGE Running Sneakers",
+            "brands": [
+              "adidas"
+            ],
+            "description": "The adidas HYPERBOOST EDGE Running Sneakers are high-performance road running shoes designed for long distances (0 - 42+ km). They feature a lightweight mesh upper and are optimized for neutral pronation, providing a supportive yet breathable experience for athletes. This specific model comes in a vibrant Hi-Res Yellow colorway with Matte Silver and Light Solid Grey accents.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/8736e0d7-e813-4054-acf1-60d7f418b34d?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b0e97dab-c047-46f8-9f09-2f99681b65cf?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/621b0d4a-2251-42d1-8a13-0d7bf5b5a5dd?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cbfdc3a8-279d-4dd2-875b-c4c34c368186?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/62ddeb62-5054-4b92-a54f-8a987b33c7ef?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/ae5561f4-bf8d-466b-8452-5a16498648e1?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f7cb7c13-885c-43fb-b48c-07f022f5e8c2?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f8f7f6ab-0ab5-4cfd-84f0-cd4c160a74d0?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f4dd3dd0-597f-4af8-8b68-a3e31588ee1a?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=WpzG"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "shoe-fit": [
+                "Regular"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Synthetic"
+              ],
+              "pronation-support": [
+                "Neutral"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "shoe-features": [
+                "Cushioned"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "adidas.ca",
+                "url": "https://buy.trychannel3.com/gGAeboB-WpzG-5NDeHv?o=01M5D5E6V8BVDPEF6V147DYJ9M&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 160,
+                  "compare_at_price": 200,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "Maja2UX",
+            "title": "Run 60s 4.0 Sneakers",
+            "brands": [
+              "adidas"
+            ],
+            "description": "Experience a blend of retro-inspired style and modern comfort with the adidas Run 60s 4.0 sneakers for men. These athletic shoes feature a durable mesh upper complemented by soft suede and leather overlays, providing both breathability and support. Designed for everyday wear, they include a cushioned footbed for lasting comfort and a grippy rubber outsole for reliable traction.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/dc105348-c692-4ebc-96f9-349e53edf69f?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c59d9e19-b347-4d4c-ae04-343bd2618c8a?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/20182578-c6af-435a-b3c4-5a92d1315438?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/8bc5ae3d-16ec-4317-885f-ecb0f5d32985?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/0fc27fb5-4299-49dc-801d-36b0f2af7805?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/948266c5-f3e6-4b20-b49a-ea1b04889eac?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/03805ec5-ab10-43ac-84f9-dd5ee6ee88f0?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/5f7d9b90-2b87-4b85-a298-8d7e7e6ddc42?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/f02a1ac7-30f5-460a-a2d9-024b6d06dede?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b380749c-aa84-4ed9-8855-5807df0fcab1?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/22215ea1-c379-440b-a29f-44f389c17646?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "activity": [
+                "Running"
+              ],
+              "closure-type": [
+                "Straps",
+                "Lace-up"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "upper-material": [
+                "Synthetic",
+                "Mesh",
+                "Leather",
+                "Suede"
+              ],
+              "footwear-material": [
+                "Synthetic",
+                "Mesh",
+                "Rubber",
+                "Leather",
+                "Suede"
+              ],
+              "sneaker-style": [
+                "Athletic",
+                "Low-top"
+              ],
+              "heel-height-type": [
+                "Flat",
+                "Low"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid",
+                "Striped"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Lightweight"
+              ],
+              "lining-material": [
+                "Textile"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/Maja2UX-hHvi-5NDeHv?o=01M2VB0E4NEVWNK599FS9VFDQJ&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 94.77,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "grKENhT",
+            "title": "Men's Adidas Originals Swift Run 1.0 Casual Shoes",
+            "brands": [
+              "adidas"
+            ],
+            "description": "Casual running shoes featuring a knit upper with textured ribbing, Adidas stripes on the side, lace-up closure, and a contrasting outsole. Designed for everyday wear with comfort and a sleek silhouette suitable for office to errands. Textile upper and lining, rubber outsole, EVA midsole and footbed. Available in multiple colors including black, white, olive, and maroon.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/94da1ef7-e250-4541-8c28-3890d88d26f1?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=DEoc"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/e084fb0b-9355-46c0-84a0-6262f44f8080?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=DEoc"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9e5d2c25-4e7d-4ea2-823c-af31022b09ea?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=DEoc"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/d9235363-0b51-4107-a8ce-4f0b53e05e07?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=DEoc"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/8e9b0bf1-e0c4-4eb5-897c-0a8e4531236f?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=DEoc"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/77d2dae4-42c4-4497-8798-8d1a6505612b?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=DEoc"
+              }
+            ],
+            "variants": [
+              {
+                "name": "Brand",
+                "label": "Adidas Originals"
+              },
+              {
+                "name": "Model",
+                "label": "Swift Run"
+              },
+              {
+                "name": "Gender",
+                "label": "Men's"
+              },
+              {
+                "name": "Version",
+                "label": "1.0"
+              },
+              {
+                "name": "Product Type",
+                "label": "Casual Shoes"
+              },
+              {
+                "name": "Color",
+                "label": "Core Black / Core Black / Core Black"
+              }
+            ],
+            "attributes": {
+              "heel-height-type": [
+                "Flat"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid",
+                "Striped"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "footwear-material": [
+                "Textile",
+                "Ethylene vinyl acetate (EVA)",
+                "Polyester",
+                "Mesh",
+                "Rubber",
+                "Synthetic"
+              ],
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight",
+                "Breathable design"
+              ],
+              "activity": [
+                "Running",
+                "Walking",
+                "Universal"
+              ],
+              "sneaker-style": [
+                "Athletic",
+                "Low-top",
+                "Fashion"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "upper-material": [
+                "Knit",
+                "Mesh",
+                "Synthetic"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "lining-material": [
+                "Textile"
+              ],
+              "outsole-stud-type": [
+                "Flat outsole"
+              ],
+              "insole-material": [
+                "Ethylene vinyl acetate (EVA)"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "academy.com",
+                "url": "https://buy.trychannel3.com/grKENhT-DEoc-5NDeHv?o=01M68N31P8E68QMBRTCYXBWAS4&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 79.99,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "champssports.com",
+                "url": "https://buy.trychannel3.com/grKENhT-YikB-5NDeHv?o=01M68X78TNAR4WKRG3R1J7XE78&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 80,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "kohls.com",
+                "url": "https://buy.trychannel3.com/grKENhT-Z87s-5NDeHv?o=01KSTJ04TWKQK7CDRAC8ZFXC1R&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 80,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              },
+              {
+                "domain": "stadiumgoods.com",
+                "url": "https://buy.trychannel3.com/grKENhT-wscm-5NDeHv?o=01M66PXEWPKJDXFZZ9D09N6D2K&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 130,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "JQ5txpt",
+            "title": "ADISTAR 5 RUNNING SHOES",
+            "brands": [
+              "adidas"
+            ],
+            "description": "The adidas ADISTAR 5 is a high-performance road running shoe designed for long distances (0 - 42+ km). It features a sleek black upper with the iconic white three stripes and a thick, cushioning white midsole with 'DREAMSTRIKE' technology for enhanced comfort. Engineered for neutral pronation and available in a regular width for men, these lightweight athletic shoes combine durability with a modern aesthetic.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/6eb98e94-9b4b-44b8-9d0c-b93960a25ca0?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b510c236-0577-4df4-b470-f8b039870a18?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/c9a7eec8-5cd0-4d45-8fc7-ba87bdcd8368?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/9cbd45d8-56f5-4e2c-ac2a-ef4814ba8d17?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/cd9a69a0-d573-4778-ae3a-c79a3b3fe65e?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/96cfbf4f-4d78-4ef1-a475-da37eee0edcb?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/450286ca-ad01-4cce-9b7b-12dad81f2727?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b3b615b6-7e0c-464b-9df2-a50a285a4312?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=NB8i"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "toe-style": [
+                "Round"
+              ],
+              "shoe-fit": [
+                "Regular"
+              ],
+              "activity": [
+                "Running",
+                "Training"
+              ],
+              "heel-height-type": [
+                "Low",
+                "Flat"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "pattern": [
+                "Solid",
+                "Striped"
+              ],
+              "footwear-support-type": [
+                "Neutral"
+              ],
+              "upper-material": [
+                "Mesh",
+                "Knit"
+              ],
+              "occasion-style": [
+                "Casual"
+              ],
+              "shoe-features": [
+                "Breathable design",
+                "Cushioned",
+                "Slip resistant"
+              ],
+              "sneaker-style": [
+                "Athletic"
+              ],
+              "footwear-material": [
+                "Mesh",
+                "Textile"
+              ],
+              "shoe-collar-height": [
+                "Low-top"
+              ],
+              "footwear-cut": [
+                "Low cut"
+              ],
+              "ankle-collar-style": [
+                "Low cut"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "mainlinemenswear.com",
+                "url": "https://buy.trychannel3.com/JQ5txpt-NB8i-5NDeHv?o=01M4YNS3VGQMPF252XJ7XB0SEP&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 161.46,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          },
+          {
+            "id": "HfusYZC",
+            "title": "Swift Mens Running Shoes",
+            "brands": [
+              "adidas"
+            ],
+            "description": "The adidas Swift Men's Running Shoes in Black (Style AQ0863) combine retro '80s running inspiration with a contemporary design. These shoes feature a sleek knit upper accented with embroidered lines and are built with lightweight cushioning to ensure comfort throughout the day.",
+            "images": [
+              {
+                "url": "https://cdn.trychannel3.com/7902d4a9-46da-4db0-83df-e501d33015fd?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/7cc3733e-7bc9-4493-8a5f-92ec636899f2?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/091f3716-614f-4bc2-a6a4-1250c7a667c3?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/91267777-a832-4ea7-b091-616cf448c651?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/b3c0d625-290d-4b87-ac87-f228513db22f?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              },
+              {
+                "url": "https://cdn.trychannel3.com/6c9cf9fc-b483-40dc-914c-f60c48fdbb33?aid=01M6VK2FTV0KWN29GEWJ0ZK7SM&mid=hHvi"
+              }
+            ],
+            "variants": [],
+            "attributes": {
+              "toe-style": [
+                "Round"
+              ],
+              "pattern": [
+                "Solid"
+              ],
+              "activity": [
+                "Running"
+              ],
+              "shoe-features": [
+                "Cushioned",
+                "Lightweight"
+              ],
+              "heel-height-type": [
+                "Flat"
+              ],
+              "closure-type": [
+                "Lace-up"
+              ],
+              "outsole-material": [
+                "Rubber"
+              ]
+            },
+            "offers": [
+              {
+                "domain": "kickscrew.com",
+                "url": "https://buy.trychannel3.com/HfusYZC-hHvi-5NDeHv?o=01M3G16TCXR3H9D43XHEGSBR89&aid=01M6VK2FTV0KWN29GEWJ0ZK7SM",
+                "price": {
+                  "price": 120.51,
+                  "compare_at_price": null,
+                  "currency": "USD"
+                },
+                "availability": "InStock",
+                "condition": "new"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
