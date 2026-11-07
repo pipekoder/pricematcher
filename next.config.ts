@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The AI comparison route reads agent instructions at runtime. Include them
+  // in its serverless function when deployed on Vercel.
+  outputFileTracingIncludes: {
+    "/api/comparisons": ["./agents/**/*.md"],
+  },
   images: { remotePatterns: [
     { protocol: "https", hostname: "cdn.trychannel3.com" },
     { protocol: "https", hostname: "geartrade.com" },
