@@ -28,6 +28,8 @@ The application conservatively reserves $0.05 per model request and defaults to 
 
 ## Internal diagnostics
 
+When a footwear comparison falls back before calling the model, the server writes one `ai_offer_gate_disabled` warning to the Vercel Function logs. Its `checks` object contains only booleans (`agentEnabled`, `modelKeyConfigured`, `demoAssumptionsEnabled`, `paypalSandbox`); it never contains the key, environment-variable values, cart, or session. Filter logs for this event after a single Check Prices request to identify which prerequisite the deployed function actually sees. This event means no Meta API request was made. Remove the temporary gate warning after resolving the deployment configuration.
+
 `/merchant/operations` shows simulated cost/stock/sales and the latest Agent A recommendation, Agent B proposal, policy outcome and final authorized unit. It requires Basic authentication (`merchant` as username, `MERCHANT_DEMO_ACCESS_TOKEN` as password, minimum 24 characters). The proxy returns 401 without credentials; the server layout independently withholds the data. The latest agent diagnostic is process-local and not a durable audit record. The public Merchant Demo and `/channel3-demo` routes remain available. Customer responses contain only safe explanations and a minimal offer ID/total/expiry, never acquisition costs, policies, prompts or model diagnostics.
 
 ## Automated validation

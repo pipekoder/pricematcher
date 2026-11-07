@@ -13,7 +13,17 @@ export type AiDiagnostic={at:string;model:string;items:Array<{productId:string;s
 const state=globalThis as typeof globalThis&{aiOfferChecks?:Map<string,{expires:number;result:Awaited<ReturnType<AiOfferService["compareUncached"]>>}>;aiOfferInsights?:Map<string,{expires:number;value:StrategistOutput}>;aiOfferPending?:Map<string,Promise<AiCompareResult>>;aiOfferDiagnostic?:AiDiagnostic};
 export const latestAiDiagnostic=()=>state.aiOfferDiagnostic;
 export type AiCompareResult={lines:AuthorizedLineAdjustment[];offer?:AuthorizedOffer;market:Array<{productId:string;source:string;offers:Array<{merchant:string;price:number;condition:string|null;url:string}>}>;sourceType:"cached";checkedAt:string;agentMode:"ai"|"fallback";notice:string};
-export const aiEnabled=()=>process.env.AI_OFFER_AGENT_ENABLED==="1"&&Boolean(process.env.MODEL_API_KEY)&&demoModeEnabled();
+export const aiEnabled=()=>{
+  const checks={
+    agentEnabled:process.env.AI_OFFER_AGENT_ENABLED==="1",
+    modelKeyConfigured:Boolean(process.env.MODEL_API_KEY),
+    demoAssumptionsEnabled:process.env.PRICEMATCHER_DEMO_ASSUMPTIONS==="1",
+    paypalSandbox:(process.env.PAYPAL_ENVIRONMENT??"SANDBOX").toUpperCase()==="SANDBOX",
+  };
+  const enabled=checks.agentEnabled&&checks.modelKeyConfigured&&demoModeEnabled();
+  if(!enabled)console.warn(JSON.stringify({event:"ai_offer_gate_disabled",checks}));
+  return enabled;
+};
 function sanitized(reason:string){console.warn(JSON.stringify({event:"ai_offer_fallback",reason}));}
 function failResult(snapshot:CartSnapshot,reason:string):AiCompareResult{const lines=snapshot.lines.map(line=>{const product=getProduct(line.productId)!;return{productId:product.id,productName:product.name,variantKey:line.variantKey,quantity:line.quantity,originalUnitPrice:product.price,authorizedUnitPrice:product.price,originalLineTotal:line.lineTotal,finalLineTotal:line.lineTotal,savings:money(0),comparisonStatus:"INSUFFICIENT_DATA" as const,policyOutcome:"KEEP_ORIGINAL" as const,explanation:"No AI-authorized discount is available. Original-price checkout remains available."};});return{lines,market:[],sourceType:"cached",checkedAt:new Date().toISOString(),agentMode:"fallback",notice:reason};}
 function evidenceFor(productId:string,comparisonId:string,now:Date):CompetitorEvidence{const product=getProduct(productId)!;const saved=marketSnapshot(productId);return{id:randomUUID(),comparisonId,providerProductId:saved?.lowestNewOffer?.productId??productId,retailer:"Saved Channel3 market reference",retailerDomain:"demo.invalid",sourceUrl:saved?.lowestNewOffer?.url??"https://trychannel3.com",sourceType:"cached",retrievedAt:saved?.retrievedAt??now.toISOString(),productTitle:product.name,brand:product.brand,model:product.model,variant:{condition:"new"},productPrice:money(saved?.lowestNew??product.price.amountMinor),shipping:null,fees:null,deliveredCostSource:"unknown",availability:"unknown",sellerVerification:"unverified",productMatch:"uncertain",aiAssisted:true,verificationReasons:["Saved market identity and delivered costs are incomplete; Sandbox-only demo assumption"]};}
