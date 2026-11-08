@@ -63,7 +63,7 @@ describe("Meta Model API transport", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     try {
       await expect(new MuseSparkResponseModel().run("inventory-sales", { items: [] })).rejects.toThrow();
-      expect(JSON.parse(String(warn.mock.calls.at(-1)?.[0]))).toMatchObject({ event: "ai_offer_model_failure", stage: "response_parse", category: "invalid_json" });
+      expect(JSON.parse(String(warn.mock.calls.at(-1)?.[0]))).toMatchObject({ event: "ai_offer_model_failure", stage: "response_parse", category: "invalid_json", response: { textSource: "sdk_output_text", textLength: 8 } });
     } finally { warn.mockRestore(); }
   });
 });
