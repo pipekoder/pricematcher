@@ -8,7 +8,7 @@ import { demoPolicy } from "../price-intelligence/demo-offers";
 import { productVariantKey, PriceIntelligenceService } from "../price-intelligence/service";
 import { FixturePriceProvider } from "../price-intelligence/fixture-provider";
 import { AiOfferService,aiEnabled } from "./service";
-import { inventoryPolicy, policyFloor, validateAiDecision, type AgentFacts } from "./policy";
+import { inventoryPolicy, policyFloor, sameInventoryPolicy, validateAiDecision, type AgentFacts } from "./policy";
 import type { AgentKind,AgentModel } from "./model";
 import type { CartItemInput } from "../types";
 
@@ -39,8 +39,37 @@ describe("two-agent SKU offer orchestration",()=>{
   it("does not pass raw Channel3 metadata or instructions to either agent",async()=>{const seen:string[]=[];const mock=new MockAgents("KEEP_ORIGINAL");const model:AgentModel={run:async(kind,input)=>{seen.push(JSON.stringify(input));return mock.run(kind,input);}};await new AiOfferService(new MemoryPriceIntelligenceRepository(),model).compare({sessionId:`${session}-injection`,cart});expect(seen.join(" ")).not.toContain("http");expect(seen.join(" ")).not.toContain("description");expect(seen.join(" ")).not.toContain("ignore previous instructions");});
   it("lets deterministic policy—not conflicting strategist advice—decide the allowed floor",async()=>{const base=new MockAgents("MATCH_LOWEST");const model:AgentModel={run:async(kind,input)=>{const output=await base.run(kind,input) as {items:Array<{minSuggestedMinor?:number}>};if(kind==="inventory-sales")output.items.forEach(item=>item.minSuggestedMinor=999999);return output;}};const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),model).compare({sessionId:`${session}-conflict`,cart});expect(result.agentMode).toBe("ai");expect(result.offer?.approvedUnitPrice.amountMinor).toBeLessThan(product.price.amountMinor);});
   it("rejects expiration at acceptance and order preparation",async()=>{const repo=new MemoryPriceIntelligenceRepository();let now=new Date("2026-10-26T12:30:00Z");const service=new AiOfferService(repo,new MockAgents("KEEP_ORIGINAL"),()=>now);const checked=await service.compare({sessionId:`${session}-expiry`,cart});expect(checked.offer).toBeDefined();now=new Date("2026-10-26T12:46:00Z");await expect(service.accept({offerId:checked.offer!.id,sessionId:`${session}-expiry`,cart})).rejects.toMatchObject({code:"expired"});});
+  it("rejects a changed merchant inventory configuration before acceptance",async()=>{
+    const repo=new MemoryPriceIntelligenceRepository(),service=new AiOfferService(repo,new MockAgents("KEEP_ORIGINAL")),sessionId=`${session}-policy-change`;
+    const offer=(await service.compare({sessionId,cart})).offer!;
+    const previous=process.env.AI_ACTIVE_SALES_DAYS;
+    process.env.AI_ACTIVE_SALES_DAYS=String(inventoryPolicy().activeSalesDays===3?4:3);
+    try{await expect(service.accept({offerId:offer.id,sessionId,cart})).rejects.toMatchObject({code:"policy_changed"});}
+    finally{if(previous===undefined)delete process.env.AI_ACTIVE_SALES_DAYS;else process.env.AI_ACTIVE_SALES_DAYS=previous;}
+  });
+  it("rejects tampered AI line prices and unavailable SKU stock",async()=>{
+    const repo=new MemoryPriceIntelligenceRepository(),service=new AiOfferService(repo,new MockAgents("KEEP_ORIGINAL"));
+    const priceSession=`${session}-price-tamper`,priceOffer=(await service.compare({sessionId:priceSession,cart})).offer!;
+    repo.offers.get(priceOffer.id)!.lineAdjustments![0].authorizedUnitPrice.amountMinor++;
+    await expect(service.accept({offerId:priceOffer.id,sessionId:priceSession,cart})).rejects.toMatchObject({code:"amount_changed"});
+    const stockSession=`${session}-stock-change`,stockOffer=(await service.compare({sessionId:stockSession,cart})).offer!;
+    const available=sku.stock;sku.stock=0;
+    try{await expect(service.accept({offerId:stockOffer.id,sessionId:stockSession,cart})).rejects.toMatchObject({code:"invalid_cart"});}
+    finally{sku.stock=available;}
+  });
 });
 describe("inventory merchant rules",()=>{
+  it("compares every security-relevant policy field independent of JSONB key order",()=>{
+    const policy=inventoryPolicy();
+    const reordered={maximumDiscountBps:policy.maximumDiscountBps,activeSalesDays:policy.activeSalesDays,overstockMarkupBps:policy.overstockMarkupBps,version:policy.version};
+    expect(sameInventoryPolicy(policy,reordered)).toBe(true);
+    for(const key of ["version","overstockMarkupBps","activeSalesDays","maximumDiscountBps"] as const){
+      expect(sameInventoryPolicy(policy,{...reordered,[key]:policy[key]+1})).toBe(false);
+      const missing={...reordered};delete (missing as Partial<typeof reordered>)[key];
+      expect(sameInventoryPolicy(policy,missing)).toBe(false);
+    }
+    expect(sameInventoryPolicy(policy,{...reordered,unreviewedFloor:0})).toBe(false);
+  });
   const base:AgentFacts={key:"p|v",productId:"p",sku:"sku",size:40,quantity:1,brand:"Demo",originalUnitMinor:10000,currency:"USD",costMinor:6000,skuStock:5,productStock:60,sales:{last7:0,last30:0,last60:0,distinctDays30:0},daysSinceLastSale:null,turnover:0,returns60:0,priceTrend:[],inventoryMovement90:5,inventoryTrend:{net7:0,net30:0,current:5},classification:"overstock_no_sales",market:{lowestNewMinor:8000,reference:"evidence",retrievedAt:new Date().toISOString(),shippingKnown:false,feesKnown:false,variantVerified:false,source:"saved_channel3_snapshot"},policy:{overstockMarkupBps:500,activeSalesDays:3,maximumDiscountBps:demoPolicy.maximumDiscountBps}};
   it("uses configured 5% or 10% above cost for overstock with no sales",()=>{expect(policyFloor(base,inventoryPolicy({AI_OVERSTOCK_MARKUP_BPS:"500"}))).toBe(6300);expect(policyFloor(base,inventoryPolicy({AI_OVERSTOCK_MARKUP_BPS:"1000"}))).toBe(6600);});
   it("protects scarce active inventory and normal stock",()=>{expect(policyFloor({...base,classification:"low_stock_active",productStock:8},inventoryPolicy())).toBe(8500);expect(policyFloor({...base,classification:"normal"},inventoryPolicy())).toBe(6000);});

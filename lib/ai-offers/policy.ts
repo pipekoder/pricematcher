@@ -7,6 +7,13 @@ import type { CartSnapshot } from "../types";
 export type InventoryClass = "overstock_no_sales" | "low_stock_active" | "normal";
 export type AgentFacts = ReturnType<typeof factsForCart>[number];
 export type InventoryPolicy = { version: number; overstockMarkupBps: 500 | 1000; activeSalesDays: number; maximumDiscountBps: number };
+const inventoryPolicyKeys = ["version", "overstockMarkupBps", "activeSalesDays", "maximumDiscountBps"] as const;
+export function sameInventoryPolicy(current: InventoryPolicy, saved: unknown): boolean {
+  if (!saved || typeof saved !== "object" || Array.isArray(saved)) return false;
+  const record = saved as Record<string, unknown>;
+  return Object.keys(record).length === inventoryPolicyKeys.length
+    && inventoryPolicyKeys.every((key) => Object.hasOwn(record, key) && record[key] === current[key]);
+}
 export function inventoryPolicy(env: Record<string,string|undefined> = process.env): InventoryPolicy {
   const markup = Number(env.AI_OVERSTOCK_MARKUP_BPS ?? 500);
   const activeDays = Number(env.AI_ACTIVE_SALES_DAYS ?? 3);

@@ -50,6 +50,8 @@ When a footwear comparison falls back before calling the model, the server write
 
 Mocked Agent A/B tests cover the three decisions, policy floors, invalid proposals, timeouts, rate limits, malformed output, conflicting advice, SKU substitution, multi-item totals, repeated checks, expiration, offer reuse, original-price isolation and payment amount integrity. Meta transport tests verify the endpoint, model, strict JSON format, and zero automatic retries without calling the API. PostgreSQL integration tests require `TEST_DATABASE_URL`. Live Meta Model API and PayPal Sandbox payments were not tested.
 
+AI offer acceptance uses an exact four-field inventory-policy comparison (`version`, `overstockMarkupBps`, `activeSalesDays`, `maximumDiscountBps`) independent of JSON object key order. This is required because PostgreSQL JSONB reorders keys in the saved offer record. A real PostgreSQL integration test covers the comparison → JSONB reload → acceptance → checkout-preparation flow. Changed or missing fields still fail closed. The separate `merchant_pricing_policies` row is versioned, and `savePolicy()` intentionally keeps the existing row on a same-version conflict. This was not the cause of the JSONB acceptance error: acceptance first compared the offer's saved `policyConfig`, while the database policy ID and version matched. However, reusing a version with materially different policy-row content can leave that row stale; policy content changes need a deliberate version/migration plan. This fix neither overwrites the row nor changes its version semantics.
+
 ## Vercel setup (separate account)
 
 1. Apply all committed Supabase/PostgreSQL migrations, including `202610260001_ai_offer_budget.sql`, to a dedicated test/staging database.
