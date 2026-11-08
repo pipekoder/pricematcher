@@ -9,7 +9,7 @@ describe("reproducible simulated retail ledger", () => {
     expect(products).toHaveLength(19);
     expect(footwearSnapshots.every(snapshot => snapshot.image.startsWith("https://") && snapshot.marketOffers.length > 0)).toBe(true);
     expect(products.every(product => !product.image.startsWith("/products/") && virtualSkus.filter(sku => sku.productId === product.id).length === 9)).toBe(true);
-    expect(footwearSnapshots.every(snapshot => snapshot.marketMinor === Math.min(...snapshot.marketOffers.map(offer => offer.priceMinor)))).toBe(true);
+    expect(footwearSnapshots.every(snapshot => snapshot.marketMinor === snapshot.marketOffers[Math.floor((snapshot.marketOffers.length-1)/2)].priceMinor)).toBe(true);
     for(const snapshot of footwearSnapshots){
       const product=products.find(item=>item.id===`footwear-${snapshot.id}`)!;
       expect(product.price).toEqual({amountMinor:snapshot.priceReference.priceMinor,currency:"USD"});
@@ -26,6 +26,11 @@ describe("reproducible simulated retail ledger", () => {
     ];
     expect(selectSavedPrice("shoe","2026-11-08T00:00:00Z",offers).observedMerchant).toBe("a.example");
     expect(selectSavedPrice("shoe","2026-11-08T00:00:00Z",[...offers].reverse()).priceMinor).toBe(8000);
+    expect(selectSavedPrice("shoe","2026-11-08T00:00:00Z",[
+      {domain:"low.example",url:"https://low.example/shoe",price:{price:50,currency:"USD"},availability:"InStock",condition:"new"},
+      ...offers,
+      {domain:"high.example",url:"https://high.example/shoe",price:{price:120,currency:"USD"},availability:"InStock",condition:"new"},
+    ]).priceMinor).toBe(8000);
     expect(()=>selectSavedPrice("shoe","2026-11-08T00:00:00Z",offers.slice(2))).toThrow("No eligible saved Channel3 USD price");
     expect(()=>selectSavedPrice("shoe","invalid",offers)).toThrow("retrieval time");
   });

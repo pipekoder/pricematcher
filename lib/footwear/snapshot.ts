@@ -13,10 +13,10 @@ export function selectSavedPrice(productId:string,observedAt:string,offers:Saved
     try {const url=new URL(offer.url);if(url.protocol!=="https:"||!url.hostname)return [];}catch{return [];}
     return [{productId,priceMinor:minor,currency:"USD" as const,observedMerchant:offer.domain,observedUrl:offer.url,observedAt,provider:"channel3_saved" as const}];
   });
-  // Lowest eligible observed product price; stable merchant/URL tie-breaks.
+  // Lower median for even counts; stable merchant/URL tie-breaks.
   eligible.sort((a,b)=>a.priceMinor-b.priceMinor||a.observedMerchant.localeCompare(b.observedMerchant)||a.observedUrl.localeCompare(b.observedUrl));
   if(!eligible[0])throw new Error(`No eligible saved Channel3 USD price for ${productId}`);
-  return eligible[0];
+  return eligible[Math.floor((eligible.length-1)/2)];
 }
 export type FootwearSnapshot={id:string;title:string;brand:string;description:string|null;image:string;retrievedAt:string;marketMinor:number;marketDomain:string;sourceUrl:string;priceReference:StorefrontPriceReference;marketOffers:Array<{domain:string;url:string;priceMinor:number}>;attributes:Record<string,string[]|undefined>;selectedVariants:Array<{name:string;label:string}>};
 const discovered=[...ledger.requests,...runningLedger.requests].flatMap(request=>request.status==="success"&&request.result?request.result.products.map(product=>({product,retrievedAt:request.result!.retrievedAt})):[]);
