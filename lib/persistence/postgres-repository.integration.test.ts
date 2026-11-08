@@ -1,12 +1,17 @@
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import { Pool } from "pg";
 import { getProduct } from "../catalog";
+import { acceptedOfferSummary } from "../checkout-summary";
 import { defaultPolicy } from "../demo-data";
 import { createApprovedCheckoutExecutor } from "../payments/approved-checkout";
 import { PostgresTransactionRepository } from "../payments/postgres-transaction-repository";
 import { FixturePriceProvider } from "../price-intelligence/fixture-provider";
 import { PriceIntelligenceService, productVariantKey } from "../price-intelligence/service";
 import { PostgresPriceIntelligenceRepository } from "./postgres-repository";
+import { AiOfferService } from "../ai-offers/service";
+import type { AgentFacts } from "../ai-offers/policy";
+import type { AgentModel } from "../ai-offers/model";
+import { virtualSkus } from "../footwear/operations";
 
 const databaseUrl = process.env.TEST_DATABASE_URL;
 const suite = describe.skipIf(!databaseUrl);
@@ -30,6 +35,39 @@ suite("PostgreSQL transactions", () => {
     const offer = (await service.compare({ sessionId: session, productId: product.id, cart })).offer!;
     return { service, offer, session, cart };
   }
+
+  it("accepts an AI offer after PostgreSQL JSONB persistence and prepares its server-authorized total", async () => {
+    const previous = { enabled: process.env.AI_OFFER_AGENT_ENABLED, assumptions: process.env.PRICEMATCHER_DEMO_ASSUMPTIONS, paypal: process.env.PAYPAL_ENVIRONMENT };
+    process.env.AI_OFFER_AGENT_ENABLED = "1";
+    process.env.PRICEMATCHER_DEMO_ASSUMPTIONS = "1";
+    process.env.PAYPAL_ENVIRONMENT = "SANDBOX";
+    try {
+      const sku = virtualSkus.find((item) => item.stock > 0)!;
+      const product = getProduct(sku.productId)!;
+      const cart = [{ productId: product.id, variantKey: productVariantKey(product, sku.size), quantity: 1 }];
+      const sessionId = crypto.randomUUID();
+      const model: AgentModel = { run: async (kind, input) => {
+        const items = (input as { items: Array<AgentFacts | { fact: AgentFacts }> }).items.map((item) => "fact" in item ? item.fact : item);
+        if (kind === "inventory-sales") return { items: items.map((fact) => ({ key: fact.key, classification: "healthy", demandTrend: "steady", aggressiveness: "conservative", minSuggestedMinor: fact.costMinor, maxSuggestedMinor: fact.originalUnitMinor, reasons: "Mock", riskFlags: [] })) };
+        return { items: items.map((fact) => ({ key: fact.key, productId: fact.productId, sku: fact.sku, decision: "KEEP_ORIGINAL", proposedUnitMinor: fact.originalUnitMinor, reference: null, reason: "Mock", limitations: "Mock" })), consolidatedSubtotalMinor: items.reduce((sum, fact) => sum + fact.originalUnitMinor * fact.quantity, 0) };
+      } };
+      const service = new AiOfferService(repo, model);
+      const offer = (await service.compare({ sessionId, cart })).offer!;
+      expect(offer).toBeDefined();
+      const saved = (await repo.getOffer(offer.id))!;
+      expect(saved.aiAuthorization?.policyConfig).toEqual(offer.aiAuthorization?.policyConfig);
+      expect(JSON.stringify(saved.aiAuthorization?.policyConfig)).not.toBe(JSON.stringify(offer.aiAuthorization?.policyConfig));
+      const accepted = (await service.accept({ offerId: offer.id, sessionId, cart })).offer;
+      expect(accepted.status).toBe("accepted");
+      expect(acceptedOfferSummary({ offerId: accepted.id, originalSubtotal: accepted.cartSnapshot.subtotal, shipping: accepted.cartSnapshot.shipping, tax: accepted.cartSnapshot.tax, fees: accepted.cartSnapshot.fees, totalToPay: accepted.finalTotal, expiresAt: accepted.expiresAt }).totalToPay).toEqual(accepted.finalTotal);
+      const result = await createApprovedCheckoutExecutor({ offers: repo, transactions: new PostgresTransactionRepository(pool) })(offer.id, { sessionId, cart, idempotencyKey: crypto.randomUUID() });
+      expect(result.instruction.amount).toEqual(accepted.finalTotal);
+    } finally {
+      for (const [key, value] of Object.entries({ AI_OFFER_AGENT_ENABLED: previous.enabled, PRICEMATCHER_DEMO_ASSUMPTIONS: previous.assumptions, PAYPAL_ENVIRONMENT: previous.paypal })) {
+        if (value === undefined) delete process.env[key]; else process.env[key] = value;
+      }
+    }
+  });
 
   async function waitForAdvisoryWaiters(count: number) {
     for (let attempt = 0; attempt < 100; attempt += 1) {
