@@ -18,21 +18,25 @@ const cents=(price:unknown,extracted:unknown):number|null=>{const text=string(pr
 function explicitSize(title:string):number|null{const match=title.match(/\bEU\s*(3[7-9]|4[0-5])\b/i);return match?Number(match[1]):null;}
 function matchListing(product:Product,size:number,title:string):Pick<GoogleMarketOffer,"matchStatus"|"matchConfidence">{
   const text=normalized(title),brand=normalized(product.brand),model=normalized(product.model);
-  if(!text.includes(brand)||!model.split(" ").filter(word=>word.length>2).every(word=>text.includes(word)))return{matchStatus:"insufficient_evidence",matchConfidence:"low"};
+  if(!` ${text} `.includes(` ${brand} `)||!` ${text} `.includes(` ${model} `))return{matchStatus:"insufficient_evidence",matchConfidence:"low"};
   const stated=explicitSize(title);if(stated!==null&&stated!==size)return{matchStatus:"variant_mismatch",matchConfidence:"low"};
   return stated===size?{matchStatus:"exact_variant",matchConfidence:"high"}:{matchStatus:"same_model",matchConfidence:"medium"};
 }
+export const eligibleGoogleOffer=(offer:GoogleMarketOffer)=>offer.priceMinor!==null&&offer.priceMinor>0&&offer.currency==="USD"&&offer.availability!=="out_of_stock"&&(offer.matchStatus==="exact_variant"||offer.matchStatus==="same_model")&&(!offer.condition||offer.condition.toLowerCase()==="new");
+export const compareGoogleOffers=(a:GoogleMarketOffer,b:GoogleMarketOffer)=>(a.priceMinor??Infinity)-(b.priceMinor??Infinity)||(a.merchantName??"").localeCompare(b.merchantName??"")||a.title.localeCompare(b.title)||(a.productUrl??"").localeCompare(b.productUrl??"")||a.id.localeCompare(b.id);
 export function normalizeGoogleResults(payload:unknown,input:GoogleSearchInput,batchId:string,retrievedAt:string):GoogleMarketOffer[]{
   const root=obj(payload);if(!root)throw new GoogleSearchError("malformed");
   const collections:[unknown,"shopping"|"inline"][]=[[root.shopping_results,"shopping"],[root.inline_shopping_results,"inline"]];
   const output:GoogleMarketOffer[]=[],seen=new Set<string>();
   for(const [collection,kind] of collections){if(collection!==undefined&&!Array.isArray(collection))throw new GoogleSearchError("malformed");for(const raw of (collection??[]) as unknown[]){const row=obj(raw);if(!row)continue;const title=string(row.title);if(!title)continue;const merchantName=string(row.source),productUrl=secureUrl(row.link)??secureUrl(row.product_link);const amount=cents(row.price,row.extracted_price);const googleProductId=string(row.product_id);const tracking=secureUrl(row.tracking_link);const host=tracking?new URL(tracking).hostname:"";const sponsored=kind==="inline"&&(host==="google.com"||host.endsWith(".google.com"))&&new URL(tracking!).pathname==="/aclk";
-    const listingType=sponsored?"sponsored_shopping":"shopping";const identity=`${merchantName??""}|${productUrl??""}|${googleProductId??""}|${normalized(title)}|${amount??""}|${listingType}`;if(seen.has(identity))continue;seen.add(identity);
+    const listingType=sponsored?"sponsored_shopping":"shopping";const identity=`${merchantName??""}|${productUrl??""}|${googleProductId??""}|${normalized(title)}|${amount??""}|${normalized(string(row.size)??"")}|${normalized(string(row.color)??"")}`;if(seen.has(identity))continue;
     const stock=string(row.availability)?.toLowerCase();const availability=stock==="in stock"||stock==="in_stock"?"in_stock":stock==="out of stock"||stock==="out_of_stock"?"out_of_stock":stock==="preorder"?"preorder":stock==="backorder"?"backorder":"unknown";
     const condition=string(row.second_hand_condition)??string(row.condition);const description=string(row.delivery)??string(row.shipping);
-    output.push({id:createHash("sha256").update(`${batchId}|${identity}`).digest("hex").slice(0,32),provider:"serpapi_google",listingType,searchBatchId:batchId,retrievedAt,merchantName,title,productUrl,googleProductId,priceMinor:amount,currency:amount===null?null:"USD",brand:title.toLowerCase().includes(input.product.brand.toLowerCase())?input.product.brand:null,model:null,size:explicitSize(title)===null?null:`EU${explicitSize(title)}`,color:null,condition,availability,shippingDescription:description,shippingMinor:null,mandatoryFeesMinor:null,...matchListing(input.product,input.size,title),evidenceStatus:"observed_search_result"});
-    if(output.length>=20)return output;
-  }}return output;
+    const rawSize=string(row.size);const statedSize=rawSize?.match(/^(?:EU\s*)?(3[7-9]|4[0-5])$/i);const color=string(row.color);const selectedColor=input.product.variant.color;
+    const explicitConflict=(statedSize!==null&&statedSize!==undefined&&Number(statedSize[1])!==input.size)||(color!==null&&selectedColor!=="Not verified"&&normalized(color)!==normalized(selectedColor));
+    const offer:GoogleMarketOffer={id:createHash("sha256").update(`${batchId}|${identity}`).digest("hex").slice(0,32),provider:"serpapi_google",listingType,searchBatchId:batchId,retrievedAt,merchantName,title,productUrl,googleProductId,priceMinor:amount,currency:amount===null?null:"USD",brand:title.toLowerCase().includes(input.product.brand.toLowerCase())?input.product.brand:null,model:null,size:statedSize?`EU${statedSize[1]}`:explicitSize(title)===null?null:`EU${explicitSize(title)}`,color,condition,availability,shippingDescription:description,shippingMinor:null,mandatoryFeesMinor:null,...(explicitConflict?{matchStatus:"variant_mismatch" as const,matchConfidence:"low" as const}:matchListing(input.product,input.size,title)),evidenceStatus:"observed_search_result"};
+    if(eligibleGoogleOffer(offer)){seen.add(identity);output.push(offer);}
+  }}return output.sort(compareGoogleOffers).slice(0,20);
 }
 function searchPool():Pool{const persistence=getPersistence();if(process.env.APP_ENV!=="production"||persistence.backend!=="postgres"||!(persistence.offers instanceof PostgresPriceIntelligenceRepository))throw new GoogleSearchError("configuration");return persistence.offers.pool;}
 export async function reserveGoogleSearch(pool:Pool,batchId:string,input:GoogleSearchInput){

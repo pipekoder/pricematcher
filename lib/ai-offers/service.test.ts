@@ -104,6 +104,22 @@ describe("two-agent SKU offer orchestration",()=>{
     repo.offers.get(accepted.id)!.aiAuthorization!.googleMarket!.retrievedAt=new Date(now.getTime()-301000).toISOString();
     await expect(checkout(accepted.id,{sessionId,cart,idempotencyKey:crypto.randomUUID()})).rejects.toMatchObject({code:"pricing_changed"});
   });
+  it("uses the cheaper unknown-stock observation over an exact in-stock listing and passes both to Agent B",async()=>{
+    const now=new Date(),batchId=crypto.randomUUID(),retrievedAt=now.toISOString();
+    const base:GoogleMarketOffer={id:"cheap",provider:"serpapi_google",listingType:"sponsored_shopping",searchBatchId:batchId,retrievedAt,merchantName:"Budget seller",title:`${product.brand} ${product.name}`,productUrl:"https://example.com/cheap",googleProductId:null,priceMinor:product.price.amountMinor-1200,currency:"USD",brand:product.brand,model:product.model,size:null,color:null,condition:null,availability:"unknown",shippingDescription:null,shippingMinor:null,mandatoryFeesMinor:null,matchStatus:"same_model",matchConfidence:"medium",evidenceStatus:"observed_search_result"};
+    const stock:GoogleMarketOffer={...base,id:"stock",listingType:"shopping",merchantName:"Stock seller",productUrl:"https://example.com/stock",priceMinor:product.price.amountMinor-600,availability:"in_stock",matchStatus:"exact_variant",matchConfidence:"high"};
+    const search:GoogleSearchResult={batchId,retrievedAt,productId:product.id,variantKey:cart[0].variantKey,offers:[stock,base],status:"success"};
+    let passed:unknown;const mock=new MockAgents("MATCH_LOWEST");const model:AgentModel={run:async(kind,value)=>{if(kind==="market-offer")passed=value;return mock.run(kind,value);}};
+    const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),model,()=>now,{search:async()=>search}).compare({sessionId:`${session}-google-price-first`,cart});
+    expect(result.agentMode).toBe("ai");expect(result.offer?.approvedUnitPrice.amountMinor).toBe(base.priceMinor);expect(result.offer?.aiAuthorization?.decisions[0].reference).toBe("cheap");
+    expect(JSON.stringify(passed)).toContain('"merchantName":"Budget seller"');expect(JSON.stringify(passed)).toContain('"availability":"unknown"');expect(JSON.stringify(passed)).toContain('"matchStatus":"same_model"');
+  });
+  it("starts Agent A while the bounded Google search is pending",async()=>{
+    let release!:()=>void;const pending=new Promise<void>(resolve=>{release=resolve;});let agentStarted=false;
+    const model:AgentModel={run:async(kind,value)=>{if(kind==="inventory-sales")agentStarted=true;return new MockAgents("KEEP_ORIGINAL").run(kind,value);}};
+    const pendingResult=new AiOfferService(new MemoryPriceIntelligenceRepository(),model,()=>new Date(),{search:async(input)=>{await pending;return{batchId:crypto.randomUUID(),retrievedAt:new Date().toISOString(),productId:input.product.id,variantKey:input.variantKey,offers:[],status:"empty"};}}).compare({sessionId:`${session}-google-concurrent`,cart});
+    expect(agentStarted).toBe(true);release();expect((await pendingResult).agentMode).toBe("ai");
+  });
   it("keeps original price when Google has no usable matching offer",async()=>{
     const now=new Date(),base={batchId:crypto.randomUUID(),retrievedAt:now.toISOString(),productId:product.id,variantKey:cart[0].variantKey,status:"success" as const};
     for(const invalid of [null,"variant_mismatch","out_of_stock"] as const){

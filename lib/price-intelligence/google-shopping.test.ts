@@ -20,12 +20,38 @@ describe("SerpApi Google Shopping observations",()=>{
   });
   it("keeps absent, misleading, or ambiguous prices unknown",()=>{
     const cases=[listing({price:"$0 now",extracted_price:0}),listing({price:"€129.95"}),listing({price:"$129.95",extracted_price:129.94}),listing({price:"$-1",extracted_price:-1}),listing({price:"$129.95",extracted_price:null})];
-    expect(normalizeGoogleResults({shopping_results:cases},input,"batch","2026-11-08T12:00:00Z").every(item=>item.priceMinor===null&&item.currency===null)).toBe(true);
+    expect(normalizeGoogleResults({shopping_results:cases},input,"batch","2026-11-08T12:00:00Z")).toEqual([]);
   });
   it("rejects contradictory sizes, preserves explicit out-of-stock, and de-duplicates identical listings",()=>{
     const offers=normalizeGoogleResults({shopping_results:[listing({title:`${product.brand} ${product.name} EU 39`,availability:"Out of stock"}),listing(),listing()]},input,"batch","2026-11-08T12:00:00Z");
-    expect(offers).toHaveLength(2);
-    expect(offers[0]).toMatchObject({matchStatus:"variant_mismatch",availability:"out_of_stock"});
+    expect(offers).toHaveLength(1);
+    expect(offers[0]).toMatchObject({matchStatus:"exact_variant",availability:"unknown"});
+  });
+  it("orders unknown, preorder and backorder below pricier in-stock listings without status preference",()=>{
+    const offers=normalizeGoogleResults({shopping_results:[
+      listing({source:"In stock",link:"https://example.com/stock",product_id:"stock",price:"$120.00",extracted_price:120,availability:"In stock"}),
+      listing({source:"Unknown",link:"https://example.com/unknown",product_id:"unknown",price:"$90.00",extracted_price:90}),
+      listing({source:"Preorder",link:"https://example.com/pre",product_id:"pre",price:"$80.00",extracted_price:80,availability:"Preorder"}),
+      listing({source:"Backorder",link:"https://example.com/back",product_id:"back",price:"$70.00",extracted_price:70,availability:"Backorder"}),
+    ]},input,"batch","2026-11-08T12:00:00Z");
+    expect(offers.map(item=>[item.priceMinor,item.availability])).toEqual([[7000,"backorder"],[8000,"preorder"],[9000,"unknown"],[12000,"in_stock"]]);
+  });
+  it("excludes out of stock, mismatched products and sizes before ranking",()=>{
+    const offers=normalizeGoogleResults({shopping_results:[
+      listing({source:"Sold out",price:"$20.00",extracted_price:20,availability:"out_of_stock"}),
+      listing({source:"Wrong model",title:`${product.brand} Different Shoe EU 38`,price:"$30.00",extracted_price:30}),
+      listing({source:"Wrong size",title:`${product.brand} ${product.name} EU 39`,price:"$40.00",extracted_price:40}),
+      listing({source:"Wrong size field",size:"EU 39",price:"$45.00",extracted_price:45}),
+      listing({source:"Wrong color",color:"Conflicting color",price:"$46.00",extracted_price:46}),
+      listing({source:"Valid",price:"$50.00",extracted_price:50}),
+    ]},input,"batch","2026-11-08T12:00:00Z");
+    expect(offers.map(item=>item.priceMinor)).toEqual([5000]);
+  });
+  it("deduplicates organic and sponsored observations and retains the cheapest twenty of a bounded response",()=>{
+    const rows=Array.from({length:25},(_,index)=>listing({source:`Seller ${index}`,link:`https://example.com/${index}`,product_id:`id-${index}`,price:`$${(100+index).toFixed(2)}`,extracted_price:100+index}));
+    const offers=normalizeGoogleResults({shopping_results:[...rows,rows[0]],inline_shopping_results:[{...rows[0],tracking_link:"https://www.google.com/aclk?ad=1"}]},input,"batch","2026-11-08T12:00:00Z");
+    expect(offers).toHaveLength(20);expect(offers.map(item=>item.priceMinor)).toEqual(Array.from({length:20},(_,index)=>(100+index)*100));
+    expect(offers.filter(item=>item.priceMinor===10000)).toHaveLength(1);
   });
   it("does not label an inline listing sponsored without an explicit Google ad tracking link",()=>{
     const [offer]=normalizeGoogleResults({inline_shopping_results:[listing()]},input,"batch","2026-11-08T12:00:00Z");
