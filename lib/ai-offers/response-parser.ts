@@ -8,6 +8,9 @@ export type SafeResponseMetadata = {
   textLength: number;
   outputItemCount: number;
   contentKinds: ContentKind[];
+  inputTokens: number | null;
+  outputTokens: number | null;
+  reasoningTokens: number | null;
 };
 
 export class ResponseParseFailure extends Error {
@@ -18,6 +21,10 @@ export class ResponseParseFailure extends Error {
 
 function record(value: unknown): Record<string, unknown> | null {
   return value !== null && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : null;
+}
+
+function tokenCount(value: unknown): number | null {
+  return typeof value === "number" && Number.isSafeInteger(value) && value >= 0 ? value : null;
 }
 
 export function parseModelResponse(response: unknown): { value: unknown; metadata: SafeResponseMetadata } {
@@ -41,6 +48,7 @@ export function parseModelResponse(response: unknown): { value: unknown; metadat
   }
   const sdkText = typeof root?.output_text === "string" ? root.output_text : "";
   const text = sdkText.trim() ? sdkText : texts.join("");
+  const usage = record(root?.usage);
   const metadata: SafeResponseMetadata = {
     responseStatus,
     incompleteReason,
@@ -48,6 +56,9 @@ export function parseModelResponse(response: unknown): { value: unknown; metadat
     textLength: text.length,
     outputItemCount: output.length,
     contentKinds: [...kinds].sort(),
+    inputTokens: tokenCount(usage?.input_tokens),
+    outputTokens: tokenCount(usage?.output_tokens),
+    reasoningTokens: tokenCount(record(usage?.output_tokens_details)?.reasoning_tokens),
   };
   if (responseStatus === "incomplete" || responseStatus === "in_progress" || responseStatus === "queued") throw new ResponseParseFailure("response_incomplete", metadata);
   if (responseStatus === "failed") throw new ResponseParseFailure("response_failed", metadata);

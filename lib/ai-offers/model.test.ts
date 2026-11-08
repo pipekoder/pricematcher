@@ -12,7 +12,7 @@ vi.mock("openai", () => ({
   },
 }));
 
-import { META_MODEL_API_BASE_URL, MUSE_SPARK_MODEL, MuseSparkResponseModel } from "./model";
+import { META_MODEL_API_BASE_URL, MODEL_MAX_OUTPUT_TOKENS, MUSE_SPARK_MODEL, MuseSparkResponseModel } from "./model";
 
 const oldKey = process.env.MODEL_API_KEY;
 afterEach(() => {
@@ -34,7 +34,7 @@ describe("Meta Model API transport", () => {
     expect(mock.constructorOptions).toMatchObject({ baseURL: META_MODEL_API_BASE_URL, apiKey: "test-only-meta-key", maxRetries: 0, timeout: 20000 });
     expect(await model.run("inventory-sales", { items: [] })).toEqual({ items: [] });
     expect(mock.create).toHaveBeenCalledOnce();
-    expect(mock.create.mock.calls[0][0]).toMatchObject({ model: MUSE_SPARK_MODEL, store: false, text: { format: { type: "json_schema", strict: true } } });
+    expect(mock.create.mock.calls[0][0]).toMatchObject({ model: MUSE_SPARK_MODEL, store: false, max_output_tokens: MODEL_MAX_OUTPUT_TOKENS, text: { format: { type: "json_schema", strict: true } } });
     expect(mock.create.mock.calls[0][1]).toMatchObject({ maxRetries: 0, timeout: 20000 });
   });
 
@@ -64,6 +64,18 @@ describe("Meta Model API transport", () => {
     try {
       await expect(new MuseSparkResponseModel().run("inventory-sales", { items: [] })).rejects.toThrow();
       expect(JSON.parse(String(warn.mock.calls.at(-1)?.[0]))).toMatchObject({ event: "ai_offer_model_failure", stage: "response_parse", category: "invalid_json", response: { textSource: "sdk_output_text", textLength: 8 } });
+    } finally { warn.mockRestore(); }
+  });
+
+  it("logs token counts but no response content when output is truncated", async () => {
+    process.env.MODEL_API_KEY = "sensitive-test-key";
+    mock.create.mockResolvedValue({ status: "incomplete", incomplete_details: { reason: "max_output_tokens" }, output: [{ type: "reasoning" }], usage: { input_tokens: 500, output_tokens: MODEL_MAX_OUTPUT_TOKENS, output_tokens_details: { reasoning_tokens: 3900 } } });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    try {
+      await expect(new MuseSparkResponseModel().run("inventory-sales", { items: [] })).rejects.toThrow("response_incomplete");
+      const event = JSON.parse(String(warn.mock.calls.at(-1)?.[0]));
+      expect(event).toMatchObject({ event: "ai_offer_model_failure", category: "response_incomplete", outputTokenLimit: MODEL_MAX_OUTPUT_TOKENS, response: { incompleteReason: "max_output_tokens", inputTokens: 500, outputTokens: MODEL_MAX_OUTPUT_TOKENS, reasoningTokens: 3900 } });
+      expect(JSON.stringify(event)).not.toContain("sensitive-test-key");
     } finally { warn.mockRestore(); }
   });
 });
