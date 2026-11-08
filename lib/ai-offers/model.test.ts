@@ -34,7 +34,7 @@ describe("Meta Model API transport", () => {
     expect(mock.constructorOptions).toMatchObject({ baseURL: META_MODEL_API_BASE_URL, apiKey: "test-only-meta-key", maxRetries: 0, timeout: 20000 });
     expect(await model.run("inventory-sales", { items: [] })).toEqual({ items: [] });
     expect(mock.create).toHaveBeenCalledOnce();
-    expect(mock.create.mock.calls[0][0]).toMatchObject({ model: MUSE_SPARK_MODEL, store: false, max_output_tokens: MODEL_MAX_OUTPUT_TOKENS, text: { format: { type: "json_schema", strict: true } } });
+    expect(mock.create.mock.calls[0][0]).toMatchObject({ model: MUSE_SPARK_MODEL, store: false, max_output_tokens: MODEL_MAX_OUTPUT_TOKENS, reasoning: { effort: "low" }, text: { format: { type: "json_schema", strict: true } } });
     expect(mock.create.mock.calls[0][1]).toMatchObject({ maxRetries: 0, timeout: 20000 });
   });
 
@@ -51,7 +51,7 @@ describe("Meta Model API transport", () => {
     try {
       await expect(new MuseSparkResponseModel().run("inventory-sales", { items: [] })).rejects.toBe(error);
       const event = JSON.parse(String(warn.mock.calls.at(-1)?.[0]));
-      expect(event).toMatchObject({ event: "ai_offer_model_failure", agent: "inventory-sales", stage: "request", category });
+      expect(event).toMatchObject({ event: "ai_offer_model_failure", agent: "inventory-sales", stage: "request", category, errorType: name, nearDeadline: false });
       if(name === "APIConnectionError")expect(event.networkCode).toBe("ENOTFOUND");
       expect(JSON.stringify(event)).not.toMatch(/sensitive-test-key|sensitive-error-message/);
     } finally { warn.mockRestore(); }
