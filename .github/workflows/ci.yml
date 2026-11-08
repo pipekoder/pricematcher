@@ -67,4 +67,17 @@ jobs:
           TEST_DATABASE_URL: postgresql://pricematcher_ci:pricematcher_ci_only@localhost:5432/pricematcher_test
         run: |
           npm run test:postgres -- --reporter=json --outputFile=postgres-test-results.json
-          node -e 'const r=require("./postgres-test-results.json"); if(r.numTotalTests!==5 || r.numPassedTests!==5 || r.numPendingTests!==0 || r.numFailedTests!==0 || !r.success){console.error(r); process.exit(1)}; console.log(`PostgreSQL integration tests: ${r.numPassedTests}/${r.numTotalTests} passed; ${r.numPendingTests} skipped`)'
+          node -e '
+            const r = require("./postgres-test-results.json");
+            const suite = r.testResults?.[0];
+            const tests = suite?.assertionResults;
+            const expected = "accepts an AI offer after PostgreSQL JSONB persistence and prepares its server-authorized total";
+            const valid = r.success && r.numTotalTestSuites === 1 && r.numPassedTestSuites === 1
+              && r.testResults?.length === 1 && suite.name.endsWith("/lib/persistence/postgres-repository.integration.test.ts")
+              && r.numTotalTests > 0 && r.numPassedTests === r.numTotalTests
+              && r.numFailedTests === 0 && r.numPendingTests === 0 && r.numTodoTests === 0
+              && tests?.length === r.numTotalTests && tests.every(test => test.status === "passed")
+              && tests.some(test => test.fullName.includes(expected));
+            if (!valid) { console.error("PostgreSQL integration suite did not pass completely"); process.exit(1); }
+            console.log(`PostgreSQL integration tests: ${r.numPassedTests}/${r.numTotalTests} passed; 0 skipped`);
+          '
