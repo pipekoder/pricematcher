@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { products } from "../catalog";
 import { productOperations, simulatedInventoryMovements, simulatedPriceHistory, simulatedTransactions, virtualSkus } from "./operations";
-import { footwearSnapshots } from "./snapshot";
+import { footwearSnapshots, selectSavedPrice } from "./snapshot";
 
 describe("reproducible simulated retail ledger", () => {
   it("shows only the seven requested brands with real saved product images and size SKUs", () => {
@@ -10,6 +10,24 @@ describe("reproducible simulated retail ledger", () => {
     expect(footwearSnapshots.every(snapshot => snapshot.image.startsWith("https://") && snapshot.marketOffers.length > 0)).toBe(true);
     expect(products.every(product => !product.image.startsWith("/products/") && virtualSkus.filter(sku => sku.productId === product.id).length === 9)).toBe(true);
     expect(footwearSnapshots.every(snapshot => snapshot.marketMinor === Math.min(...snapshot.marketOffers.map(offer => offer.priceMinor)))).toBe(true);
+    for(const snapshot of footwearSnapshots){
+      const product=products.find(item=>item.id===`footwear-${snapshot.id}`)!;
+      expect(product.price).toEqual({amountMinor:snapshot.priceReference.priceMinor,currency:"USD"});
+      expect(snapshot.priceReference).toMatchObject({productId:snapshot.id,currency:"USD",provider:"channel3_saved",observedMerchant:snapshot.marketDomain,observedUrl:snapshot.sourceUrl,observedAt:snapshot.retrievedAt});
+      expect(snapshot.priceReference.priceMinor).toBeGreaterThan(0);
+      expect(virtualSkus.filter(sku=>sku.productId===product.id).every(sku=>sku.retailMinor===product.price.amountMinor)).toBe(true);
+    }
+  });
+  it("selects a saved offer deterministically and rejects missing or ambiguous prices",()=>{
+    const offers=[
+      {domain:"z.example",url:"https://z.example/shoe",price:{price:80,currency:"USD"},availability:"InStock",condition:"new"},
+      {domain:"a.example",url:"https://a.example/shoe",price:{price:80,currency:"USD"},availability:"InStock",condition:"new"},
+      {domain:"cheap.example",url:"https://cheap.example/shoe",price:{price:1.001,currency:"USD"},availability:"InStock",condition:"new"},
+    ];
+    expect(selectSavedPrice("shoe","2026-11-08T00:00:00Z",offers).observedMerchant).toBe("a.example");
+    expect(selectSavedPrice("shoe","2026-11-08T00:00:00Z",[...offers].reverse()).priceMinor).toBe(8000);
+    expect(()=>selectSavedPrice("shoe","2026-11-08T00:00:00Z",offers.slice(2))).toThrow("No eligible saved Channel3 USD price");
+    expect(()=>selectSavedPrice("shoe","invalid",offers)).toThrow("retrieval time");
   });
   it("reconciles SKU and product inventory after sales and returns", () => {
     for (const sku of virtualSkus) {
