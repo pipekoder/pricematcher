@@ -20,7 +20,7 @@ describe("Meta Responses parsing", () => {
 
   it("fails closed on incomplete responses, refusals and empty output", () => {
     const cases = [
-      [{ status: "incomplete", incomplete_details: { reason: "max_output_tokens" }, output_text: '{"items":[]}' }, "response_incomplete"],
+      [{ status: "incomplete", incomplete_details: { reason: "max_output_tokens" }, output_text: '{"items":[]}', usage: { input_tokens: 100, output_tokens: 1400, output_tokens_details: { reasoning_tokens: 1400 } } }, "response_incomplete"],
       [{ status: "in_progress", output_text: '{"items":[]}' }, "response_incomplete"],
       [{ status: "completed", output: [{ type: "message", content: [{ type: "refusal", refusal: "secret refusal text" }] }] }, "response_refusal"],
       [{ status: "completed", output_text: "" }, "empty_output"],
