@@ -63,7 +63,7 @@ export type AuthorizedOffer = {
   lineAdjustments?: AuthorizedLineAdjustment[];
   authorizationKind?: "matched" | "original";
   demoAuthorization?: { scenario: "MATCH_LOWEST" | "PARTIAL_MATCH" | "KEEP_ORIGINAL"; assumption: string };
-  aiAuthorization?: { model: string; assumption: string; policyConfig: {version:number;overstockMarkupBps:500|1000;activeSalesDays:number;maximumDiscountBps:number}; decisions: Array<{key:string;productId:string;sku:string;decision:"MATCH_LOWEST"|"PARTIAL_MATCH"|"KEEP_ORIGINAL";proposedUnitMinor:number;reference:string|null;reason:string;limitations:string}> };
+  aiAuthorization?: { model: string; assumption: string; policyConfig: {version:number;overstockMarkupBps:500|1000;activeSalesDays:number;maximumDiscountBps:number}; decisions: Array<{key:string;productId:string;sku:string;decision:"MATCH_LOWEST"|"PARTIAL_MATCH"|"KEEP_ORIGINAL";proposedUnitMinor:number;reference:string|null;reason:string;limitations:string}>; googleMarket?: import("./price-intelligence/google-shopping").GoogleSearchResult };
 };
 
 export type ComparisonStatus = "VERIFIED_MATCH" | "POSSIBLE_MATCH" | "NO_VERIFIED_MATCH" | "INSUFFICIENT_DATA" | "SOURCE_UNAVAILABLE";
