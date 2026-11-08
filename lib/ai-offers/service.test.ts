@@ -27,7 +27,37 @@ class MockAgents implements AgentModel{
 }
 describe("two-agent SKU offer orchestration",()=>{
   it("logs only safe boolean gate checks when AI is disabled",()=>{const warn=vi.spyOn(console,"warn").mockImplementation(()=>{});try{process.env.AI_OFFER_AGENT_ENABLED="0";process.env.MODEL_API_KEY="sensitive-test-key";process.env.PRICEMATCHER_DEMO_ASSUMPTIONS="1";process.env.PAYPAL_ENVIRONMENT="SANDBOX";expect(aiEnabled()).toBe(false);expect(warn).toHaveBeenCalledOnce();const message=String(warn.mock.calls[0][0]);expect(JSON.parse(message)).toEqual({event:"ai_offer_gate_disabled",checks:{agentEnabled:false,modelKeyConfigured:true,demoAssumptionsEnabled:true,paypalSandbox:true}});expect(message).not.toContain("sensitive-test-key");}finally{warn.mockRestore();}});
-  it("classifies a malformed Agent A schema without logging model content",async()=>{const warn=vi.spyOn(console,"warn").mockImplementation(()=>{});try{const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),{run:async()=>({items:"sensitive-model-content"})}).compare({sessionId:`${session}-invalid-schema`,cart});expect(result.agentMode).toBe("fallback");expect(warn.mock.calls.map(call=>JSON.parse(String(call[0])))).toContainEqual({event:"ai_offer_validation_failure",agent:"inventory-sales",stage:"schema",category:"schema_invalid"});expect(JSON.stringify(warn.mock.calls)).not.toContain("sensitive-model-content");}finally{warn.mockRestore();}});
+  it("classifies malformed Agent A output using safe structural metadata only",async()=>{const warn=vi.spyOn(console,"warn").mockImplementation(()=>{});try{const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),{run:async()=>({items:"sensitive-model-content"})}).compare({sessionId:`${session}-invalid-schema`,cart});expect(result.agentMode).toBe("fallback");const event=warn.mock.calls.map(call=>JSON.parse(String(call[0]))).find(item=>item.stage==="schema");expect(event).toMatchObject({event:"ai_offer_validation_failure",agent:"inventory-sales",stage:"schema",category:"schema_invalid",issueCount:1,issues:[{code:"invalid_type",path:"items",expected:"array"}]});expect(JSON.stringify(warn.mock.calls)).not.toContain("sensitive-model-content");}finally{warn.mockRestore();}});
+  it.each([
+    ["invalid enum",(item:Record<string,unknown>)=>{item.classification="overstock_no_sales";},"items.*.classification","invalid_value"],
+    ["missing field",(item:Record<string,unknown>)=>{delete item.reasons;},"items.*.reasons","invalid_type"],
+    ["extra field",(item:Record<string,unknown>)=>{item.secretField="sensitive-model-content";},"items.*","unrecognized_keys"],
+    ["negative price",(item:Record<string,unknown>)=>{item.minSuggestedMinor=-1;},"items.*.minSuggestedMinor","too_small"],
+    ["fractional price",(item:Record<string,unknown>)=>{item.maxSuggestedMinor=1.5;},"items.*.maxSuggestedMinor","invalid_type"],
+    ["overlong explanation",(item:Record<string,unknown>)=>{item.reasons="sensitive-model-content".repeat(20);},"items.*.reasons","too_big"],
+    ["null risk flags",(item:Record<string,unknown>)=>{item.riskFlags=null;},"items.*.riskFlags","invalid_type"],
+    ["malformed risk flags",(item:Record<string,unknown>)=>{item.riskFlags=[null];},"items.*.riskFlags.*","invalid_type"],
+    ["too many risk flags",(item:Record<string,unknown>)=>{item.riskFlags=Array(6).fill("short");},"items.*.riskFlags","too_big"],
+    ["overlong risk flag",(item:Record<string,unknown>)=>{item.riskFlags=["sensitive-model-content".repeat(20)];},"items.*.riskFlags.*","too_big"],
+  ] as const)("rejects %s without leaking model values",async(label,mutate,path,code)=>{
+    const delegate=new MockAgents("KEEP_ORIGINAL");
+    const model:AgentModel={run:async(kind,input)=>{
+      if(kind!=="inventory-sales")return delegate.run(kind,input);
+      const fact=(input as {items:AgentFacts[]}).items[0];
+      const item:Record<string,unknown>={key:fact.key,classification:"healthy",demandTrend:"steady",aggressiveness:"moderate",minSuggestedMinor:fact.costMinor,maxSuggestedMinor:fact.originalUnitMinor,reasons:"short",riskFlags:[]};
+      mutate(item);return{items:[item]};
+    }};
+    const warn=vi.spyOn(console,"warn").mockImplementation(()=>{});
+    try{
+      const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),model).compare({sessionId:`${session}-schema-${label}`,cart});
+      expect(result.agentMode).toBe("fallback");expect(result.offer).toBeUndefined();
+      expect(result.lines[0].authorizedUnitPrice).toEqual(result.lines[0].originalUnitPrice);
+      const event=warn.mock.calls.map(call=>JSON.parse(String(call[0]))).find(item=>item.stage==="schema");
+      expect(event).toMatchObject({agent:"inventory-sales",category:"schema_invalid",issueCount:1,issues:[{path,code}]});
+      expect(JSON.stringify(warn.mock.calls)).not.toMatch(/sensitive-model-content|secretField|SIM-wmJLHiy/);
+      expect(delegate.calls).toHaveLength(0);
+    }finally{warn.mockRestore();}
+  });
   it("classifies a policy-rejected proposal with a fixed reason code",async()=>{const warn=vi.spyOn(console,"warn").mockImplementation(()=>{});try{await new AiOfferService(new MemoryPriceIntelligenceRepository(),new MockAgents("MATCH_LOWEST",true)).compare({sessionId:`${session}-policy-log`,cart});expect(warn.mock.calls.map(call=>JSON.parse(String(call[0])))).toContainEqual({event:"ai_offer_validation_failure",agent:"market-offer",stage:"policy",category:"policy_rejected",reason:"merchant_price_floor"});}finally{warn.mockRestore();}});
   it("keeps the saved storefront variant key stable for runtime requests",()=>{expect(cart[0].variantKey).toBe("SIM-wmJLHiy:PUMA Black-PUMA Silver:EU37:new");});
   for(const choice of ["MATCH_LOWEST","PARTIAL_MATCH","KEEP_ORIGINAL"] as const){it(`uses both model agents and independently authorizes ${choice}`,async()=>{const repo=new MemoryPriceIntelligenceRepository(),mock=new MockAgents(choice),service=new AiOfferService(repo,mock);const result=await service.compare({sessionId:`${session}-${choice}`,cart});expect(result.agentMode).toBe("ai");expect(mock.calls.at(-1)).toBe("market-offer");expect(mock.calls.length).toBeLessThanOrEqual(2);const offer=result.offer!;expect(offer.aiAuthorization?.decisions[0].decision).toBe(choice);expect(offer.finalTotal.amountMinor).toBe(offer.cartSnapshot.total.amountMinor-offer.discountAmount.amountMinor);const accepted=(await service.accept({offerId:offer.id,sessionId:`${session}-${choice}`,cart})).offer;const prepare=createApprovedCheckoutExecutor({offers:repo,transactions:new MemoryTransactionRepository(repo)});const payment=await prepare(accepted.id,{sessionId:`${session}-${choice}`,cart,idempotencyKey:crypto.randomUUID()});expect(payment.instruction.amount).toEqual(accepted.finalTotal);});}
