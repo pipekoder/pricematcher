@@ -5,7 +5,8 @@ const mock = vi.hoisted(() => ({
   create: vi.fn(),
 }));
 
-vi.mock("openai", () => ({
+vi.mock("openai", async (importOriginal) => ({
+  ...await importOriginal<typeof import("openai")>(),
   default: class {
     responses = { create: mock.create };
     constructor(options: Record<string, unknown>) { mock.constructorOptions = options; }
@@ -13,6 +14,7 @@ vi.mock("openai", () => ({
 }));
 
 import { META_MODEL_API_BASE_URL, MODEL_MAX_OUTPUT_TOKENS, MUSE_SPARK_MODEL, MuseSparkResponseModel } from "./model";
+import { APIConnectionError, APIConnectionTimeoutError } from "openai";
 
 const oldKey = process.env.MODEL_API_KEY;
 afterEach(() => {
@@ -39,8 +41,6 @@ describe("Meta Model API transport", () => {
   });
 
   it.each([
-    ["APIConnectionTimeoutError", undefined, "timeout"],
-    ["APIConnectionError", undefined, "connection"],
     ["APIError", 401, "authentication"],
     ["APIError", 429, "rate_limit"],
   ])("classifies %s failures without logging error text", async (name, status, category) => {
@@ -54,6 +54,24 @@ describe("Meta Model API transport", () => {
       expect(event).toMatchObject({ event: "ai_offer_model_failure", agent: "inventory-sales", stage: "request", category, errorType: name, nearDeadline: false });
       if(name === "APIConnectionError")expect(event.networkCode).toBe("ENOTFOUND");
       expect(JSON.stringify(event)).not.toMatch(/sensitive-test-key|sensitive-error-message/);
+    } finally { warn.mockRestore(); }
+  });
+
+  it("recognizes actual SDK timeout and transport classes even though name is Error", async () => {
+    process.env.MODEL_API_KEY = "sensitive-test-key";
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    try {
+      for (const [error, category, errorType] of [
+        [new APIConnectionTimeoutError(), "timeout", "APIConnectionTimeoutError"],
+        [new APIConnectionError({ message: "sensitive-transport-detail" }), "connection", "APIConnectionError"],
+      ] as const) {
+        expect(error.name).toBe("Error");
+        mock.create.mockRejectedValueOnce(error);
+        await expect(new MuseSparkResponseModel().run("inventory-sales", { items: [] })).rejects.toBe(error);
+        const event = JSON.parse(String(warn.mock.calls.at(-1)?.[0]));
+        expect(event).toMatchObject({ stage: "request", category, errorType });
+        expect(JSON.stringify(event)).not.toMatch(/sensitive-test-key|sensitive-transport-detail/);
+      }
     } finally { warn.mockRestore(); }
   });
 

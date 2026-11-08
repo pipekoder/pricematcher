@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import OpenAI from "openai";
+import OpenAI, { APIConnectionError, APIConnectionTimeoutError } from "openai";
 import { z } from "zod";
 import { getPersistence } from "../server/persistence";
 import { PostgresPriceIntelligenceRepository } from "../persistence/postgres-repository";
@@ -34,9 +34,9 @@ function modelFailure(stage:ModelStage,error:unknown){
   }
   if(stage==="instructions")return error&&typeof error==="object"&&"code" in error&&error.code==="ENOENT"?"instructions_missing":"instructions_read_failed";
   if(stage==="response_parse")return error instanceof ResponseParseFailure?error.category:"invalid_json";
-  const name=error instanceof Error?error.name:"";
-  if(name==="APIConnectionTimeoutError")return "timeout";
-  if(name==="APIConnectionError")return "connection";
+  // The SDK classes inherit Error.name === "Error"; use their identity, not name.
+  if(error instanceof APIConnectionTimeoutError)return "timeout";
+  if(error instanceof APIConnectionError)return "connection";
   const status=error&&typeof error==="object"&&"status" in error?error.status:undefined;
   if(status===400||status===422)return "invalid_request";
   if(status===401)return "authentication";
@@ -55,6 +55,8 @@ function networkCode(error:unknown){
   return undefined;
 }
 function safeErrorType(error:unknown){
+  if(error instanceof APIConnectionTimeoutError)return "APIConnectionTimeoutError";
+  if(error instanceof APIConnectionError)return "APIConnectionError";
   if(!(error instanceof Error))return "non_error";
   const allowed=["APIConnectionTimeoutError","APIConnectionError","APIError","AbortError","TimeoutError","TypeError","Error"];
   return allowed.includes(error.name)?error.name:"other";
