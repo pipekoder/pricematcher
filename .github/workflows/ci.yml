@@ -72,7 +72,7 @@ jobs:
             const suite = r.testResults?.[0];
             const tests = suite?.assertionResults;
             const expected = "accepts an AI offer after PostgreSQL JSONB persistence and prepares its server-authorized total";
-            const valid = r.success && r.numTotalTestSuites === 1 && r.numPassedTestSuites === 1
+            const valid = r.success && r.numTotalTestSuites > 0 && r.numPassedTestSuites === r.numTotalTestSuites
               && r.testResults?.length === 1 && suite.name.endsWith("/lib/persistence/postgres-repository.integration.test.ts")
               && r.numTotalTests > 0 && r.numPassedTests === r.numTotalTests
               && r.numFailedTests === 0 && r.numPendingTests === 0 && r.numTodoTests === 0
