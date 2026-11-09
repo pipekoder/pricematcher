@@ -19,9 +19,9 @@ export default function Home() {
       <div className="demo-hero-image"><Image src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} width={1000} height={1000} priority /><span>Image supplied with the saved Channel3 product record</span></div>
     </section>
     <section className="demo-steps" id="how-it-works" aria-label="How the demo works">
-      <div><span>01</span><strong>Choose a shoe and EU size</strong><p>Size-level availability is simulated for this demo.</p></div>
-      <div><span>02</span><strong>Review your bag</strong><p>SOLE prices and size stock are simulated for this demo.</p></div>
-      <div><span>03</span><strong>Pay or check prices</strong><p>Deal Engine analysis is optional. PayPal is Sandbox only.</p></div>
+      <div><span>01</span><strong>Shop</strong><p>Choose shoes and add to cart.</p></div>
+      <div><span>02</span><strong>Review</strong><p>Review your order and compare prices with Deal Engine.</p></div>
+      <div><span>03</span><strong>Deal and Pay</strong><p>Accept an offer from Deal Engine and pay for your order.</p></div>
     </section>
     <section className="collection" id="collection">
       <div className="section-heading"><div><p className="eyebrow">The collection</p><h2>Running shoes, sneakers &amp; hiking shoes</h2></div><p>Real product identities and images from saved Channel3 results. Merchant prices and EU-size stock are simulated.</p></div>
