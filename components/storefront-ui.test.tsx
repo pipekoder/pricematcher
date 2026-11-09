@@ -12,13 +12,13 @@ describe("SOLE storefront and checkout UI",()=>{
     const card=renderToStaticMarkup(<CartProvider><ProductCard product={products[0]}/></CartProvider>);
     expect(card).toContain("Quick view");expect(card).toContain("Choose size");expect(card).not.toContain('href="/product/');
     const modal=renderToStaticMarkup(<CartProvider><ProductQuickView product={products[0]} onClose={()=>{}}/></CartProvider>);
-    expect(modal).toContain('role="dialog"');expect(modal).toContain("simulated availability");expect(modal).toContain("Add to Bag");expect(modal).toContain(`/product/${products[0].id}`);
+    expect(modal).toContain('role="dialog"');expect(modal).toContain("simulated availability");expect(modal).toContain("+ EU 37");expect(modal).not.toContain("Add to Bag");expect(modal).toContain(`/product/${products[0].id}`);
   });
   it("does not claim payment is ready before server authorization, but supports original price",()=>{
     const loading=renderToStaticMarkup(<PayPalCheckout cart={[]} authorizationLoading/>);
     expect(loading).toContain("Preparing secure original-price checkout");expect(loading).toContain("disabled");
     const original=renderToStaticMarkup(<PayPalCheckout offerId="server-original" cart={[]} priceMode="original"/>);
-    expect(original).toContain("No price check is required");expect(original).not.toContain('button type="button" class="button primary large" disabled');
+    expect(original).toContain("Pay with PayPal");expect(original).not.toContain("No price check is required");expect(original).not.toContain('button type="button" class="button primary large" disabled');
     expect(original).not.toContain("<strong>PayPal Sandbox checkout</strong>");
   });
   it("presents Deal Engine as a simple checkout action without changing its authorization gate",()=>{
