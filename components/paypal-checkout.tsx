@@ -20,6 +20,7 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated, onAttemptCre
   async function pay() {
     if (!offerId || state === "loading") return;
     setState("loading"); setMessage("Preparing your authorized checkout…");
+    let orderRequested = false;
     try {
       const prepared = await post<{ checkoutAttemptId: string }>("/api/checkout/prepare", { offerId, cart });
       onAttemptCreated?.(prepared.checkoutAttemptId);
@@ -27,6 +28,7 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated, onAttemptCre
       const paypal = await loadCoreSdkScript({ environment: "sandbox" }); if (!paypal) throw new Error("PayPal Sandbox SDK could not load");
       const sdk = await paypal.createInstance({ clientId: config.clientId, components: ["paypal-payments"], locale: "en-US", pageType: "checkout" });
       const eligibility = await sdk.findEligibleMethods(); if (!eligibility.isEligible("paypal")) throw new Error("PayPal is not eligible for this Sandbox session");
+      orderRequested = true;
       const order = await post<{ orderId: string }>("/api/paypal/orders", { checkoutAttemptId: prepared.checkoutAttemptId });
       let approvalReceived = false;
       const uncertainMessage = "Payment status needs review. Do not retry this order until its PayPal Sandbox status is confirmed.";
@@ -42,7 +44,8 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated, onAttemptCre
         onOfferInvalidated?.(error.code === "expired" || error.code === "stale_evidence" ? "expired" : "invalid");
         return;
       }
-      setState("uncertain"); setMessage("Payment status needs review. Do not retry until the PayPal Sandbox status is confirmed."); onPaymentUncertain?.();
+      if (orderRequested) { setState("uncertain"); setMessage("Payment status needs review. Do not retry until the PayPal Sandbox status is confirmed."); onPaymentUncertain?.(); }
+      else { setState("failed"); setMessage(error instanceof Error ? error.message : "PayPal Sandbox checkout failed before order creation"); }
     }
   }
 
