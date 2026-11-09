@@ -12,7 +12,7 @@ import { AiOfferService } from "../ai-offers/service";
 import type { AgentFacts } from "../ai-offers/policy";
 import type { AgentModel } from "../ai-offers/model";
 import { virtualSkus } from "../footwear/operations";
-import { reserveGoogleSearch, type GoogleMarketOffer, type MarketSearch } from "../price-intelligence/google-shopping";
+import { reserveChannel3Lookup, type Channel3MarketOffer, type MarketSearch } from "../price-intelligence/channel3-market";
 
 const databaseUrl = process.env.TEST_DATABASE_URL;
 const suite = describe.skipIf(!databaseUrl);
@@ -23,7 +23,7 @@ suite("PostgreSQL transactions", () => {
 
   beforeEach(async () => {
     await pool.query(
-      "truncate google_shopping_search_batches, google_shopping_daily_budget, transaction_audit_events, checkout_attempts, offer_acceptances, authorized_offers, competitor_evidence, comparison_requests, merchant_pricing_policies cascade",
+      "truncate channel3_live_lookup_batches, channel3_live_daily_budget, transaction_audit_events, checkout_attempts, offer_acceptances, authorized_offers, competitor_evidence, comparison_requests, merchant_pricing_policies cascade",
     );
   });
   afterAll(() => pool.end());
@@ -70,35 +70,35 @@ suite("PostgreSQL transactions", () => {
     }
   });
 
-  it("preserves a Google observation through JSONB reload and authorizes its exact server total",async()=>{
+  it("preserves a Channel3 observation through JSONB reload and authorizes its exact server total",async()=>{
     const previous={enabled:process.env.AI_OFFER_AGENT_ENABLED,assumptions:process.env.PRICEMATCHER_DEMO_ASSUMPTIONS,paypal:process.env.PAYPAL_ENVIRONMENT};
     process.env.AI_OFFER_AGENT_ENABLED="1";process.env.PRICEMATCHER_DEMO_ASSUMPTIONS="1";process.env.PAYPAL_ENVIRONMENT="SANDBOX";
     try{
       const sku=virtualSkus.find(item=>item.stock>0)!,product=getProduct(sku.productId)!;
       const cart=[{productId:product.id,variantKey:productVariantKey(product,sku.size),quantity:1}],sessionId=crypto.randomUUID(),batchId=crypto.randomUUID(),retrievedAt=new Date().toISOString();
-      const observed:GoogleMarketOffer={id:"google-test-offer",provider:"serpapi_google",listingType:"shopping",searchBatchId:batchId,retrievedAt,merchantName:"Example Shoes",title:product.name,productUrl:"https://example.com/shoes",googleProductId:"google-id",priceMinor:product.price.amountMinor-1000,currency:"USD",brand:product.brand,model:product.model,size:`EU${sku.size}`,color:null,condition:null,availability:"unknown",shippingDescription:null,shippingMinor:null,mandatoryFeesMinor:null,matchStatus:"exact_variant",matchConfidence:"high",evidenceStatus:"observed_search_result"};
+      const observed:Channel3MarketOffer={id:"channel3-test-offer",provider:"channel3",searchBatchId:batchId,retrievedAt,merchantName:"Example Shoes",title:product.name,productUrl:"https://example.com/shoes",channel3ProductId:"channel3-id",priceMinor:product.price.amountMinor-1000,currency:"USD",brand:product.brand,model:product.model,size:`EU${sku.size}`,color:null,condition:null,availability:"unknown",shippingDescription:null,shippingMinor:null,mandatoryFeesMinor:null,matchStatus:"exact_variant",matchConfidence:"high",evidenceStatus:"observed_product_offer"};
       const market:MarketSearch={search:async()=>({batchId,retrievedAt,productId:product.id,variantKey:cart[0].variantKey,offers:[observed],status:"success"})};
       const model:AgentModel={run:async(kind,input)=>{const facts=(input as {items:Array<AgentFacts|{fact:AgentFacts}>}).items.map(item=>"fact" in item?item.fact:item);if(kind==="inventory-sales")return{items:facts.map(fact=>({key:fact.key,classification:"healthy",demandTrend:"steady",aggressiveness:"moderate",minSuggestedMinor:fact.costMinor,maxSuggestedMinor:fact.originalUnitMinor,reasons:"Mock",riskFlags:[]}))};return{items:facts.map(fact=>({key:fact.key,productId:fact.productId,sku:fact.sku,decision:"MATCH_LOWEST",proposedUnitMinor:observed.priceMinor,reference:observed.id,reason:"Mock",limitations:"Advertised price only"})),consolidatedSubtotalMinor:observed.priceMinor};}};
       const service=new AiOfferService(repo,model,undefined,market);const issued=(await service.compare({sessionId,cart})).offer!;
-      expect((await repo.getOffer(issued.id))?.aiAuthorization?.googleMarket?.offers[0].priceMinor).toBe(observed.priceMinor);
+      expect((await repo.getOffer(issued.id))?.aiAuthorization?.channel3Market?.offers[0].priceMinor).toBe(observed.priceMinor);
       const accepted=(await service.accept({offerId:issued.id,sessionId,cart})).offer;
       const result=await createApprovedCheckoutExecutor({offers:repo,transactions:new PostgresTransactionRepository(pool)})(accepted.id,{sessionId,cart,idempotencyKey:crypto.randomUUID()});
       expect(result.instruction.amount).toEqual(accepted.finalTotal);
     }finally{for(const [key,value] of Object.entries({AI_OFFER_AGENT_ENABLED:previous.enabled,PRICEMATCHER_DEMO_ASSUMPTIONS:previous.assumptions,PAYPAL_ENVIRONMENT:previous.paypal})){if(value===undefined)delete process.env[key];else process.env[key]=value;}}
   });
 
-  it("atomically limits shared Google searches and rejects rapid duplicate session/SKU requests",async()=>{
+  it("atomically limits shared Channel3 searches and rejects rapid duplicate session/SKU requests",async()=>{
     const sku=virtualSkus.find(item=>item.stock>0)!,product=getProduct(sku.productId)!,variantKey=productVariantKey(product,sku.size);
     const input={product,variantKey,size:sku.size,sessionId:crypto.randomUUID()};
-    const old=process.env.GOOGLE_SHOPPING_MAX_SEARCHES_PER_DAY;process.env.GOOGLE_SHOPPING_MAX_SEARCHES_PER_DAY="1";
+    const old=process.env.CHANNEL3_EXACT_MAX_REQUESTS_PER_DAY;process.env.CHANNEL3_EXACT_MAX_REQUESTS_PER_DAY="1";
     try{
-      const results=await Promise.allSettled([reserveGoogleSearch(pool,crypto.randomUUID(),input),reserveGoogleSearch(pool,crypto.randomUUID(),{...input,sessionId:crypto.randomUUID()})]);
+      const results=await Promise.allSettled([reserveChannel3Lookup(pool,crypto.randomUUID(),input),reserveChannel3Lookup(pool,crypto.randomUUID(),{...input,sessionId:crypto.randomUUID()})]);
       expect(results.filter(result=>result.status==="fulfilled")).toHaveLength(1);
-      const budget=await pool.query("select request_count from google_shopping_daily_budget where day=current_date");expect(budget.rows[0].request_count).toBe(1);
-      const batches=await pool.query("select session_id from google_shopping_search_batches");expect(batches.rowCount).toBe(1);
+      const budget=await pool.query("select request_count from channel3_live_daily_budget where day=current_date");expect(budget.rows[0].request_count).toBe(1);
+      const batches=await pool.query("select session_id from channel3_live_lookup_batches");expect(batches.rowCount).toBe(1);
       const sameSession={...input,sessionId:batches.rows[0].session_id};
-      await expect(reserveGoogleSearch(pool,crypto.randomUUID(),sameSession)).rejects.toMatchObject({category:"duplicate"});
-    }finally{if(old===undefined)delete process.env.GOOGLE_SHOPPING_MAX_SEARCHES_PER_DAY;else process.env.GOOGLE_SHOPPING_MAX_SEARCHES_PER_DAY=old;}
+      await expect(reserveChannel3Lookup(pool,crypto.randomUUID(),sameSession)).rejects.toMatchObject({category:"duplicate"});
+    }finally{if(old===undefined)delete process.env.CHANNEL3_EXACT_MAX_REQUESTS_PER_DAY;else process.env.CHANNEL3_EXACT_MAX_REQUESTS_PER_DAY=old;}
   });
 
   async function waitForAdvisoryWaiters(count: number) {
