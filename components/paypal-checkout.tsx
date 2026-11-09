@@ -14,7 +14,7 @@ async function post<T>(url: string, body?: unknown): Promise<T> {
   return value as T;
 }
 
-export function PayPalCheckout({ offerId, cart, onOfferInvalidated }: { offerId?: string; cart: CartItemInput[]; onOfferInvalidated?: (reason: "expired" | "invalid") => void }) {
+export function PayPalCheckout({ offerId, cart, onOfferInvalidated,authorizationLoading=false,priceMode="original" }: { offerId?: string; cart: CartItemInput[]; onOfferInvalidated?: (reason: "expired" | "invalid") => void;authorizationLoading?:boolean;priceMode?:"original"|"accepted" }) {
   const [state, setState] = useState<"idle"|"loading"|"success"|"failed"|"canceled">("idle");
   const [message, setMessage] = useState("");
   async function pay() {
@@ -35,7 +35,7 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated }: { offerId?
       await session.start({ presentationMode: "popup" }, Promise.resolve({ orderId: order.orderId }));
     } catch (error) {
       if (error instanceof CheckoutApiError && invalidatesAuthorizedOffer(error.code)) {
-        setState("failed"); setMessage("Your PriceMatcher offer has expired. Run a fresh price comparison to continue.");
+        setState("failed"); setMessage("The authorized price is no longer valid. Checkout is refreshing the original price.");
         onOfferInvalidated?.(error.code === "expired" || error.code === "stale_evidence" ? "expired" : "invalid");
         return;
       }
@@ -43,5 +43,5 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated }: { offerId?
     }
   }
 
-  return <div className="payment-disabled" aria-live="polite"><strong>PayPal Sandbox checkout</strong><p>{offerId ? "Your accepted server-authorized total is ready. PayPal will ask for explicit buyer approval before capture." : "Accept an eligible PriceMatcher offer to enable PayPal Sandbox."}</p><button className="button primary large" disabled={!offerId || state === "loading" || state === "success"} onClick={pay}>{state === "loading" ? "Opening PayPal Sandbox…" : state === "success" ? "Sandbox payment verified" : "Continue with PayPal Sandbox"}</button>{message && <p role={state === "failed" ? "alert" : "status"}>{message}</p>}<small>Sandbox only · No live payment credentials or real money</small></div>;
+  return <div className="payment-disabled" aria-live="polite"><p>{offerId?priceMode==="accepted"?"Your accepted Deal Engine offer is server-authorized. PayPal will request separate buyer approval.":"Your original SOLE price is server-authorized. No price check is required.":authorizationLoading?"Preparing secure original-price checkout…":"Payment is temporarily unavailable until the server authorizes your cart."}</p><button type="button" className="button primary large" disabled={!offerId||state==="loading"||state==="success"} onClick={pay}>{state==="loading"?"Loading PayPal Sandbox…":state==="success"?"Sandbox payment verified":"Continue with PayPal Sandbox"}</button>{message&&<p role={state==="failed"?"alert":"status"}>{message}</p>}<small>Sandbox only · No live payment credentials or real money</small></div>;
 }

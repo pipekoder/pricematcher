@@ -1,22 +1,22 @@
-# PriceMatcher
+# Deal Engine — SOLE demo storefront
 
-Transparent Pricing. Verified Offers. Fairer Commerce.
+AI-powered deal-making at checkout.
 
-PriceMatcher is an AI-assisted checkout concept for the PayPal AI Hackathon 2026. It combines customer-initiated price comparison, deterministic merchant authorization, and an explicitly approved PayPal Sandbox checkout.
+Deal Engine is an AI-assisted merchant decision and checkout negotiation workflow for the PayPal AI Hackathon 2026. SOLE is its fictional, curated footwear demo boutique. The existing repository, technical identifiers and API routes retain their PriceMatcher names.
 
 ## What works now
 
 - Focused one-page storefront with 19 saved Channel3 running, sneaker and hiking products from seven requested brands, real product-record images, and 171 simulated size SKUs; the original fixture catalog remains isolated
-- Product detail pages and a versioned browser-local, size-specific cart
+- Homepage product quick views, a right-side shopping bag drawer, direct product detail URLs, and one canonical versioned, size-specific cart
 - Guided comparison using clearly labeled fixture data
 - Deterministic delivered-price, floor, discount, verification, currency, and expiration checks
-- Explicit acceptance of the adjusted or original price
+- Optional acceptance of an adjusted price; original-price PayPal Sandbox checkout is independently authorized and available without a price check
 - Server-authorized PayPal Sandbox order creation and capture through the restricted Agent Toolkit adapter
 - PayPal JavaScript SDK v6 buyer approval and independent server verification
 - Merchant dashboard and browser-only policy preview
 - `/api/health`, Render Blueprint, environment template, and unit tests
 
-Fixture comparison remains the safe default and is visibly labeled. PayPal calls occur only when Sandbox credentials are configured and the customer accepts an eligible offer and clicks the PayPal Sandbox action. The application never reports success without a verified provider response.
+Fixture comparison remains available and visibly labeled. PayPal calls occur only when Sandbox credentials are configured and the customer clicks the PayPal Sandbox action, whether they selected a valid Deal Engine offer or kept the original price. The application never reports success without a verified provider response.
 
 ## Outdoor footwear demo (PR #12)
 
