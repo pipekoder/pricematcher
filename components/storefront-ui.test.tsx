@@ -12,7 +12,7 @@ describe("SOLE storefront and checkout UI",()=>{
     const card=renderToStaticMarkup(<CartProvider><ProductCard product={products[0]}/></CartProvider>);
     expect(card).toContain("Quick view");expect(card).toContain("Choose size");expect(card).not.toContain('href="/product/');
     const modal=renderToStaticMarkup(<CartProvider><ProductQuickView product={products[0]} onClose={()=>{}}/></CartProvider>);
-    expect(modal).toContain('role="dialog"');expect(modal).toContain("simulated availability");expect(modal).toContain("+ EU 37");expect(modal).not.toContain("Add to Bag");expect(modal).toContain(`/product/${products[0].id}`);
+    expect(modal).toContain('role="dialog"');expect(modal).toContain("simulated availability");expect(modal).toContain("lucide-plus");expect(modal).toContain(" EU 37");expect(modal).not.toContain("Add to Bag");expect(modal).toContain(`/product/${products[0].id}`);
   });
   it("does not claim payment is ready before server authorization, but supports original price",()=>{
     const loading=renderToStaticMarkup(<PayPalCheckout cart={[]} authorizationLoading/>);
