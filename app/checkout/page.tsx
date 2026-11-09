@@ -33,9 +33,13 @@ export default function CheckoutPage(){
   const {acceptedOffer,originalOffer,payableOffer}=checkoutOfferForCart(cartKey,revision,acceptedState,originalState);
   const visibleNotice=offerNotice??(acceptedState&&!acceptedOffer?"invalid":undefined);
   useEffect(()=>{
-    if(!cart.length){setPaymentState("idle");return;}
+    if(!cart.length)return;
     let cancelled=false;
     const recover=async()=>{
+      // Defer recovery-state updates until after the effect has subscribed.
+      await Promise.resolve();
+      if(cancelled)return;
+      setPaymentState("checking");
       const raw=window.sessionStorage.getItem(paymentStorageKey);
       if(!raw){setPaymentState("idle");return;}
       let saved:{id:string;cartKey:string};
@@ -52,7 +56,7 @@ export default function CheckoutPage(){
         else{window.sessionStorage.removeItem(paymentStorageKey);setPaymentState("idle");}
       }catch{if(!cancelled)setPaymentState("review");}
     };
-    setPaymentState("checking");void recover();
+    void recover();
     return()=>{cancelled=true;};
   },[cart,cartKey]);
   function rememberPaymentAttempt(id:string){window.sessionStorage.setItem(paymentStorageKey,JSON.stringify({id,cartKey}));}
