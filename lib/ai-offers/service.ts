@@ -8,6 +8,7 @@ import { buildCartSnapshot, cartFingerprint } from "../price-intelligence/servic
 import type { AuthorizedLineAdjustment, AuthorizedOffer, CartItemInput, CartSnapshot, ComparisonRequest, CompetitorEvidence, MerchantPolicy } from "../types";
 import { factsForCart, inventoryPolicy, sameInventoryPolicy, validateAiDecision, type AiDecision } from "./policy";
 import { MUSE_SPARK_MODEL, negotiatorSchema, MuseSparkResponseModel, strategistSchema, type AgentKind, type AgentModel, type StrategistOutput } from "./model";
+import { safeSchemaIssues } from "./schema-diagnostics";
 
 export const AI_MERCHANT_ID="north-01-ai-sandbox";
 export type AiDiagnostic={at:string;model:string;items:Array<{productId:string;sku:string;costMinor:number;stock:number;sales30:number;strategy:string;proposedMinor:number;decision:string;policyResult:string;authorizedMinor:number;reason:string}>};
@@ -28,7 +29,7 @@ export const aiEnabled=()=>{
 function sanitized(reason:string){console.warn(JSON.stringify({event:"ai_offer_fallback",reason}));}
 function parseAgentOutput<T extends z.ZodType>(agent:AgentKind,schema:T,output:unknown):z.infer<T>{
   const result=schema.safeParse(output);
-  if(!result.success){console.warn(JSON.stringify({event:"ai_offer_validation_failure",agent,stage:"schema",category:"schema_invalid"}));throw new Error("invalid_agent_schema");}
+  if(!result.success){console.warn(JSON.stringify({event:"ai_offer_validation_failure",agent,stage:"schema",category:"schema_invalid",...safeSchemaIssues(agent,result.error.issues)}));throw new Error("invalid_agent_schema");}
   return result.data;
 }
 function validateAgentSet<T extends {key:string}>(expected:{key:string}[],items:T[],agent:AgentKind){

@@ -16,9 +16,12 @@ export interface AgentModel { run(kind:AgentKind,input:unknown):Promise<unknown>
 export const MUSE_SPARK_MODEL="muse-spark-1.3" as const;
 export const META_MODEL_API_BASE_URL="https://api.meta.ai/v1" as const;
 
-const strategyItem={type:"object",additionalProperties:false,required:["key","classification","demandTrend","aggressiveness","minSuggestedMinor","maxSuggestedMinor","reasons","riskFlags"],properties:{key:{type:"string"},classification:{type:"string",enum:["scarce","healthy","stagnant","overstocked"]},demandTrend:{type:"string",enum:["rising","steady","falling","no_sales"]},aggressiveness:{type:"string",enum:["conservative","moderate","aggressive"]},minSuggestedMinor:{type:"integer"},maxSuggestedMinor:{type:"integer"},reasons:{type:"string"},riskFlags:{type:"array",items:{type:"string"}}}};
-const offerItem={type:"object",additionalProperties:false,required:["key","productId","sku","decision","proposedUnitMinor","reference","reason","limitations"],properties:{key:{type:"string"},productId:{type:"string"},sku:{type:"string"},decision:{type:"string",enum:["MATCH_LOWEST","PARTIAL_MATCH","KEEP_ORIGINAL"]},proposedUnitMinor:{type:"integer"},reference:{type:["string","null"]},reason:{type:"string"},limitations:{type:"string"}}};
-const schemas:Record<AgentKind,Record<string,unknown>>={"inventory-sales":{type:"object",additionalProperties:false,required:["items"],properties:{items:{type:"array",items:strategyItem}}},"market-offer":{type:"object",additionalProperties:false,required:["items","consolidatedSubtotalMinor"],properties:{items:{type:"array",items:offerItem},consolidatedSubtotalMinor:{type:"integer"}}}};
+function modelJsonSchema(schema: z.ZodType): Record<string, unknown> {
+  const generated = z.toJSONSchema(schema) as Record<string, unknown>;
+  delete generated.$schema;
+  return generated;
+}
+export const schemas:Record<AgentKind,Record<string,unknown>>={"inventory-sales":modelJsonSchema(strategistSchema),"market-offer":modelJsonSchema(negotiatorSchema)};
 const budgetState=globalThis as typeof globalThis&{aiOfferBudget?:{day:string;calls:number;reservedUsd:number;active:number}};
 function settings(){const calls=Number(process.env.AI_OFFER_MAX_CALLS_PER_DAY??40),spend=Number(process.env.AI_OFFER_MAX_ESTIMATED_SPEND_USD??1);if(!Number.isSafeInteger(calls)||calls<1||calls>1000||!Number.isFinite(spend)||spend<=0||spend>100)throw new Error("Invalid AI budget configuration");return{calls,spend};}
 const MODEL_TIMEOUT_MS=20000;

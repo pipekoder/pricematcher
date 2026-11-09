@@ -13,7 +13,7 @@ vi.mock("openai", async (importOriginal) => ({
   },
 }));
 
-import { META_MODEL_API_BASE_URL, MODEL_MAX_OUTPUT_TOKENS, MUSE_SPARK_MODEL, MuseSparkResponseModel } from "./model";
+import { META_MODEL_API_BASE_URL, MODEL_MAX_OUTPUT_TOKENS, MUSE_SPARK_MODEL, MuseSparkResponseModel, schemas, strategistSchema } from "./model";
 import { APIConnectionError, APIConnectionTimeoutError } from "openai";
 
 const oldKey = process.env.MODEL_API_KEY;
@@ -24,6 +24,17 @@ afterEach(() => {
 });
 
 describe("Meta Model API transport", () => {
+  it("matches Agent A JSON Schema bounds to the strict Zod validator", () => {
+    const sent = schemas["inventory-sales"] as { properties: { items: { minItems: number; maxItems: number; items: { properties: Record<string,Record<string,unknown>> } } } };
+    const item = sent.properties.items.items.properties;
+    expect(schemas["inventory-sales"]).toMatchObject({ type: "object", additionalProperties: false, required: ["items"] });
+    expect(schemas["inventory-sales"]).not.toHaveProperty("$schema");
+    expect(sent.properties.items).toMatchObject({ minItems: 1, maxItems: 25 });
+    for (const field of ["minSuggestedMinor", "maxSuggestedMinor"]) expect(item[field]).toMatchObject({ type: "integer", minimum: 0, maximum: Number.MAX_SAFE_INTEGER });
+    expect(item.reasons).toMatchObject({ type: "string", maxLength: 240 });
+    expect(item.riskFlags).toMatchObject({ type: "array", maxItems: 5, items: { type: "string", maxLength: 240 } });
+    expect(strategistSchema.safeParse({ items: [{ key: "test", classification: "healthy", demandTrend: "steady", aggressiveness: "moderate", minSuggestedMinor: 0, maxSuggestedMinor: 0, reasons: "short", riskFlags: [] }] }).success).toBe(true);
+  });
   it("requires a Meta key and ignores a legacy OpenAI key", () => {
     delete process.env.MODEL_API_KEY;
     expect(() => new MuseSparkResponseModel()).toThrow("meta_model_api_unconfigured");
