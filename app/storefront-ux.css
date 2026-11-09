@@ -1,4 +1,6 @@
 body{letter-spacing:.01em}
+/* Keep anchored steps visible beneath the 72px sticky navigation. */
+#how-it-works{scroll-margin-top:96px}
 .demo-hero h1{letter-spacing:.02em;text-wrap:balance}
 .site-header nav,.button,.header-actions button{letter-spacing:.02em}
 .eyebrow,.demo-label,.demo-bar{letter-spacing:.04em}
