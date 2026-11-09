@@ -13,7 +13,7 @@ export default function Home() {
       <div className="demo-hero-copy">
         <p className="eyebrow">SOLE · Curated running shoes, sneakers &amp; hiking</p>
         <h1 id="demo-title">A better fit.<br/>A better deal.</h1>
-        <p>Discover a pair you love. Open a quick view, choose your size and shop with confidence. Deal Engine brings AI-powered deal-making to checkout—only if you want it.</p>
+        <p>Powered by Deal Engine. Made for the best offer.</p>
         <Link className="button light large" href="#collection">Explore shoes <ArrowRight size={18} /></Link>
       </div>
       <div className="demo-hero-image"><Image src={heroProduct.image} alt={`${heroProduct.brand} ${heroProduct.name}`} width={1000} height={1000} priority /><span>Image supplied with the saved Channel3 product record</span></div>

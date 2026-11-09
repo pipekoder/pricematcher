@@ -5,6 +5,7 @@ import { CartProvider } from "./cart-provider";
 import { ProductCard } from "./product-card";
 import { ProductQuickView } from "./product-quick-view";
 import { PayPalCheckout } from "./paypal-checkout";
+import { CartPriceCheck } from "./cart-price-check";
 
 describe("SOLE storefront and checkout UI",()=>{
   it("opens products through quick-view controls while retaining direct product URLs",()=>{
@@ -18,5 +19,15 @@ describe("SOLE storefront and checkout UI",()=>{
     expect(loading).toContain("Preparing secure original-price checkout");expect(loading).toContain("disabled");
     const original=renderToStaticMarkup(<PayPalCheckout offerId="server-original" cart={[]} priceMode="original"/>);
     expect(original).toContain("No price check is required");expect(original).not.toContain('button type="button" class="button primary large" disabled');
+    expect(original).not.toContain("<strong>PayPal Sandbox checkout</strong>");
+  });
+  it("presents Deal Engine as a simple checkout action without changing its authorization gate",()=>{
+    const unavailable=renderToStaticMarkup(<CartPriceCheck cart={[]} onAccepted={()=>{}} canCheckPrices={false}/>);
+    expect(unavailable).toContain("Start Deal Engine");
+    expect(unavailable).toContain("disabled");
+    expect(unavailable).not.toContain("Customer-initiated comparison");
+    const available=renderToStaticMarkup(<CartPriceCheck cart={[]} onAccepted={()=>{}} canCheckPrices/>);
+    expect(available).toContain("Start Deal Engine");
+    expect(available).not.toContain('class="button primary large" disabled');
   });
 });

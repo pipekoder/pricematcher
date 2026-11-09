@@ -1,4 +1,5 @@
 body{letter-spacing:.01em}
+.demo-hero h1{letter-spacing:.02em;text-wrap:balance}
 .site-header nav,.button,.header-actions button{letter-spacing:.02em}
 .eyebrow,.demo-label,.demo-bar{letter-spacing:.04em}
 .store-identity{display:flex;flex-direction:column;gap:2px;min-width:172px}
@@ -48,5 +49,5 @@ body{letter-spacing:.01em}
 .checkout-payment .payment-disabled{margin-top:18px;background:#fff;border-style:solid}
 .checkout-page .summary{top:100px}.checkout-page .summary-row{gap:12px}.checkout-page .summary-row span:last-child,.checkout-page .summary-row strong:last-child{text-align:right;white-space:nowrap}
 @media(max-width:800px){.quick-view{grid-template-columns:1fr;max-height:94dvh}.quick-view-image{min-height:230px;max-height:300px}.quick-view-image img{max-height:300px}.quick-view-content{padding:26px}.checkout-page .checkout-layout{grid-template-columns:1fr}.checkout-page .summary{position:static;order:-1}.store-identity{min-width:0}}
-@media(max-width:520px){.store-identity small{font-size:8px;max-width:150px;white-space:normal}.site-header nav{display:none}.quick-view{width:100vw;height:100dvh;max-height:100dvh}.quick-view-content{padding:24px 20px 38px}.quick-view-image{min-height:200px;max-height:240px}.quick-view-image img{max-height:240px}.quick-view-sizes>div{grid-template-columns:repeat(3,minmax(0,1fr))}.bag-drawer-head,.bag-drawer-lines,.bag-drawer-foot{padding-left:20px;padding-right:20px}.checkout-page{padding-top:40px}}
+@media(max-width:520px){.demo-hero h1{letter-spacing:0}.store-identity small{font-size:8px;max-width:150px;white-space:normal}.site-header nav{display:none}.quick-view{width:100vw;height:100dvh;max-height:100dvh}.quick-view-content{padding:24px 20px 38px}.quick-view-image{min-height:200px;max-height:240px}.quick-view-image img{max-height:240px}.quick-view-sizes>div{grid-template-columns:repeat(3,minmax(0,1fr))}.bag-drawer-head,.bag-drawer-lines,.bag-drawer-foot{padding-left:20px;padding-right:20px}.checkout-page{padding-top:40px}}
 @media(prefers-reduced-motion:reduce){.bag-drawer{animation:none}}
