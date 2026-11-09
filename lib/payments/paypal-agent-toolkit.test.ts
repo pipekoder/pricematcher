@@ -21,7 +21,7 @@ describe("PayPal Agent Toolkit adapter", () => {
   });
 
   it("normalizes approved order and completed capture amounts", async () => {
-    mocks.execute.mockImplementation(async (method: string) => JSON.stringify(method === "get_order" ? { id: "5O190127TN364715T", status: "APPROVED", purchase_units: [{ amount: { currency_code: "USD", value: "139.00" } }] } : { id: "5O190127TN364715T", status: "COMPLETED", purchase_units: [{ payments: { captures: [{ id: "8MC585209K746392H", status: "COMPLETED", amount: { currency_code: "USD", value: "139.00" } }] } }] }));
+    mocks.execute.mockImplementation(async (method: string) => JSON.stringify(method === "get_order" ? { id: "5O190127TN364715T", status: "APPROVED", purchase_units: [{ amount: { currency_code: "USD", value: "139.00" } }] } : { status: "success", response: { id: "5O190127TN364715T", status: "COMPLETED", purchase_units: [{ payments: { captures: [{ id: "8MC585209K746392H", status: "COMPLETED", amount: { currency_code: "USD", value: "139.00" } }] } }] } }));
     const provider = new PayPalAgentToolkitProvider("sandbox-client", "sandbox-secret");
     await expect(provider.getOrder("5O190127TN364715T")).resolves.toMatchObject({ ok: true, value: { status: "APPROVED", amount: { amountMinor: 13900 } } });
     await expect(provider.captureOrder({ orderId: "5O190127TN364715T", idempotencyKey: "capture-id" })).resolves.toMatchObject({ ok: true, value: { status: "COMPLETED", amount: { amountMinor: 13900 } } });
@@ -36,8 +36,14 @@ describe("PayPal Agent Toolkit adapter", () => {
   });
 
   it("rejects incorrect or ambiguous PayPal capture responses", async () => {
-    mocks.execute.mockResolvedValue(JSON.stringify({ id: "5O190127TN364715T", status: "COMPLETED", purchase_units: [{ payments: { captures: [{ id: "capture-one", status: "COMPLETED", amount: { currency_code: "USD", value: "139.00" } }, { id: "capture-two", status: "COMPLETED", amount: { currency_code: "USD", value: "139.00" } }] } }] }));
+    mocks.execute.mockResolvedValue(JSON.stringify({ status: "success", response: { id: "5O190127TN364715T", status: "COMPLETED", purchase_units: [{ payments: { captures: [{ id: "capture-one", status: "COMPLETED", amount: { currency_code: "USD", value: "139.00" } }, { id: "capture-two", status: "COMPLETED", amount: { currency_code: "USD", value: "139.00" } }] } }] } }));
     const provider = new PayPalAgentToolkitProvider("sandbox-client", "sandbox-secret");
-    await expect(provider.captureOrder({ orderId: "5O190127TN364715T", idempotencyKey: "capture-id" })).resolves.toMatchObject({ ok: false });
+    await expect(provider.captureOrder({ orderId: "5O190127TN364715T", idempotencyKey: "capture-id" })).resolves.toMatchObject({ ok: false, error: { code: "unavailable", retryable: true } });
+  });
+
+  it("treats a malformed success wrapper as an uncertain capture, not a safe retry", async () => {
+    mocks.execute.mockResolvedValue(JSON.stringify({ status: "success", response: null }));
+    const provider = new PayPalAgentToolkitProvider("sandbox-client", "sandbox-secret");
+    await expect(provider.captureOrder({ orderId: "5O190127TN364715T", idempotencyKey: "capture-id" })).resolves.toMatchObject({ ok: false, error: { code: "unavailable", retryable: true } });
   });
 });

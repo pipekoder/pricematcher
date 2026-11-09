@@ -15,7 +15,7 @@ async function post<T>(url: string, body?: unknown): Promise<T> {
 }
 
 export function PayPalCheckout({ offerId, cart, onOfferInvalidated,authorizationLoading=false,priceMode="original" }: { offerId?: string; cart: CartItemInput[]; onOfferInvalidated?: (reason: "expired" | "invalid") => void;authorizationLoading?:boolean;priceMode?:"original"|"accepted" }) {
-  const [state, setState] = useState<"idle"|"loading"|"success"|"failed"|"canceled">("idle");
+  const [state, setState] = useState<"idle"|"loading"|"success"|"failed"|"canceled"|"uncertain">("idle");
   const [message, setMessage] = useState("");
   async function pay() {
     if (!offerId || state === "loading") return;
@@ -27,10 +27,12 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated,authorization
       const sdk = await paypal.createInstance({ clientId: config.clientId, components: ["paypal-payments"], locale: "en-US", pageType: "checkout" });
       const eligibility = await sdk.findEligibleMethods(); if (!eligibility.isEligible("paypal")) throw new Error("PayPal is not eligible for this Sandbox session");
       const order = await post<{ orderId: string }>("/api/paypal/orders", { checkoutAttemptId: prepared.checkoutAttemptId });
+      let approvalReceived = false;
+      const uncertainMessage = "Payment status needs review. Do not retry this order until its PayPal Sandbox status is confirmed.";
       const session = sdk.createPayPalOneTimePaymentSession({
-        onApprove: async () => { setMessage("Verifying and capturing the approved Sandbox payment…"); const result = await post<{ verified: boolean }>("/api/paypal/capture", { checkoutAttemptId: prepared.checkoutAttemptId }); if (!result.verified) throw new Error("PayPal payment was not verified"); setState("success"); setMessage("Payment verified in PayPal Sandbox."); },
-        onCancel: () => { setState("canceled"); setMessage("PayPal approval was canceled. No capture was requested."); },
-        onError: () => { setState("failed"); setMessage("PayPal Sandbox could not complete the approval flow."); },
+        onApprove: async () => { approvalReceived = true; setMessage("Verifying and capturing the approved Sandbox payment…"); try { const result = await post<{ verified: boolean }>("/api/paypal/capture", { checkoutAttemptId: prepared.checkoutAttemptId }); if (!result.verified) throw new Error("PayPal payment was not verified"); setState("success"); setMessage("Payment verified in PayPal Sandbox."); } catch { setState("uncertain"); setMessage(uncertainMessage); } },
+        onCancel: () => { setState(approvalReceived ? "uncertain" : "canceled"); setMessage(approvalReceived ? uncertainMessage : "PayPal approval was canceled. No capture was requested."); },
+        onError: () => { setState(approvalReceived ? "uncertain" : "failed"); setMessage(approvalReceived ? uncertainMessage : "PayPal Sandbox could not complete the approval flow."); },
       });
       await session.start({ presentationMode: "popup" }, Promise.resolve({ orderId: order.orderId }));
     } catch (error) {
@@ -43,5 +45,5 @@ export function PayPalCheckout({ offerId, cart, onOfferInvalidated,authorization
     }
   }
 
-  return <div className="payment-disabled" aria-live="polite"><p>{offerId?priceMode==="accepted"?"Your accepted Deal Engine offer is server-authorized. PayPal will request separate buyer approval.":"Your original SOLE price is server-authorized. No price check is required.":authorizationLoading?"Preparing secure original-price checkout…":"Payment is temporarily unavailable until the server authorizes your cart."}</p><button type="button" className="button primary large" disabled={!offerId||state==="loading"||state==="success"} onClick={pay}>{state==="loading"?"Loading PayPal Sandbox…":state==="success"?"Sandbox payment verified":"Continue with PayPal Sandbox"}</button>{message&&<p role={state==="failed"?"alert":"status"}>{message}</p>}<small>Sandbox only · No live payment credentials or real money</small></div>;
+  return <div className="payment-disabled" aria-live="polite"><p>{offerId?priceMode==="accepted"?"Your accepted Deal Engine offer is server-authorized. PayPal will request separate buyer approval.":"Your original SOLE price is server-authorized. No price check is required.":authorizationLoading?"Preparing secure original-price checkout…":"Payment is temporarily unavailable until the server authorizes your cart."}</p><button type="button" className="button primary large" disabled={!offerId||state==="loading"||state==="success"||state==="uncertain"} onClick={pay}>{state==="loading"?"Loading PayPal Sandbox…":state==="success"?"Sandbox payment verified":state==="uncertain"?"Payment status needs review":"Continue with PayPal Sandbox"}</button>{message&&<p role={state==="failed"||state==="uncertain"?"alert":"status"}>{message}</p>}<small>Sandbox only · No live payment credentials or real money</small></div>;
 }
