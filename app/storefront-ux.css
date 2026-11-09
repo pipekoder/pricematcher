@@ -44,7 +44,7 @@ body{letter-spacing:.01em}
 .checkout-page .checkout-layout{gap:4vw;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);align-items:start}
 .checkout-section{padding:28px 0 36px;border-top:1px solid var(--line)}
 .checkout-section:first-child{padding-top:0;border:0}
-.checkout-section h2{font-size:clamp(25px,3vw,36px);letter-spacing:-.04em;margin:8px 0 20px}
+.checkout-section h2{font-size:clamp(23px,calc(3vw - 2px),34px);letter-spacing:-.04em;margin:8px 0 20px}
 .checkout-section>.button{margin-top:16px}
 .checkout-item{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
 .checkout-item p{color:var(--muted);font-size:12px;margin:5px 0}
