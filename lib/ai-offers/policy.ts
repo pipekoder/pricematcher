@@ -3,6 +3,7 @@ import { productOperations, simulatedInventoryMovements, simulatedPriceHistory, 
 import { demoPolicy, marketSnapshot, type DemoDecision } from "../price-intelligence/demo-offers";
 import { OfferValidationError } from "../persistence/repository";
 import type { CartSnapshot } from "../types";
+import { compareGoogleOffers, eligibleGoogleOffer, type GoogleSearchResult } from "../price-intelligence/google-shopping";
 
 export type InventoryClass = "overstock_no_sales" | "low_stock_active" | "normal";
 export type AgentFacts = ReturnType<typeof factsForCart>[number];
@@ -21,7 +22,7 @@ export function inventoryPolicy(env: Record<string,string|undefined> = process.e
   return { version: 1, overstockMarkupBps: markup, activeSalesDays: activeDays, maximumDiscountBps: demoPolicy.maximumDiscountBps };
 }
 const selling = (productId: string, days: number) => simulatedTransactions.filter(item => item.productId === productId && item.kind === "sale" && item.day <= days);
-export function factsForCart(snapshot: CartSnapshot, policy = inventoryPolicy()) {
+export function factsForCart(snapshot: CartSnapshot, policy = inventoryPolicy(), google?:GoogleSearchResult) {
   return snapshot.lines.map(line => {
     const product = getProduct(line.productId);
     const sku = virtualSkus.find(item => item.productId === line.productId && line.variantKey.includes(`:EU${item.size}:`));
@@ -32,7 +33,8 @@ export function factsForCart(snapshot: CartSnapshot, policy = inventoryPolicy())
     const classification: InventoryClass = operations.stock > 50 && sales.last30 === 0 ? "overstock_no_sales" : operations.stock < 10 && sales.distinctDays30 >= policy.activeSalesDays ? "low_stock_active" : "normal";
     const history = simulatedPriceHistory.filter(item=>item.productId===product.id).sort((a,b)=>a.dayAgo-b.dayAgo);
     const market = marketSnapshot(product.id);
-    return { key: `${line.productId}|${line.variantKey}`, productId: product.id, sku: sku.sku, size: sku.size, quantity: line.quantity, brand: product.brand, originalUnitMinor: product.price.amountMinor, currency: "USD" as const, costMinor: sku.unitCostMinor, skuStock: sku.stock, productStock: operations.stock, sales, daysSinceLastSale: operations.daysSinceLastSale, turnover: operations.turnover, returns60: simulatedTransactions.filter(item=>item.productId===product.id&&item.kind==="return").length, priceTrend: history.map(item=>({dayAgo:item.dayAgo,priceMinor:item.priceMinor})), inventoryMovement90: simulatedInventoryMovements.filter(item=>item.sku===sku.sku).reduce((sum,item)=>sum+item.units,0), inventoryTrend:{net7:simulatedInventoryMovements.filter(item=>item.sku===sku.sku&&item.dayAgo<=7).reduce((sum,item)=>sum+item.units,0),net30:simulatedInventoryMovements.filter(item=>item.sku===sku.sku&&item.dayAgo<=30).reduce((sum,item)=>sum+item.units,0),current:sku.stock}, classification, market: {lowestNewMinor:market?.lowestNew??null, reference:market?.lowestNewOffer?.productId??null, retrievedAt:market?.retrievedAt??null, shippingKnown:false, feesKnown:false, variantVerified:false, source:"saved_channel3_snapshot" as const}, policy: {overstockMarkupBps:policy.overstockMarkupBps,activeSalesDays:policy.activeSalesDays,maximumDiscountBps:policy.maximumDiscountBps} };
+    const candidate=google?.productId===product.id&&google.variantKey===line.variantKey?google.offers.filter(eligibleGoogleOffer).sort(compareGoogleOffers)[0]:undefined;
+    return { key: `${line.productId}|${line.variantKey}`, productId: product.id, sku: sku.sku, size: sku.size, quantity: line.quantity, brand: product.brand, originalUnitMinor: product.price.amountMinor, currency: "USD" as const, costMinor: sku.unitCostMinor, skuStock: sku.stock, productStock: operations.stock, sales, daysSinceLastSale: operations.daysSinceLastSale, turnover: operations.turnover, returns60: simulatedTransactions.filter(item=>item.productId===product.id&&item.kind==="return").length, priceTrend: history.map(item=>({dayAgo:item.dayAgo,priceMinor:item.priceMinor})), inventoryMovement90: simulatedInventoryMovements.filter(item=>item.sku===sku.sku).reduce((sum,item)=>sum+item.units,0), inventoryTrend:{net7:simulatedInventoryMovements.filter(item=>item.sku===sku.sku&&item.dayAgo<=7).reduce((sum,item)=>sum+item.units,0),net30:simulatedInventoryMovements.filter(item=>item.sku===sku.sku&&item.dayAgo<=30).reduce((sum,item)=>sum+item.units,0),current:sku.stock}, classification, market: google?{lowestNewMinor:candidate?.priceMinor??null,reference:candidate?.id??null,retrievedAt:google.retrievedAt,shippingKnown:false,feesKnown:false,variantVerified:candidate?.matchStatus==="exact_variant",source:"google_observed" as const}:{lowestNewMinor:market?.lowestNew??null, reference:market?.lowestNewOffer?.productId??null, retrievedAt:market?.retrievedAt??null, shippingKnown:false, feesKnown:false, variantVerified:false, source:"saved_channel3_snapshot" as const}, policy: {overstockMarkupBps:policy.overstockMarkupBps,activeSalesDays:policy.activeSalesDays,maximumDiscountBps:policy.maximumDiscountBps} };
   });
 }
 export function policyFloor(fact:AgentFacts,policy=inventoryPolicy()) {

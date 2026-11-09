@@ -10,6 +10,9 @@
 .cart-result p { margin: 8px 0; }
 .cart-result .status-pill { display: inline-flex; margin: 5px 0; font-size: 10px; }
 .evidence-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-size: 12px; text-decoration: underline; }
+.cart-result .evidence-row { gap: 12px; align-items: flex-start; }
+.cart-result .evidence-row span { min-width: 0; overflow-wrap: anywhere; line-height: 1.45; }
+.cart-result .evidence-row strong { white-space: nowrap; }
 .original-checkout { margin-top: 14px; }
 .original-checkout .button { width: 100%; }
 .original-checkout p { color: #8a3324; font-size: 12px; }
