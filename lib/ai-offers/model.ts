@@ -24,7 +24,7 @@ function modelJsonSchema(schema: z.ZodType): Record<string, unknown> {
 export const schemas:Record<AgentKind,Record<string,unknown>>={"inventory-sales":modelJsonSchema(strategistSchema),"market-offer":modelJsonSchema(negotiatorSchema)};
 const budgetState=globalThis as typeof globalThis&{aiOfferBudget?:{day:string;calls:number;reservedUsd:number;active:number}};
 function settings(){const calls=Number(process.env.AI_OFFER_MAX_CALLS_PER_DAY??40),spend=Number(process.env.AI_OFFER_MAX_ESTIMATED_SPEND_USD??1);if(!Number.isSafeInteger(calls)||calls<1||calls>1000||!Number.isFinite(spend)||spend<=0||spend>100)throw new Error("Invalid AI budget configuration");return{calls,spend};}
-const MODEL_TIMEOUT_MS=20000;
+const MODEL_TIMEOUT_MS=40000;
 export const MODEL_MAX_OUTPUT_TOKENS=4096;
 type ModelStage="budget"|"instructions"|"request"|"response_parse";
 function modelFailure(stage:ModelStage,error:unknown){

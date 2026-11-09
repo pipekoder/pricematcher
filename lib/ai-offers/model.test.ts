@@ -44,11 +44,11 @@ describe("Meta Model API transport", () => {
     process.env.MODEL_API_KEY = "test-only-meta-key";
     mock.create.mockResolvedValue({ output_text: '{"items":[]}', usage: { input_tokens: 1, output_tokens: 1 } });
     const model = new MuseSparkResponseModel();
-    expect(mock.constructorOptions).toMatchObject({ baseURL: META_MODEL_API_BASE_URL, apiKey: "test-only-meta-key", maxRetries: 0, timeout: 20000 });
+    expect(mock.constructorOptions).toMatchObject({ baseURL: META_MODEL_API_BASE_URL, apiKey: "test-only-meta-key", maxRetries: 0, timeout: 40000 });
     expect(await model.run("inventory-sales", { items: [] })).toEqual({ items: [] });
     expect(mock.create).toHaveBeenCalledOnce();
     expect(mock.create.mock.calls[0][0]).toMatchObject({ model: MUSE_SPARK_MODEL, store: false, max_output_tokens: MODEL_MAX_OUTPUT_TOKENS, reasoning: { effort: "low" }, text: { format: { type: "json_schema", strict: true } } });
-    expect(mock.create.mock.calls[0][1]).toMatchObject({ maxRetries: 0, timeout: 20000 });
+    expect(mock.create.mock.calls[0][1]).toMatchObject({ maxRetries: 0, timeout: 40000 });
   });
 
   it.each([
