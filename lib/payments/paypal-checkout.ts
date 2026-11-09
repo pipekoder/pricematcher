@@ -71,15 +71,14 @@ export function createPayPalCheckoutService(deps: Dependencies) {
         return finalizeCapture(attempt, capture.transactionId);
       }
       if (observed.value.status !== "APPROVED" || observed.value.captures.length !== 0 || !sameAmount(attempt, observed.value.amount)) throw new TransactionStateError("approval_invalid", "PayPal buyer approval, amount, or capture state could not be verified");
+      if (attempt.status !== "order_created") throw new TransactionStateError("reconciliation_required", "Capture outcome requires manual review; no further capture was requested");
       if (attempt.status === "order_created") {
         attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["order_created"], to: "buyer_approved", now: now() });
         attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["buyer_approved"], to: "capture_pending", now: now() });
-      } else if (attempt.status === "reconciliation_required") {
-        attempt = await deps.transactions.transitionCheckout({ id: attempt.id, from: ["reconciliation_required"], to: "capture_pending", failureCode: undefined, reconciliationStatus: "pending", now: now() });
       }
       const captured = await deps.provider.captureOrder({ orderId: attempt.providerOrderId!, idempotencyKey: attempt.id });
       if (!captured.ok) {
-        await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: captured.error.retryable ? "reconciliation_required" : "failed", failureCode: captured.error.code, reconciliationStatus: captured.error.retryable ? "pending" : "not_required", now: now() });
+        await deps.transactions.transitionCheckout({ id: attempt.id, from: ["capture_pending"], to: "reconciliation_required", failureCode: captured.error.code, reconciliationStatus: "pending", now: now() });
         throw providerFailure(captured.error);
       }
       attempt = await deps.transactions.recordProviderCapture({ id: attempt.id, providerOrderId: attempt.providerOrderId!, providerTransactionId: captured.value.transactionId, now: now() });

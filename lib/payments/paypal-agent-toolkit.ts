@@ -77,8 +77,12 @@ export class PayPalAgentToolkitProvider implements PaymentProvider {
 
   async captureOrder(input: Parameters<PaymentProvider["captureOrder"]>[0]) {
     const result = await this.run("pay_order", { id: input.orderId }, input.idempotencyKey); if (!result.ok) return result;
-    const purchaseUnits = array(result.value.purchase_units); const captures = array(nested(purchaseUnits[0], "payments", "captures")); const capture = captures.length === 1 ? captureFrom(captures[0]) : undefined;
-    if (result.value.id !== input.orderId || purchaseUnits.length !== 1 || !capture) return { ok: false, error: providerError("PayPal pay_order response is incomplete or ambiguous") } as const;
+    // Agent Toolkit wraps a successful Orders v2 capture as { status: "success", response: order }.
+    // A missing/ambiguous response is uncertain: PayPal may already have captured the order.
+    const order = result.value.status === "success" ? record(result.value.response) : undefined;
+    if (!order) return { ok: false, error: providerError("PayPal capture outcome requires reconciliation", true) } as const;
+    const purchaseUnits = array(order.purchase_units); const captures = array(nested(purchaseUnits[0], "payments", "captures")); const capture = captures.length === 1 ? captureFrom(captures[0]) : undefined;
+    if (order.id !== input.orderId || purchaseUnits.length !== 1 || !capture) return { ok: false, error: providerError("PayPal capture outcome requires reconciliation", true) } as const;
     return { ok: true, value: { orderId: input.orderId, ...capture } } as const;
   }
 

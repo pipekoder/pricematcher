@@ -68,6 +68,17 @@ describe("PayPal authorized checkout", () => {
     const value = await setup(); await value.service.createOrder(value.prepared.checkoutAttemptId, value.sessionId); value.provider.captureFailure = true;
     await expect(value.service.captureApprovedOrder(value.prepared.checkoutAttemptId, value.sessionId)).rejects.toMatchObject({ code: "unavailable" });
     await expect(value.transactions.getCheckoutAttempt(value.prepared.checkoutAttemptId)).resolves.toMatchObject({ status: "reconciliation_required", reconciliationStatus: "pending" });
+    await expect(value.service.captureApprovedOrder(value.prepared.checkoutAttemptId, value.sessionId)).rejects.toMatchObject({ code: "reconciliation_required" });
+    expect(value.provider.captures).toBe(1);
+  });
+
+  it("never retries a rejected capture response without a confirmed PayPal capture", async () => {
+    const value = await setup(); await value.service.createOrder(value.prepared.checkoutAttemptId, value.sessionId);
+    vi.spyOn(value.provider,"captureOrder").mockResolvedValue({ok:false,error:{code:"validation",retryable:false,message:"Response shape invalid"}});
+    await expect(value.service.captureApprovedOrder(value.prepared.checkoutAttemptId, value.sessionId)).rejects.toMatchObject({code:"validation"});
+    await expect(value.transactions.getCheckoutAttempt(value.prepared.checkoutAttemptId)).resolves.toMatchObject({status:"reconciliation_required",failureCode:"validation"});
+    await expect(value.service.captureApprovedOrder(value.prepared.checkoutAttemptId, value.sessionId)).rejects.toMatchObject({code:"reconciliation_required"});
+    expect(value.provider.captureOrder).toHaveBeenCalledTimes(1);
   });
 
   it("recovers a provider timeout after PayPal captured without issuing another capture", async () => {
