@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { products } from "../catalog";
+import { products, simulatedMerchantPrice } from "../catalog";
 import { productOperations, simulatedInventoryMovements, simulatedPriceHistory, simulatedTransactions, virtualSkus } from "./operations";
 import { footwearSnapshots, selectSavedPrice } from "./snapshot";
 
@@ -12,11 +12,12 @@ describe("reproducible simulated retail ledger", () => {
     expect(footwearSnapshots.every(snapshot => snapshot.marketMinor === snapshot.marketOffers[Math.floor((snapshot.marketOffers.length-1)/2)].priceMinor)).toBe(true);
     for(const snapshot of footwearSnapshots){
       const product=products.find(item=>item.id===`footwear-${snapshot.id}`)!;
-      expect(product.price).toEqual({amountMinor:snapshot.priceReference.priceMinor,currency:"USD"});
+      expect(product.price).toEqual({amountMinor:simulatedMerchantPrice(snapshot.priceReference.priceMinor,snapshot.id),currency:"USD"});
       expect(snapshot.priceReference).toMatchObject({productId:snapshot.id,currency:"USD",provider:"channel3_saved",observedMerchant:snapshot.marketDomain,observedUrl:snapshot.sourceUrl,observedAt:snapshot.retrievedAt});
       expect(snapshot.priceReference.priceMinor).toBeGreaterThan(0);
       expect(virtualSkus.filter(sku=>sku.productId===product.id).every(sku=>sku.retailMinor===product.price.amountMinor)).toBe(true);
     }
+    expect(new Set(products.map(product=>Math.round(product.price.amountMinor/footwearSnapshots.find(snapshot=>`footwear-${snapshot.id}`===product.id)!.priceReference.priceMinor*100)))).toEqual(new Set([97,105,110]));
   });
   it("selects a saved offer deterministically and rejects missing or ambiguous prices",()=>{
     const offers=[

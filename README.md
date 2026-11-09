@@ -75,4 +75,4 @@ See [Render deployment](docs/RENDER_DEPLOYMENT.md). Do not use PayPal Live crede
 See [Vercel migration while keeping Supabase](docs/VERCEL_SUPABASE_MIGRATION.md) for the separate-account deployment checklist.
 See [PayPal agentic checkout](docs/PAYPAL_AGENTIC_CHECKOUT.md) for Sandbox setup and manual verification.
 See [Dual AI Offer Agents](docs/DUAL_AI_OFFER_AGENTS.md) for the optional two-agent Sandbox workflow, merchant policy, budget and security boundaries.
-See [Google Shopping observed-price MVP](docs/GOOGLE_SHOPPING_MVP.md) for the isolated Preview setup, shared search budget, data provenance, and manual Sandbox verification limits.
+See [Channel3 live price-match workflow](docs/CHANNEL3_LIVE_PRICE_MATCH.md) for exact product retrieval, request budget, evidence provenance, and Sandbox verification limits.

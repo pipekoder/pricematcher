@@ -52,6 +52,6 @@ export default function CheckoutPage() {
     <div className="summary-row"><span>Tax</span><span>{formatMoney(acceptedOffer?.tax ?? { amountMinor: tax, currency: "USD" })}</span></div>
     {acceptedOffer && <><div className="summary-row original-total"><span>Original total</span><span>{formatMoney(acceptedOffer.originalTotal)}</span></div>{acceptedOffer.savings.amountMinor>0&&<div className="summary-row savings"><strong>PriceMatcher savings</strong><strong>−{formatMoney(acceptedOffer.savings)}</strong></div>}<div className="summary-row total authorized-total"><strong>Total to pay</strong><strong>{formatMoney(acceptedOffer.totalToPay)}</strong></div></>}
     {!acceptedOffer && <div className="summary-row total"><strong>Original total</strong><strong>{formatMoney({ amountMinor: originalTotal, currency: "USD" })}</strong></div>}
-    <p className="subhead">All amounts are USD. Store prices use saved Channel3 observations; Google Shopping prices are advertised search results when enabled. NORTH/01 operations are simulated. Payment is PayPal Sandbox only.</p>
+    <p className="subhead">All amounts are USD. NORTH/01 store prices and operations are simulated; Channel3 merchant offers are observed product prices, not verified retailer checkout totals. Payment is PayPal Sandbox only.</p>
   </aside></div></div>;
 }

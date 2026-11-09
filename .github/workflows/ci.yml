@@ -63,6 +63,7 @@ jobs:
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610250003_paypal_agentic_checkout.sql
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202610260001_ai_offer_budget.sql
           psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202611080001_google_shopping_budget.sql
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/202611090001_channel3_live_budget.sql
 
       - name: Run PostgreSQL integration tests without skips
         env:
