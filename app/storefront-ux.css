@@ -44,7 +44,7 @@ body{letter-spacing:.01em}
 .checkout-page .checkout-layout{gap:4vw;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);align-items:start}
 .checkout-section{padding:28px 0 36px;border-top:1px solid var(--line)}
 .checkout-section:first-child{padding-top:0;border:0}
-.checkout-section h2{font-size:clamp(25px,3vw,36px);letter-spacing:-.04em;margin:8px 0 20px}
+.checkout-section h2{font-size:clamp(23px,calc(3vw - 2px),34px);letter-spacing:-.04em;margin:8px 0 20px}
 .checkout-section>.button{margin-top:16px}
 .checkout-item{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
 .checkout-item p{color:var(--muted);font-size:12px;margin:5px 0}
@@ -53,3 +53,9 @@ body{letter-spacing:.01em}
 @media(max-width:800px){.quick-view{grid-template-columns:1fr;max-height:94dvh}.quick-view-image{min-height:230px;max-height:300px}.quick-view-image img{max-height:300px}.quick-view-content{padding:26px}.checkout-page .checkout-layout{grid-template-columns:1fr}.checkout-page .summary{position:static;order:-1}.store-identity{min-width:0}}
 @media(max-width:520px){.demo-hero h1{letter-spacing:0}.store-identity small{font-size:8px;max-width:150px;white-space:normal}.site-header nav{display:none}.quick-view{width:100vw;height:100dvh;max-height:100dvh}.quick-view-content{padding:24px 20px 38px}.quick-view-image{min-height:200px;max-height:240px}.quick-view-image img{max-height:240px}.quick-view-sizes>div{grid-template-columns:repeat(3,minmax(0,1fr))}.bag-drawer-head,.bag-drawer-lines,.bag-drawer-foot{padding-left:20px;padding-right:20px}.checkout-page{padding-top:40px}}
 @media(prefers-reduced-motion:reduce){.bag-drawer{animation:none}}
+
+/* Demo hero headline: each sentence stays on a single line. */
+.demo-hero h1{font-size:clamp(34px,4.4vw,70px);letter-spacing:-.06em;max-width:none;text-wrap:nowrap}
+.demo-hero h1 span{display:block;white-space:nowrap}
+@media(max-width:800px){.demo-hero h1{font-size:clamp(38px,8vw,70px)}}
+@media(max-width:520px){.demo-hero h1{font-size:clamp(29px,8.6vw,50px)}}

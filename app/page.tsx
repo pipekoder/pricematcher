@@ -12,7 +12,7 @@ export default function Home() {
     <section className="demo-hero" aria-labelledby="demo-title">
       <div className="demo-hero-copy">
         <p className="eyebrow">SOLE · Curated running shoes, sneakers &amp; hiking</p>
-        <h1 id="demo-title">A better fit.<br/>A better deal.</h1>
+        <h1 id="demo-title"><span>A better fit.</span><span>A better deal.</span></h1>
         <p>Powered by Deal Engine. Made for the best offer.</p>
         <Link className="button light large" href="#collection">Explore shoes <ArrowRight size={18} /></Link>
       </div>

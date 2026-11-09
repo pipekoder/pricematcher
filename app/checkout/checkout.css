@@ -16,3 +16,41 @@
 .original-checkout { margin-top: 14px; }
 .original-checkout .button { width: 100%; }
 .original-checkout p { color: #8a3324; font-size: 12px; }
+
+/* SOLE Deal Engine demo styling */
+.checkout-page .offer-card,
+.checkout-page .checkout-payment .offer-card {
+  background: #ff3c00;
+  color: #fff;
+}
+.checkout-page .offer-card p,
+.checkout-page .offer-card strong,
+.checkout-page .offer-card h3 { color: #fff; }
+.checkout-page .offer-card .offer-saving-headline {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+  color: #fff;
+}
+.checkout-page .offer-card .offer-recheck {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.checkout-page .offer-recheck { margin-top: 30px; }
+.checkout-page .checkout-payment .shop-again {
+  display: inline-flex;
+  margin-top: 18px;
+  color: #111;
+  background: #fff;
+}
+.checkout-page .checkout-payment .paypal-sandbox-note {
+  display: block;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.checkout-page .checkout-payment .payment-disabled > p:empty { display: none; }
