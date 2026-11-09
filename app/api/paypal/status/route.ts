@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     // Only the server's previously independently verified capture state is success.
     const verified = (attempt.status === "captured" || attempt.status === "reconciled") && Boolean(attempt.providerTransactionId) && attempt.reconciliationStatus === "matched";
     const needsReview = !verified && (
-      ["buyer_approved", "capture_pending", "reconciliation_required"].includes(attempt.status) ||
+      ["order_pending", "order_created", "buyer_approved", "capture_pending", "reconciliation_required"].includes(attempt.status) ||
       Boolean(attempt.providerTransactionId) ||
       (attempt.status === "failed" && Boolean(attempt.providerOrderId))
     );
