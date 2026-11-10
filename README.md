@@ -13,10 +13,13 @@ Deal Engine is an AI-assisted merchant decision and checkout negotiation workflo
 - Optional acceptance of an adjusted price; original-price PayPal Sandbox checkout is independently authorized and available without a price check
 - Server-authorized PayPal Sandbox order creation and capture through the restricted Agent Toolkit adapter
 - PayPal JavaScript SDK v6 buyer approval and independent server verification
+- Customer-started Deal Engine progress over the existing `/api/comparisons` POST (SSE when requested), with backend-confirmed Channel3/Meta/policy stages and an absolute server-expiry countdown
 - Merchant dashboard and browser-only policy preview
 - `/api/health`, Render Blueprint, environment template, and unit tests
 
 Fixture comparison remains available and visibly labeled. PayPal calls occur only when Sandbox credentials are configured and the customer clicks the PayPal Sandbox action, whether they selected a valid Deal Engine offer or kept the original price. The application never reports success without a verified provider response.
+
+The footwear checkout requests a streamed comparison from the same pricing path; non-streaming callers and fixture comparisons still receive JSON. A disconnected stream does not automatically replay the request or start another billable lookup. The UI reports an uncertain comparison and leaves original-price checkout available. The activity log contains only allowlisted stage/status metadata, not prompts, credentials or merchant cost data. Elapsed time is measured, not a predicted completion percentage; Vercel function execution and network delivery can still interrupt a long-running stream.
 
 ## Outdoor footwear demo (PR #12)
 

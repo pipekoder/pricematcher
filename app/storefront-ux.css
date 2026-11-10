@@ -59,6 +59,22 @@ body{letter-spacing:.01em}
 .demo-hero h1 span{display:block;white-space:nowrap}
 @media(max-width:800px){.demo-hero h1{font-size:clamp(32px,7vw,60px)}}
 @media(max-width:520px){.demo-hero h1{font-size:clamp(24px,6.8vw,36px)}}
+.offer-card .offer-countdown{margin-bottom:10px}
+.deal-progress{padding:18px;border:1px solid var(--line);background:#fff;margin:12px 0 20px;max-width:720px}
+.deal-progress>p{font-size:13px;color:var(--muted);margin:8px 0 12px}
+.deal-progress-track{height:7px;overflow:hidden;background:#e8e8e3;border-radius:10px}
+.deal-progress-track span{display:block;height:100%;background:#ff3c00}
+.deal-progress-indeterminate{width:35%;animation:deal-progress-move 1.7s ease-in-out infinite alternate}
+.deal-progress-finished{width:100%}
+@keyframes deal-progress-move{from{transform:translateX(-100%)}to{transform:translateX(285%)}}
+.deal-progress-stages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;list-style:none;padding:0;margin:16px 0}
+.deal-progress-stages li{padding:9px 11px;border-left:3px solid #deded7;background:#f7f7f3;font-size:12px}
+.deal-progress-stages li[data-status=running]{border-color:#ff3c00}.deal-progress-stages li[data-status=completed]{border-color:#196b4b}.deal-progress-stages li[data-status=failed]{border-color:#a22}
+.deal-progress-stages span,.deal-progress-stages small{display:block}.deal-progress-stages small{color:var(--muted);margin-top:4px;line-height:1.4}
+.deal-progress-activity{font-size:13px}.deal-progress-log{list-style:none;margin:7px 0 0;padding:0;max-height:170px;overflow:auto;font-size:12px;line-height:1.5;color:var(--muted)}
+.deal-progress-log li{padding:4px 0;border-top:1px solid var(--line)}.deal-progress-log time{font-variant-numeric:tabular-nums;color:var(--ink)}
+@media(max-width:520px){.deal-progress-stages{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.deal-progress-indeterminate{animation:none;width:100%;opacity:.55}}
 
 /* Bag icon controls stay borderless, with visible keyboard focus. */
 .bag-drawer .quantity button{border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center}
