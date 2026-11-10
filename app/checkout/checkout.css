@@ -54,3 +54,9 @@
   line-height: 1.5;
 }
 .checkout-page .checkout-payment .payment-disabled > p:empty { display: none; }
+
+/* Both offer actions share full width and height. */
+.checkout-page .offer-card .offer-accept,
+.checkout-page .offer-card .offer-recheck{display:flex;width:100%;min-height:48px;align-items:center;justify-content:center;padding:0 18px;font-size:13px}
+.checkout-page .offer-card .offer-accept{margin-top:18px}
+.checkout-page .offer-card .offer-recheck{margin-top:12px}

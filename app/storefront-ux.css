@@ -44,7 +44,7 @@ body{letter-spacing:.01em}
 .checkout-page .checkout-layout{gap:4vw;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);align-items:start}
 .checkout-section{padding:28px 0 36px;border-top:1px solid var(--line)}
 .checkout-section:first-child{padding-top:0;border:0}
-.checkout-section h2{font-size:clamp(23px,calc(3vw - 2px),34px);letter-spacing:-.04em;margin:8px 0 20px}
+.checkout-section h2{font-size:clamp(21px,calc(3vw - 4px),32px);letter-spacing:-.015em;margin:8px 0 20px}
 .checkout-section>.button{margin-top:16px}
 .checkout-item{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
 .checkout-item p{color:var(--muted);font-size:12px;margin:5px 0}
@@ -55,7 +55,15 @@ body{letter-spacing:.01em}
 @media(prefers-reduced-motion:reduce){.bag-drawer{animation:none}}
 
 /* Demo hero headline: each sentence stays on a single line. */
-.demo-hero h1{font-size:clamp(34px,4.4vw,70px);letter-spacing:-.06em;max-width:none;text-wrap:nowrap}
+.demo-hero h1{font-size:clamp(30px,3.8vw,62px);letter-spacing:.005em;max-width:none;text-wrap:nowrap}
 .demo-hero h1 span{display:block;white-space:nowrap}
-@media(max-width:800px){.demo-hero h1{font-size:clamp(38px,8vw,70px)}}
-@media(max-width:520px){.demo-hero h1{font-size:clamp(29px,8.6vw,50px)}}
+@media(max-width:800px){.demo-hero h1{font-size:clamp(32px,7vw,60px)}}
+@media(max-width:520px){.demo-hero h1{font-size:clamp(24px,6.8vw,36px)}}
+
+/* Bag icon controls stay borderless, with visible keyboard focus. */
+.bag-drawer .quantity button{border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center}
+.bag-drawer .quantity button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+/* Remove space reserved for the deleted checkout page title. */
+.checkout-page{padding-top:42px}
+.checkout-page .breadcrumb{margin-bottom:18px}
+@media(max-width:520px){.checkout-page{padding-top:24px}.checkout-page .breadcrumb{margin-bottom:14px}}

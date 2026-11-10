@@ -100,7 +100,7 @@ export default function CheckoutPage(){
   }
 
   if(!count)return <div className="empty-state"><p className="eyebrow">SOLE / checkout</p><h1>Your bag is empty.</h1><p>Add a shoe and size to begin.</p><Link className="button primary" href="/">Shop footwear</Link></div>;
-  return <div className="page-shell checkout-page"><div className="breadcrumb">SOLE / Checkout</div><h1 className="page-title">Checkout</h1>
+  return <div className="page-shell checkout-page"><div className="breadcrumb">SOLE / Checkout</div>
     <div className="checkout-layout"><div className="checkout-main">
       <section className="checkout-section" aria-labelledby="order-review"><h2 id="order-review">01/ Review your order</h2>{lines.map(({key,product,quantity,sku})=><div className="checkout-item" key={key}><div><strong>{product.name}</strong><p>{product.brand} · {product.variant.color} · EU {sku.size} · Qty {quantity}</p></div><strong>{formatMoney({amountMinor:product.price.amountMinor*quantity,currency:"USD"})}</strong></div>)}</section>
       <section className="checkout-section" aria-labelledby="deal-review"><h2 id="deal-review">02/ Price Matching check</h2>{visibleNotice&&<div className="offer-expired" role="alert"><strong>{visibleNotice==="expired"?"Accepted offer expired":"Accepted offer is no longer valid"}</strong><p>Your checkout has returned to the original SOLE price. You may check prices again, or pay the original price.</p></div>}<CartPriceCheck key={`${comparisonKey}:${cartKey}`} cart={cart} onAccepted={acceptOffer} canCheckPrices={Boolean(originalOffer)}/>{acceptedOffer&&<button type="button" className="button secondary" onClick={keepOriginal}>Keep original price instead</button>}</section>
