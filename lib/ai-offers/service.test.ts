@@ -11,14 +11,15 @@ import { AiOfferService,aiEnabled } from "./service";
 import { factsForCart, inventoryPolicy, policyFloor, sameInventoryPolicy, validateAiDecision, type AgentFacts } from "./policy";
 import type { AgentKind,AgentModel } from "./model";
 import type { CartItemInput } from "../types";
-import type { Channel3MarketOffer, Channel3SearchResult, MarketSearch } from "../price-intelligence/channel3-market";
+import { Channel3SearchError,type Channel3MarketOffer, type Channel3SearchResult, type MarketSearch } from "../price-intelligence/channel3-market";
+import type { ProgressEvent } from "./progress";
 
 const session="11c22712-8890-47ed-92f7-aed7bcfc9532";
 const sku=virtualSkus.find(item=>item.productId===products[0].id&&item.stock>=2)!;
 const product=getProduct(sku.productId)!;
 const cart:CartItemInput[]=[{productId:product.id,variantKey:productVariantKey(product,sku.size),quantity:1}];
 const prior:Record<string,string|undefined>={};
-beforeEach(()=>{for(const key of ["AI_OFFER_AGENT_ENABLED","MODEL_API_KEY","OPENAI_API_KEY","PRICEMATCHER_DEMO_ASSUMPTIONS","PAYPAL_ENVIRONMENT"]){prior[key]=process.env[key];}process.env.AI_OFFER_AGENT_ENABLED="1";process.env.PRICEMATCHER_DEMO_ASSUMPTIONS="1";process.env.PAYPAL_ENVIRONMENT="SANDBOX";});
+beforeEach(()=>{(globalThis as typeof globalThis&{aiOfferInsights?:unknown}).aiOfferInsights=undefined;for(const key of ["AI_OFFER_AGENT_ENABLED","MODEL_API_KEY","OPENAI_API_KEY","PRICEMATCHER_DEMO_ASSUMPTIONS","PAYPAL_ENVIRONMENT"]){prior[key]=process.env[key];}process.env.AI_OFFER_AGENT_ENABLED="1";process.env.PRICEMATCHER_DEMO_ASSUMPTIONS="1";process.env.PAYPAL_ENVIRONMENT="SANDBOX";});
 afterEach(()=>{for(const [key,value] of Object.entries(prior)){if(value===undefined)delete process.env[key];else process.env[key]=value;}});
 
 class MockAgents implements AgentModel{
@@ -119,6 +120,31 @@ describe("two-agent SKU offer orchestration",()=>{
     const model:AgentModel={run:async(kind,value)=>{if(kind==="inventory-sales")agentStarted=true;return new MockAgents("KEEP_ORIGINAL").run(kind,value);}};
     const pendingResult=new AiOfferService(new MemoryPriceIntelligenceRepository(),model,()=>new Date(),{search:async(input)=>{await pending;return{batchId:crypto.randomUUID(),retrievedAt:new Date().toISOString(),productId:input.product.id,variantKey:input.variantKey,offers:[],status:"empty"};}}).compare({sessionId:`${session}-channel3-concurrent`,cart});
     expect(agentStarted).toBe(true);release();expect((await pendingResult).agentMode).toBe("ai");
+  });
+  it("reports concurrent starts and only confirms stages after actual backend completion",async()=>{
+    let release!:()=>void;const pending=new Promise<void>(resolve=>{release=resolve;});const events:ProgressEvent[]=[];
+    const model=new MockAgents("KEEP_ORIGINAL");
+    const run=new AiOfferService(new MemoryPriceIntelligenceRepository(),model,()=>new Date(),{search:async input=>{await pending;return{batchId:crypto.randomUUID(),retrievedAt:new Date().toISOString(),productId:input.product.id,variantKey:input.variantKey,offers:[],status:"empty"};}},event=>events.push(event)).compare({sessionId:`${session}-progress`,cart:[{...cart[0],quantity:2}]});
+    expect(events.map(event=>[event.stage,event.status])).toEqual([["agent-a","running"],["channel3","running"]]);
+    expect(events.some(event=>event.status==="completed")).toBe(false);
+    release();expect((await run).agentMode).toBe("ai");
+    expect(events.map(event=>[event.stage,event.status])).toContainEqual(["channel3","completed"]);
+    for(const stage of ["agent-a","agent-b","policy","authorization"])expect(events.map(event=>[event.stage,event.status])).toContainEqual([stage,"completed"]);
+    expect(model.calls).toEqual(["inventory-sales","market-offer"]);
+  });
+  it("reports a Channel3 budget failure without claiming a completed offer or running Agent B",async()=>{
+    const events:ProgressEvent[]=[];const model=new MockAgents("KEEP_ORIGINAL");
+    const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),model,()=>new Date(),{search:async()=>{throw new Channel3SearchError("budget");}},event=>events.push(event)).compare({sessionId:`${session}-progress-budget`,cart});
+    expect(result.agentMode).toBe("fallback");expect(result.offer).toBeUndefined();
+    expect(events).toContainEqual(expect.objectContaining({stage:"channel3",status:"failed",category:"budget"}));
+    expect(events.some(event=>event.stage==="agent-b"||event.stage==="authorization")).toBe(false);
+  });
+  it("reports an Agent A failure and preserves original-price fallback",async()=>{
+    const events:ProgressEvent[]=[];
+    const result=await new AiOfferService(new MemoryPriceIntelligenceRepository(),{run:async()=>{throw new Error("mock timeout");}},()=>new Date(),{search:async input=>({batchId:crypto.randomUUID(),retrievedAt:new Date().toISOString(),productId:input.product.id,variantKey:input.variantKey,offers:[],status:"empty"})},event=>events.push(event)).compare({sessionId:`${session}-progress-timeout`,cart});
+    expect(result.agentMode).toBe("fallback");expect(result.offer).toBeUndefined();
+    expect(events).toContainEqual(expect.objectContaining({stage:"agent-a",status:"failed"}));
+    expect(events.some(event=>event.stage==="authorization"&&event.status==="completed")).toBe(false);
   });
   it("keeps original price when Channel3 has no usable matching offer",async()=>{
     const now=new Date(),base={batchId:crypto.randomUUID(),retrievedAt:now.toISOString(),productId:product.id,variantKey:cart[0].variantKey,status:"success" as const};

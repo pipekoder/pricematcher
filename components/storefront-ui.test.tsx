@@ -40,8 +40,11 @@ describe("SOLE storefront and checkout UI",()=>{
     const priceCheck=read("components/cart-price-check.tsx");
     const offerCss=read("app/checkout/checkout.css");
     expect(css).toContain(".demo-hero{display:grid;grid-template-columns:1fr 1fr;min-height:540px;background:#ff3c00");
+    expect(css).toContain(".demo-hero .eyebrow,.demo-hero-copy>p:not(.eyebrow){color:#fff}");
     expect(css).toContain(".demo-final-note{display:flex;align-items:center;gap:28px;padding:65px 7vw;background:#ff3c00");
     expect(ux).toContain(".demo-hero h1 span{display:block;white-space:nowrap}");
+    expect(ux).toContain(".offer-card .offer-countdown{margin-bottom:10px}");
+    expect(ux).toContain("@media(max-width:520px){.deal-progress-stages{grid-template-columns:1fr}}");
     expect(ux).toContain(".bag-drawer .quantity button{border:0");
     expect(ux).toContain(".checkout-section h2{font-size:clamp(21px,calc(3vw - 4px),32px);letter-spacing:-.015em");
     expect(checkout).not.toContain('<h1 className="page-title">Checkout</h1>');
