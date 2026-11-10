@@ -22,3 +22,6 @@
 .product-image:hover img{transform:scale(1.035)}
 .demo-hero-image img{object-fit:contain;object-position:center;padding:clamp(18px,4vw,64px)}
 .cart-item img{aspect-ratio:1 / 1;object-fit:contain;padding:8%;background:#eeede8}
+
+/* Accessible small copy on bright brand-orange sections; large white headlines remain. */
+.demo-hero .eyebrow,.demo-hero-copy>p:not(.eyebrow),.demo-final-note .eyebrow,.demo-final-note p,.hero .eyebrow,.hero-copy>p:not(.eyebrow),.channel3-principle p,.decision-note p{color:#181816}
